@@ -1,0 +1,71 @@
+---
+interface Props {
+  image: string;
+  alt: string;
+  title: string;
+  subtitle?: string;
+  tagline?: string;
+  height?: 'small' | 'medium' | 'large';
+  overlay?: 'dark' | 'gradient' | 'gradient-bottom';
+  align?: 'center' | 'bottom';
+}
+
+const {
+  image,
+  alt,
+  title,
+  subtitle,
+  tagline,
+  height = 'medium',
+  overlay = 'dark',
+  align = 'center'
+} = Astro.props;
+
+const heightClasses = {
+  small: 'h-64 md:h-80',
+  medium: 'h-80 md:h-96',
+  large: 'h-96 md:h-[28rem]'
+};
+
+const overlayClasses = {
+  dark: 'bg-beaucharme-dark/50',
+  gradient: 'bg-gradient-to-t from-beaucharme-dark/80 via-beaucharme-dark/40 to-transparent',
+  'gradient-bottom': 'bg-gradient-to-t from-beaucharme-dark/80 via-beaucharme-dark/30 to-transparent'
+};
+
+const alignClasses = {
+  center: 'items-center justify-center',
+  bottom: 'items-end'
+};
+
+const textAlignClasses = {
+  center: 'text-center',
+  bottom: 'pb-12 md:pb-20'
+};
+---
+
+<section class:list={["relative flex overflow-hidden rounded-2xl shadow-md", heightClasses[height], alignClasses[align]]}>
+  <div class="absolute inset-0 z-0">
+    <img
+      src={image}
+      alt={alt}
+      class="w-full h-full object-cover"
+    />
+    <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
+  </div>
+
+  <div class:list={["container-custom relative z-10 text-white", textAlignClasses[align]]}>
+    {tagline && (
+      <p class="text-sm tracking-[0.3em] uppercase mb-4 text-beaucharme-cream/80">{tagline}</p>
+    )}
+    <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+      {title}
+    </h1>
+    {subtitle && (
+      <p class="text-lg md:text-xl max-w-2xl text-beaucharme-cream/90" class:list={[align === 'center' && 'mx-auto']}>
+        {subtitle}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

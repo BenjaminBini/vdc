@@ -1,0 +1,53 @@
+---
+interface Props {
+  tagline?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  variant?: 'dark' | 'light';
+}
+
+const {
+  tagline,
+  title,
+  subtitle,
+  align = 'center',
+  variant = 'dark'
+} = Astro.props;
+
+const alignClasses = {
+  left: 'text-left',
+  center: 'text-center'
+};
+
+const taglineClasses = {
+  dark: 'text-beaucharme-terracotta',
+  light: 'text-beaucharme-cream/80'
+};
+
+const titleClasses = {
+  dark: 'text-beaucharme-dark',
+  light: 'text-white'
+};
+
+const subtitleClasses = {
+  dark: 'text-beaucharme-earth/80',
+  light: 'text-white/80'
+};
+---
+
+<div class:list={[alignClasses[align], "mb-12"]}>
+  {tagline && (
+    <p class:list={["text-sm tracking-[0.3em] uppercase mb-4", taglineClasses[variant]]}>
+      {tagline}
+    </p>
+  )}
+  <h2 class:list={["font-serif text-h2 font-semibold", titleClasses[variant]]}>
+    {title}
+  </h2>
+  {subtitle && (
+    <p class:list={["text-lg mt-4 max-w-2xl", subtitleClasses[variant], align === 'center' && 'mx-auto']}>
+      {subtitle}
+    </p>
+  )}
+</div>

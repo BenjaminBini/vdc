@@ -1,0 +1,68 @@
+---
+interface Props {
+  image: string;
+  alt: string;
+  title?: string;
+  subtitle?: string;
+  href?: string;
+  aspectRatio?: 'square' | '4/3' | '3/4' | '16/9' | 'auto';
+  height?: string;
+  overlay?: 'bottom' | 'full' | 'none';
+  class?: string;
+}
+
+const {
+  image,
+  alt,
+  title,
+  subtitle,
+  href,
+  aspectRatio = 'auto',
+  height,
+  overlay = 'bottom',
+  class: className = ''
+} = Astro.props;
+
+const aspectClasses = {
+  square: 'aspect-square',
+  '4/3': 'aspect-[4/3]',
+  '3/4': 'aspect-[3/4]',
+  '16/9': 'aspect-video',
+  auto: ''
+};
+
+const overlayClasses = {
+  bottom: 'bg-gradient-to-t from-beaucharme-dark/60 to-transparent',
+  full: 'bg-beaucharme-dark/50',
+  none: ''
+};
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  class:list={[
+    "rounded-2xl overflow-hidden shadow-lg relative group",
+    aspectClasses[aspectRatio],
+    href && "cursor-pointer",
+    className
+  ]}
+  style={height ? `height: ${height}` : undefined}
+>
+  <img
+    src={image}
+    alt={alt}
+    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+  />
+  {overlay !== 'none' && (
+    <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
+  )}
+  {(title || subtitle) && (
+    <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+      {title && <h3 class="font-serif text-2xl font-semibold">{title}</h3>}
+      {subtitle && <p class="text-white/80 mt-2">{subtitle}</p>}
+    </div>
+  )}
+  <slot />
+</Tag>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  items: string[];
+  variant?: 'default' | 'light';
+  iconColor?: 'sage' | 'white' | 'gold';
+}
+
+const {
+  items,
+  variant = 'default',
+  iconColor = 'sage'
+} = Astro.props;
+
+const iconBgClasses = {
+  sage: 'bg-beaucharme-sage/20',
+  white: 'bg-white/20',
+  gold: 'bg-beaucharme-gold/20'
+};
+
+const iconColorClasses = {
+  sage: 'text-beaucharme-sage',
+  white: 'text-white',
+  gold: 'text-beaucharme-gold'
+};
+
+const textClasses = {
+  default: 'text-beaucharme-earth/80',
+  light: 'text-white/90'
+};
+---
+
+<ul class="space-y-4">
+  {items.map((item) => (
+    <li class:list={["flex items-start gap-3", textClasses[variant]]}>
+      <span class:list={["w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5", iconBgClasses[iconColor]]}>
+        <svg class:list={["w-4 h-4", iconColorClasses[iconColor]]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </span>
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>

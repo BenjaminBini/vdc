@@ -1,0 +1,337 @@
+{
+  "products": [
+    {
+      "id": "coffret-decouverte",
+      "name": "Coffret Découverte",
+      "category": "coffrets",
+      "price": 18,
+      "description": "L'essentiel de notre savoir-faire en format découverte. Parfait pour s'initier à nos soins naturels.",
+      "ingredients": ["Huile de tournesol", "Cire d'abeille locale", "Hydrolat de lavande"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "coffret-cocooning-corps",
+      "name": "Coffret Cocooning Corps",
+      "category": "coffrets",
+      "price": 45,
+      "description": "Un rituel complet pour choyer votre peau. Nos meilleures huiles de soin réunies.",
+      "ingredients": ["Huile de bourrache", "Huile de carthame", "Savon surgras"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "coffret-bien-etre-absolu",
+      "name": "Coffret Bien-être Absolu",
+      "category": "coffrets",
+      "price": 65,
+      "description": "Notre collection complète pour une expérience sensorielle d'exception.",
+      "ingredients": ["Huile Luxe", "Crème mains", "Eaux florales", "Savons artisanaux"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "coffret-routine-visage",
+      "name": "Coffret Routine Visage",
+      "category": "coffrets",
+      "price": 42,
+      "description": "Tout pour une routine visage naturelle et efficace. De la terre à votre peau.",
+      "ingredients": ["Hydrolat de rose", "Huile de chanvre", "Savon délicat"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "coffret-indispensable",
+      "name": "Coffret L'Indispensable",
+      "category": "coffrets",
+      "price": 35,
+      "description": "Les essentiels du quotidien réunis. Simplicité et efficacité.",
+      "ingredients": ["Crème mains", "Savon pur", "Huile de tournesol"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "inStock": false,
+      "featured": false
+    },
+    {
+      "id": "coffret-naturel",
+      "name": "Coffret Le Naturel",
+      "category": "coffrets",
+      "price": 38,
+      "description": "La beauté au naturel avec nos produits signature 100% ferme.",
+      "ingredients": ["Huile de cameline", "Savon éclat", "Hydrolat de menthe"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "coffret-complet",
+      "name": "Coffret Le Complet",
+      "category": "coffrets",
+      "price": 58,
+      "description": "Une collection généreuse pour prendre soin de toute la famille.",
+      "ingredients": ["3 savons", "2 huiles de soin", "2 eaux florales", "1 crème mains"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "huile-chanvre",
+      "name": "Huile de Chanvre",
+      "category": "huiles-vegetales",
+      "price": 18,
+      "description": "Cultivée sur nos terres bourguignonnes, notre huile de chanvre est riche en oméga-3 et parfaite pour les peaux sensibles.",
+      "ingredients": ["100% graines de chanvre de la ferme"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "huile-tournesol",
+      "name": "Huile de Tournesol",
+      "category": "huiles-vegetales",
+      "price": 15,
+      "description": "Pressée à froid dans notre atelier. Douce et nourrissante, elle convient à tous les types de peau.",
+      "ingredients": ["100% graines de tournesol de la ferme"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "huile-cameline",
+      "name": "Huile de Cameline",
+      "category": "huiles-vegetales",
+      "price": 22,
+      "description": "Une plante oubliée que nous avons réintroduite. Exceptionnelle pour régénérer la peau.",
+      "ingredients": ["100% graines de cameline de la ferme"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "huile-carthame",
+      "name": "Huile de Carthame",
+      "category": "huiles-vegetales",
+      "price": 24,
+      "description": "Cultivée avec patience, cette huile rare apporte éclat et souplesse à votre peau.",
+      "ingredients": ["100% graines de carthame de la ferme"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "huile-bourrache",
+      "name": "Huile de Bourrache",
+      "category": "huiles-vegetales",
+      "price": 28,
+      "description": "Notre trésor. Une culture délicate pour une huile précieuse aux vertus incomparables.",
+      "ingredients": ["100% graines de bourrache de la ferme"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "huile-soin-luxe",
+      "name": "Huile de soin Luxe",
+      "category": "huiles-soin",
+      "price": 39,
+      "description": "Notre formule signature. Un blend précieux d'huiles rares pour une peau sublimée.",
+      "ingredients": ["Huile de bourrache", "Huile de carthame", "Huile de cameline", "Vitamine E naturelle"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "huile-soin-volupte",
+      "name": "Huile de soin Volupté",
+      "category": "huiles-soin",
+      "price": 35,
+      "description": "Texture soyeuse et parfum délicat. Pour un moment de pure indulgence.",
+      "ingredients": ["Huile de chanvre", "Huile de tournesol", "Macérat de calendula", "Huile essentielle de lavande"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "huile-soin-apaisante",
+      "name": "Huile de soin Apaisante",
+      "category": "huiles-soin",
+      "price": 28,
+      "description": "Spécialement formulée pour calmer les peaux réactives et sensibles.",
+      "ingredients": ["Huile de chanvre", "Macérat de camomille", "Huile de calendula"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "inStock": false,
+      "featured": false
+    },
+    {
+      "id": "creme-mains-sublime",
+      "name": "Crème mains Sublime",
+      "category": "cremes-mains",
+      "price": 13.80,
+      "description": "Sans eau ajoutée, juste l'essentiel. Une formule concentrée dans un tube végétal.",
+      "ingredients": ["Huile de bourrache", "Beurre de karité", "Cire d'abeille", "Vitamine E"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "inStock": true,
+      "featured": false,
+      "badge": "Sans eau"
+    },
+    {
+      "id": "creme-mains-radieuse",
+      "name": "Crème mains Radieuse",
+      "category": "cremes-mains",
+      "price": 13.80,
+      "description": "Formule innovante sans eau pour des mains douces et protégées toute la journée.",
+      "ingredients": ["Huile de carthame", "Beurre de karité", "Cire d'abeille", "Macérat de calendula"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "inStock": true,
+      "featured": false,
+      "badge": "Sans eau"
+    },
+    {
+      "id": "creme-mains-delicate",
+      "name": "Crème mains Délicate",
+      "category": "cremes-mains",
+      "price": 13.80,
+      "description": "Conçue pour les mains sensibles. Réconfort immédiat en toute légèreté.",
+      "ingredients": ["Huile de chanvre", "Beurre de karité", "Cire d'abeille"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "inStock": true,
+      "featured": false,
+      "badge": "Sans eau"
+    },
+    {
+      "id": "creme-mains-soyeuse",
+      "name": "Crème mains Soyeuse",
+      "category": "cremes-mains",
+      "price": 13.80,
+      "description": "Texture veloutée, pénétration rapide. Nos mains d'agriculteurs l'adorent.",
+      "ingredients": ["Huile de tournesol", "Beurre de karité", "Cire d'abeille", "Huile essentielle de lavande"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "inStock": true,
+      "featured": false,
+      "badge": "Sans eau"
+    },
+    {
+      "id": "savon-eclat",
+      "name": "Savon Éclat",
+      "category": "savons",
+      "price": 7,
+      "description": "Surgras enrichi à la cire d'abeille de nos ruches. Pour une peau lumineuse.",
+      "ingredients": ["Huile de tournesol", "Huile de carthame", "Cire d'abeille locale", "Argile jaune"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "savon-delicat",
+      "name": "Savon Délicat",
+      "category": "savons",
+      "price": 7,
+      "description": "Extra-doux, parfait pour les peaux sensibles et les enfants.",
+      "ingredients": ["Huile de chanvre", "Huile de tournesol", "Cire d'abeille locale", "Calendula"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "savon-doux",
+      "name": "Savon Doux",
+      "category": "savons",
+      "price": 7,
+      "description": "Nettoyage en douceur au quotidien. Simple et efficace.",
+      "ingredients": ["Huile de tournesol", "Huile de cameline", "Cire d'abeille locale"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "savon-pur",
+      "name": "Savon Pur",
+      "category": "savons",
+      "price": 7,
+      "description": "Sans parfum, sans ajout superflu. L'essentiel à l'état pur.",
+      "ingredients": ["Huile de tournesol", "Cire d'abeille locale"],
+      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "inStock": false,
+      "featured": false
+    },
+    {
+      "id": "eau-florale-lavande",
+      "name": "Eau florale de Lavande",
+      "category": "eaux-florales",
+      "price": 9,
+      "description": "Distillée dans notre alambic. Apaise et rafraîchit instantanément.",
+      "ingredients": ["100% hydrolat de lavande de la ferme"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "eau-florale-rose",
+      "name": "Eau florale de Rose",
+      "category": "eaux-florales",
+      "price": 11,
+      "description": "Nos roses cultivées avec amour. Un parfum délicat et des vertus tonifiantes.",
+      "ingredients": ["100% hydrolat de rose de la ferme"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "hydrolat-menthe",
+      "name": "Hydrolat de Menthe",
+      "category": "eaux-florales",
+      "price": 7,
+      "description": "Fraîcheur vivifiante. Parfait après une journée aux champs.",
+      "ingredients": ["100% hydrolat de menthe poivrée de la ferme"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "hydrolat-camomille",
+      "name": "Hydrolat de Camomille",
+      "category": "eaux-florales",
+      "price": 8,
+      "description": "Douceur et réconfort pour les peaux sensibles. Un classique revisité.",
+      "ingredients": ["100% hydrolat de camomille de la ferme"],
+      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "inStock": true,
+      "featured": false
+    }
+  ],
+  "categories": [
+    {
+      "id": "coffrets",
+      "name": "Coffrets",
+      "description": "Nos sélections pensées pour vous ou pour offrir"
+    },
+    {
+      "id": "huiles-vegetales",
+      "name": "Huiles végétales",
+      "description": "Pressées à froid, 100% de notre ferme"
+    },
+    {
+      "id": "huiles-soin",
+      "name": "Huiles de soin",
+      "description": "Nos formulations signature pour le corps"
+    },
+    {
+      "id": "cremes-mains",
+      "name": "Crèmes mains",
+      "description": "Sans eau ajoutée, en tubes végétaux"
+    },
+    {
+      "id": "savons",
+      "name": "Savons surgras",
+      "description": "Enrichis à la cire d'abeille locale"
+    },
+    {
+      "id": "eaux-florales",
+      "name": "Eaux florales",
+      "description": "Distillées dans notre alambic"
+    }
+  ]
+}

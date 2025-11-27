@@ -1,0 +1,40 @@
+---
+interface Props {
+  bg?: 'white' | 'cream' | 'sage' | 'terracotta' | 'dark' | 'transparent';
+  card?: boolean;
+  padding?: 'none' | 'small' | 'normal' | 'large';
+  fullWidth?: boolean;
+  class?: string;
+}
+
+const {
+  bg = 'white',
+  card = true,
+  padding = 'normal',
+  fullWidth = false,
+  class: className = ''
+} = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  cream: 'bg-beaucharme-cream',
+  sage: 'bg-beaucharme-sage',
+  terracotta: 'bg-beaucharme-terracotta',
+  dark: 'bg-beaucharme-dark',
+  transparent: ''
+};
+
+const paddingClasses = {
+  none: '',
+  small: 'py-8 md:py-12',
+  normal: 'section-padding',
+  large: 'py-16 md:py-24'
+};
+
+const cardClasses = card ? 'rounded-2xl shadow-md' : '';
+const fullWidthClasses = fullWidth ? '-mx-3 md:-mx-4 lg:-mx-5 px-3 md:px-4 lg:px-5' : '';
+---
+
+<section class:list={[bgClasses[bg], cardClasses, paddingClasses[padding], fullWidthClasses, className]}>
+  <slot />
+</section>

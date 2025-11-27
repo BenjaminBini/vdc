@@ -1,0 +1,74 @@
+---
+interface Props {
+  href: string;
+  media?: string;
+  mediaType?: 'image' | 'video';
+  alt?: string;
+  title?: string;
+  titleSize?: 'small' | 'large';
+  overlay?: boolean | string;
+  bg?: string;
+  class?: string;
+}
+
+const {
+  href,
+  media,
+  mediaType = 'image',
+  alt = '',
+  title,
+  titleSize = 'small',
+  overlay = false,
+  bg,
+  class: className = ''
+} = Astro.props;
+
+const hasSlot = Astro.slots.has('default');
+const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beaucharme-dark/40' : '');
+---
+
+<a
+  href={href}
+  class:list={[
+    'rounded-2xl overflow-hidden relative group cursor-pointer shadow-md',
+    bg,
+    !media && 'flex items-center justify-center',
+    className
+  ]}
+>
+  {media && mediaType === 'video' && (
+    <video
+      src={media}
+      muted
+      loop
+      playsinline
+      autoplay
+      class="w-full h-full object-cover"
+    />
+  )}
+
+  {media && mediaType === 'image' && (
+    <img
+      src={media}
+      alt={alt}
+      class="w-full h-full object-cover"
+    />
+  )}
+
+  {overlay && (
+    <div class:list={['absolute inset-0', overlayClass]} />
+  )}
+
+  {hasSlot && (
+    <slot />
+  )}
+
+  {title && !hasSlot && (
+    <>
+      <div class="absolute inset-0 bg-gradient-to-t from-beaucharme-dark/70 via-beaucharme-dark/20 to-transparent" />
+      <div class="absolute inset-0 p-5 md:p-8 flex flex-col justify-end">
+        <h3 class="font-serif font-semibold text-white text-[2rem] leading-8">{title}</h3>
+      </div>
+    </>
+  )}
+</a>

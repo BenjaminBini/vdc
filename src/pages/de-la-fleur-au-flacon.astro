@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageContainer from '../components/PageContainer.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+
+const steps = [
+  {
+    number: '01',
+    title: 'Semis',
+    season: 'Printemps',
+    description: 'Tout commence par la graine. Chaque année au printemps, nous semons nos cultures sur les terres argilo-calcaires de notre ferme bourguignonne. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles.',
+    image: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&h=600&fit=crop',
+  },
+  {
+    number: '02',
+    title: 'Culture',
+    season: 'Été',
+    description: 'Nos plantes grandissent au rythme des saisons, sans pesticides ni engrais chimiques. Nous pratiquons une agriculture raisonnée, respectueuse de la terre et de la biodiversité. Les abeilles de nos ruches participent à la pollinisation.',
+    image: 'https://images.unsplash.com/photo-1500076656116-558758c991c1?w=800&h=600&fit=crop',
+  },
+  {
+    number: '03',
+    title: 'Récolte',
+    season: 'Fin d\'été',
+    description: 'À maturité, nous récoltons nos plantes avec soin. Les graines sont séchées naturellement, les fleurs sont cueillies à la main tôt le matin, quand leur concentration en principes actifs est maximale.',
+    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&h=600&fit=crop',
+  },
+  {
+    number: '04',
+    title: 'Extraction',
+    season: 'Automne',
+    description: 'Dans notre atelier, nous transformons nos récoltes. Les graines sont pressées à froid pour en extraire des huiles pures. Les fleurs sont distillées dans notre alambic en cuivre pour obtenir des hydrolats précieux.',
+    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&h=600&fit=crop',
+  },
+  {
+    number: '05',
+    title: 'Formulation',
+    season: 'Toute l\'année',
+    description: 'Dans notre laboratoire, nous assemblons nos ingrédients selon des recettes développées avec passion. Chaque formule est le fruit de longs mois de recherche pour trouver l\'équilibre parfait entre efficacité et naturalité.',
+    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=600&fit=crop',
+  },
+  {
+    number: '06',
+    title: 'Mise en flacon',
+    season: 'Toute l\'année',
+    description: 'Chaque produit est conditionné à la main dans notre atelier. Flacons en verre, tubes végétaux, emballages recyclés... Nous soignons chaque détail jusqu\'à ce que le produit soit prêt à rejoindre votre salle de bain.',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&h=600&fit=crop',
+  },
+];
+---
+
+<Layout title="De la graine au flacon" description="Découvrez notre processus de fabrication, des semis à la mise en flacon. Une traçabilité totale pour des cosmétiques naturels d'exception.">
+  <PageContainer>
+    <Header />
+
+    <main class="min-h-screen flex flex-col gap-8">
+      <HeroSection
+        image="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1600&h=900&fit=crop"
+        alt="Champs de fleurs"
+        tagline="Notre processus"
+        title="De la graine au flacon"
+        subtitle="Une traçabilité totale, du semis à votre salle de bain. Découvrez les étapes qui font de nos produits des cosmétiques d'exception."
+        height="medium"
+        overlay="gradient"
+        align="bottom"
+      />
+
+      <!-- Introduction -->
+      <Section bg="cream" padding="large">
+        <div class="container-custom">
+          <div class="max-w-3xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl font-semibold text-beaucharme-dark mb-6">
+              75% de nos ingrédients viennent de notre ferme
+            </h2>
+            <p class="text-lg text-beaucharme-earth leading-relaxed">
+              Quand vous utilisez un produit Beaucharme, vous utilisez un morceau de notre terre bourguignonne.
+              Chaque flacon contient le travail d'une année entière, de la préparation des sols à la mise en bouteille.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <!-- Process Steps -->
+      <Section bg="transparent" padding="none" card={false}>
+        <div class="grid gap-8">
+          {steps.map((step, index) => (
+            <div class="grid md:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-md">
+              <div class:list={["relative min-h-64 overflow-hidden", index % 2 === 1 && 'md:order-2']}>
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute top-4 left-4 bg-beaucharme-terracotta text-white text-sm px-4 py-2 rounded-full">
+                  {step.season}
+                </div>
+              </div>
+              <div class:list={["p-8 md:p-12 flex flex-col justify-center", index % 2 === 1 && 'md:order-1']}>
+                <div class="flex items-baseline gap-4 mb-4">
+                  <span class="text-5xl md:text-6xl font-bold text-beaucharme-beige">{step.number}</span>
+                  <h3 class="font-serif text-2xl md:text-3xl font-semibold text-beaucharme-dark">{step.title}</h3>
+                </div>
+                <p class="text-beaucharme-earth leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <!-- Values Section -->
+      <Section bg="sage" padding="large">
+        <div class="container-custom">
+          <div class="text-center mb-12">
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+              Nos engagements
+            </h2>
+          </div>
+          <div class="grid md:grid-cols-3 gap-8">
+            <FeatureCard
+              title="Circuit ultra-court"
+              description="De notre champ à votre peau, sans intermédiaire. Une traçabilité totale."
+              iconColor="white"
+              variant="centered"
+            >
+              <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </FeatureCard>
+
+            <FeatureCard
+              title="Agriculture naturelle"
+              description="Sans pesticides, sans engrais chimiques. Le respect de la terre avant tout."
+              iconColor="white"
+              variant="centered"
+            >
+              <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            </FeatureCard>
+
+            <FeatureCard
+              title="Fait main"
+              description="Chaque produit est fabriqué et conditionné à la main dans notre atelier."
+              iconColor="white"
+              variant="centered"
+            >
+              <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </FeatureCard>
+          </div>
+        </div>
+      </Section>
+
+      <!-- CTA Section -->
+      <Section bg="sage" padding="large">
+        <div class="text-center">
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+            Envie de découvrir nos produits ?
+          </h2>
+          <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+            Maintenant que vous connaissez notre processus, découvrez le résultat de tout ce travail.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="/nos-produits"
+              class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-medium hover:bg-beaucharme-cream transition-colors"
+            >
+              Découvrir nos produits
+            </a>
+            <a
+              href="/boutique"
+              class="inline-flex items-center bg-beaucharme-dark text-white px-8 py-4 rounded-full font-medium hover:bg-beaucharme-dark/90 transition-colors"
+            >
+              Visiter la boutique
+            </a>
+          </div>
+        </div>
+      </Section>
+    </main>
+
+    <Footer />
+  </PageContainer>
+</Layout>

@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CartSidebar from '../components/CartSidebar.astro';
+import HeroCard from '../components/HeroCard.astro';
+---
+
+<Layout title="Accueil" description="Beaucharme Cosmétique - De la graine au flacon. Cosmétiques naturels créés avec passion près de Vézelay, en Bourgogne.">
+  <div class="h-screen flex flex-col overflow-auto bg-beaucharme-cream ">
+    <!-- Header - Full width with contained content -->
+    <header class="mx-3 md:mx-4 lg:mx-5 mt-3 bg-beaucharme-sage shadow-md rounded-2xl">
+      <div class="container px-6 py-3 flex items-center justify-between relative">
+        <!-- Left nav -->
+        <nav class="hidden md:flex items-center space-x-6">
+          <a href="/" class="text-beaucharme-cream font-medium text-sm hover:text-beaucharme-cream transition-colors">Accueil</a>
+          <a href="/notre-histoire" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
+        </nav>
+
+        <!-- Center logo with brand name - always absolutely centered -->
+        <a href="/" class="flex items-center group absolute left-1/2 -translate-x-1/2">
+          <span class="text-white font-serif text-lg tracking-wide">beaucharme</span>
+          <img
+            src="/logo2.png"
+            alt="Beaucharme"
+            class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 mx-3"
+          />
+          <span class="text-white font-serif text-lg tracking-wide">cosmétique</span>
+        </a>
+
+        <!-- Right nav + cart -->
+        <div class="flex items-center space-x-6">
+          <nav class="hidden md:flex items-center space-x-6">
+            <a href="/nos-produits" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Nos Produits</a>
+            <a href="/boutique" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Boutique</a>
+            <a href="/contact" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Contact</a>
+          </nav>
+          <button
+            data-cart-toggle
+            class="relative p-2 hover:bg-beaucharme-sage-dark rounded-full transition-colors duration-300"
+            aria-label="Panier"
+          >
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span
+              data-cart-count
+              class="absolute -top-1 -right-1 bg-white text-beaucharme-sage text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center"
+              style="display: none;"
+            >0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid  -->
+    <main class="flex-1 min-h-0 pt-3 pb-3 md:pb-4 lg:pb-5">
+      <div class="px-3 md:px-4 lg:px-5 h-full">
+        <div class="h-full grid md:grid-cols-6 grid-rows-[minmax(170px,1fr)_minmax(170px,1fr)_minmax(170px,1fr)] gap-3 md:gap-4">
+
+        <!-- Block 1: Main Hero -->
+        <HeroCard
+          href="/de-la-fleur-au-flacon"
+          media="/flowers.mp4"
+          mediaType="video"
+          overlay
+          class="col-span-2 md:col-span-4 row-span-2"
+        >
+          <div class="absolute inset-0 flex items-center justify-center">
+            <img src="/logo.png" alt="Beaucharme logo" class="h-[13rem] shrink-0" />
+          </div>
+        </HeroCard>
+
+        <!-- Block 2: Nos Produits -->
+        <HeroCard
+          href="/nos-produits"
+          media="https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png"
+          alt="Nos produits cosmétiques naturels"
+          title="Nos produits"
+          class="min-h-[170px] md:col-span-2"
+        />
+
+        <!-- Block 3: Notre Boutique -->
+        <HeroCard
+          href="/boutique"
+          media="https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png"
+          alt="Coffret cadeau élégant"
+          title="Notre boutique"
+          class="min-h-[170px] md:col-span-2"
+        />
+
+        <!-- Block 4: Notre Histoire -->
+        <HeroCard
+          href="/notre-histoire"
+          media="/farmers.mp4"
+          mediaType="video"
+          title="Notre histoire"
+          class="min-h-[170px]  col-span-2"
+        />
+
+        <!-- Block 5: Nos Valeurs -->
+        <HeroCard
+          href="/notre-histoire"
+          media="/bee.mp4"
+          mediaType="video"
+          title="Nos valeurs"
+          class="min-h-[170px] col-span-2"
+        />
+
+        <!-- Block 6: Logo -->
+        <HeroCard
+          href="/notre-histoire"
+          bg="bg-beaucharme-sage"
+          class="min-h-[170px] col-span-2 row-span-1"
+        >
+          <img src="/logo.png" alt="Beaucharme logo" class="h-[80%] p-4 object-contain brightness-0 invert" />
+        </HeroCard>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <CartSidebar />
+</Layout>
+
+

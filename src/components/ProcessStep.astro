@@ -1,0 +1,49 @@
+---
+interface Props {
+  number: number;
+  title: string;
+  description: string;
+  image: string;
+  color?: 'sage' | 'terracotta' | 'gold' | 'sage-dark';
+  reverse?: boolean;
+}
+
+const {
+  number,
+  title,
+  description,
+  image,
+  color = 'sage',
+  reverse = false
+} = Astro.props;
+
+const colorClasses = {
+  sage: 'bg-beaucharme-sage',
+  terracotta: 'bg-beaucharme-terracotta',
+  gold: 'bg-beaucharme-gold',
+  'sage-dark': 'bg-beaucharme-sage-dark'
+};
+---
+
+<div class="bg-beaucharme-beige rounded-2xl shadow-md overflow-hidden animate-on-scroll">
+  <div class="grid grid-cols-1 md:grid-cols-2 items-center">
+    <div class:list={["p-8", reverse ? "order-2" : "order-2 md:order-1"]}>
+      <div class="flex items-center space-x-4 mb-4">
+        <div class:list={["w-12 h-12 rounded-full text-white flex items-center justify-center font-serif text-xl font-bold", colorClasses[color]]}>
+          {number}
+        </div>
+        <h3 class="font-serif text-2xl font-semibold text-beaucharme-dark">{title}</h3>
+      </div>
+      <p class="text-beaucharme-earth/80">{description}</p>
+    </div>
+    <div class:list={[reverse ? "order-1" : "order-1 md:order-2"]}>
+      <div class="aspect-square">
+        <img
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</div>

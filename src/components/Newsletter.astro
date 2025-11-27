@@ -1,0 +1,50 @@
+---
+---
+
+<section class="section-padding bg-beaucharme-sage/10 rounded-2xl shadow-md">
+  <div class="container-custom">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="font-serif text-h2 font-semibold text-beaucharme-dark mb-4 animate-on-scroll">
+        Restez connectés à la terre
+      </h2>
+      <p class="text-body text-beaucharme-earth/80 mb-8 animate-on-scroll">
+        Recevez nos actualités, les nouvelles de la ferme, nos conseils beauté naturelle et nos offres exclusives.
+      </p>
+
+      <form
+        id="newsletter-form"
+        class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto animate-on-scroll"
+        onsubmit="handleNewsletterSubmit(event)"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="Votre adresse email"
+          required
+          class="input-field flex-1"
+        />
+        <button type="submit" class="btn-primary whitespace-nowrap">
+          S'inscrire
+        </button>
+      </form>
+
+      <p class="text-sm text-beaucharme-earth/60 mt-4 animate-on-scroll">
+        Nous respectons votre vie privée. Désinscription possible à tout moment.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  window.handleNewsletterSubmit = function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const emailInput = form.querySelector('input[name="email"]');
+    const email = emailInput?.value;
+
+    if (email) {
+      alert(`Merci ${email} ! Votre inscription à la newsletter a bien été enregistrée. (Interface de démonstration)`);
+      form.reset();
+    }
+  }
+</script>
