@@ -6,6 +6,7 @@ import PageContainer from '../components/PageContainer.astro';
 import HeroSection from '../components/HeroSection.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import CartSidebar from '../components/CartSidebar.tsx';
 
 const steps = [
   {
@@ -186,5 +187,6 @@ const steps = [
     </main>
 
     <Footer />
+    <CartSidebar client:load />
   </PageContainer>
 </Layout>

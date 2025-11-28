@@ -6,6 +6,7 @@ import PageContainer from '../../components/PageContainer.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import Section from '../../components/Section.astro';
 import CheckList from '../../components/CheckList.astro';
+import CartSidebar from '../../components/CartSidebar.tsx';
 import productsData from '../../data/products.json';
 
 export function getStaticPaths() {
@@ -235,6 +236,7 @@ const products = productsData.products.filter(p => p.category === categoryId);
     </main>
 
     <Footer />
+    <CartSidebar client:load />
   </PageContainer>
 </Layout>
 
