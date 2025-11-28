@@ -17,6 +17,7 @@ export function getStaticPaths() {
 }
 
 const { plant } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
 
 const colorClasses: Record<string, { bg: string; text: string; light: string }> = {
   blue: { bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50' },
@@ -55,9 +56,9 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
     <!-- Breadcrumb -->
     <Section bg="transparent" card={false} padding="none" class="pt-6 pb-4">
       <nav class="flex items-center space-x-2 text-sm text-beaucharme-earth/60">
-        <a href="/" class="hover:text-beaucharme-sage transition-colors">Accueil</a>
+        <a href={baseUrl || '/'} class="hover:text-beaucharme-sage transition-colors">Accueil</a>
         <span>/</span>
-        <a href="/nos-fleurs" class="hover:text-beaucharme-sage transition-colors">Nos Fleurs</a>
+        <a href={`${baseUrl}/nos-fleurs`} class="hover:text-beaucharme-sage transition-colors">Nos Fleurs</a>
         <span>/</span>
         <span class="text-beaucharme-dark font-medium">{plant.name}</span>
       </nav>
@@ -134,7 +135,7 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
             <p class="text-white/80 text-sm mb-4">
               Retrouvez {plant.name.toLowerCase()} dans nos cosmétiques naturels.
             </p>
-            <a href="/nos-produits" class="inline-block bg-white text-beaucharme-sage px-6 py-2 rounded-full text-sm font-semibold hover:bg-beaucharme-cream transition-colors">
+            <a href={`${baseUrl}/nos-produits`} class="inline-block bg-white text-beaucharme-sage px-6 py-2 rounded-full text-sm font-semibold hover:bg-beaucharme-cream transition-colors">
               Voir les produits
             </a>
           </div>
@@ -145,7 +146,7 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
     <!-- Navigation Between Plants -->
     <Section bg="transparent" card={false} padding="none" class="py-10">
       <div class="flex justify-between items-center">
-        <a href={`/nos-fleurs/${prevPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+        <a href={`${baseUrl}/nos-fleurs/${prevPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
           <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
           </svg>
@@ -155,13 +156,13 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
           </div>
         </a>
 
-        <a href="/nos-fleurs" class="text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+        <a href={`${baseUrl}/nos-fleurs`} class="text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
           </svg>
         </a>
 
-        <a href={`/nos-fleurs/${nextPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+        <a href={`${baseUrl}/nos-fleurs/${nextPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
           <div class="text-left">
             <span class="text-xs text-beaucharme-earth/60 block">Suivant</span>
             <span class="font-medium">{nextPlant.name}</span>

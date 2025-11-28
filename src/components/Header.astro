@@ -20,12 +20,12 @@ const baseUrl = import.meta.env.BASE_URL;
       </button>
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center space-x-6">
-        <a href="/notre-histoire" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/notre-histoire' ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
-        <a href="/nos-produits" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.startsWith('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
+        <a href={`${baseUrl}/notre-histoire`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/notre-histoire') ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
+        <a href={`${baseUrl}/nos-produits`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
     </div>
 
     <!-- Center logo with brand name - always absolutely centered -->
-    <a href="/" class="flex items-center group absolute left-1/2 -translate-x-1/2">
+    <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
       <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
       <img
         src={`${baseUrl}/logo2.png`}
@@ -38,8 +38,8 @@ const baseUrl = import.meta.env.BASE_URL;
     <!-- Right: Desktop nav + cart -->
     <div class="flex items-center space-x-6">
       <nav class="hidden md:flex items-center space-x-6">
-        <a href="/boutique" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/boutique' ? 'text-beaucharme-cream' : ''}`}>Boutique</a>
-        <a href="/contact" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/contact' ? 'text-beaucharme-cream' : ''}`}>Contact</a>
+        <a href={`${baseUrl}/boutique`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/boutique') ? 'text-beaucharme-cream' : ''}`}>Boutique</a>
+        <a href={`${baseUrl}/contact`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/contact') ? 'text-beaucharme-cream' : ''}`}>Contact</a>
       </nav>
       <CartButton client:load />
       <!-- Mobile Menu Button -->
@@ -57,10 +57,10 @@ const baseUrl = import.meta.env.BASE_URL;
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
     <div class="flex flex-col space-y-2">
-      <a href="/notre-histoire" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
-      <a href="/nos-produits" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Produits</a>
-      <a href="/boutique" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Boutique</a>
-      <a href="/contact" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Contact</a>
+      <a href={`${baseUrl}/notre-histoire`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
+      <a href={`${baseUrl}/nos-produits`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Produits</a>
+      <a href={`${baseUrl}/boutique`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Boutique</a>
+      <a href={`${baseUrl}/contact`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Contact</a>
     </div>
   </div>
 </header>

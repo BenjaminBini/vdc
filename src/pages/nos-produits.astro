@@ -6,6 +6,8 @@ import PageContainer from '../components/PageContainer.astro';
 import Section from '../components/Section.astro';
 import CartSidebar from '../components/CartSidebar.tsx';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const categories = [
   {
     id: 'huiles-vegetales',
@@ -90,7 +92,7 @@ const categories = [
         <div class="grid gap-8">
             {categories.map((category, index) => (
               <a
-                href={`/nos-produits/${category.id}`}
+                href={`${baseUrl}/nos-produits/${category.id}`}
                 class="group grid md:grid-cols-2 md:h-80 bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300"
               >
                 <div class:list={["relative h-64 md:h-full overflow-hidden", index % 2 === 1 && 'md:order-2']}>
@@ -136,7 +138,7 @@ const categories = [
             Retrouvez tous nos produits dans notre boutique en ligne. Livraison soignée dans toute la France.
           </p>
           <a
-            href="/boutique"
+            href={`${baseUrl}/boutique`}
             class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-medium hover:bg-beaucharme-cream transition-colors"
           >
             Accéder à la boutique

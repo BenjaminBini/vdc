@@ -143,7 +143,7 @@ const baseUrl = import.meta.env.BASE_URL;
           Découvrez comment nous transformons nos plantes cultivées avec soin en cosmétiques naturels d'exception.
         </p>
         <a
-          href="/de-la-fleur-au-flacon"
+          href={`${baseUrl}/de-la-fleur-au-flacon`}
           class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-semibold hover:bg-beaucharme-cream transition-colors"
         >
           Découvrir notre processus
@@ -166,7 +166,7 @@ const baseUrl = import.meta.env.BASE_URL;
           <div class="md:col-span-2 bg-beaucharme-terracotta rounded-2xl p-8 md:p-10 flex flex-col justify-center text-white shadow-lg">
             <h3 class="font-serif text-3xl font-semibold mb-4">Prêt à découvrir nos produits ?</h3>
             <p class="text-white/80 mb-6">Chaque flacon raconte notre histoire. Découvrez nos cosmétiques naturels créés avec passion.</p>
-            <a href="/boutique" class="inline-block bg-white text-beaucharme-terracotta px-8 py-3 rounded-full font-semibold hover:bg-beaucharme-cream transition-colors w-fit">
+            <a href={`${baseUrl}/boutique`} class="inline-block bg-white text-beaucharme-terracotta px-8 py-3 rounded-full font-semibold hover:bg-beaucharme-cream transition-colors w-fit">
               Découvrir la boutique
             </a>
           </div>
@@ -215,7 +215,7 @@ const baseUrl = import.meta.env.BASE_URL;
           <div class="bg-beaucharme-gold rounded-2xl p-6 shadow-lg flex flex-col justify-center text-white">
             <h4 class="font-serif text-xl font-semibold mb-2">Visitez notre ferme</h4>
             <p class="text-white/80 text-sm mb-4">Venez découvrir nos cultures et notre processus de fabrication.</p>
-            <a href="/contact" class="text-sm font-medium hover:underline inline-flex items-center">
+            <a href={`${baseUrl}/contact`} class="text-sm font-medium hover:underline inline-flex items-center">
               Nous contacter
               <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

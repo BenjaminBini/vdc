@@ -14,12 +14,12 @@ const baseUrl = import.meta.env.BASE_URL;
       <div class="container px-6 py-3 flex items-center justify-between relative">
         <!-- Left nav -->
         <nav class="hidden md:flex items-center space-x-6">
-          <a href="/" class="text-beaucharme-cream font-medium text-sm hover:text-beaucharme-cream transition-colors">Accueil</a>
-          <a href="/notre-histoire" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
+          <a href={baseUrl || '/'} class="text-beaucharme-cream font-medium text-sm hover:text-beaucharme-cream transition-colors">Accueil</a>
+          <a href={`${baseUrl}/notre-histoire`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
         </nav>
 
         <!-- Center logo with brand name - always absolutely centered -->
-        <a href="/" class="flex items-center group absolute left-1/2 -translate-x-1/2">
+        <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
           <span class="text-white font-serif text-lg tracking-wide">beaucharme</span>
           <img
             src={`${baseUrl}/logo2.png`}
@@ -32,9 +32,9 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Right nav + cart -->
         <div class="flex items-center space-x-6">
           <nav class="hidden md:flex items-center space-x-6">
-            <a href="/nos-produits" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Nos Produits</a>
-            <a href="/boutique" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Boutique</a>
-            <a href="/contact" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Contact</a>
+            <a href={`${baseUrl}/nos-produits`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Nos Produits</a>
+            <a href={`${baseUrl}/boutique`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Boutique</a>
+            <a href={`${baseUrl}/contact`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Contact</a>
           </nav>
           <CartButton client:load />
         </div>
@@ -48,7 +48,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 1: Main Hero -->
         <HeroCard
-          href="/de-la-fleur-au-flacon"
+          href={`${baseUrl}/de-la-fleur-au-flacon`}
           media="/flowers.mp4"
           mediaType="video"
           overlay
@@ -61,7 +61,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 2: Nos Produits -->
         <HeroCard
-          href="/nos-produits"
+          href={`${baseUrl}/nos-produits`}
           media="https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png"
           alt="Nos produits cosmétiques naturels"
           title="Nos produits"
@@ -70,7 +70,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 3: Notre Boutique -->
         <HeroCard
-          href="/boutique"
+          href={`${baseUrl}/boutique`}
           media="https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png"
           alt="Coffret cadeau élégant"
           title="Notre boutique"
@@ -79,7 +79,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 4: Notre Histoire -->
         <HeroCard
-          href="/notre-histoire"
+          href={`${baseUrl}/notre-histoire`}
           media="/farmers.mp4"
           mediaType="video"
           title="Notre histoire"
@@ -88,7 +88,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 5: Nos Valeurs -->
         <HeroCard
-          href="/notre-histoire"
+          href={`${baseUrl}/notre-histoire`}
           media="/bee.mp4"
           mediaType="video"
           title="Nos valeurs"
@@ -97,7 +97,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 6: Nos Fleurs -->
         <HeroCard
-          href="/nos-fleurs"
+          href={`${baseUrl}/nos-fleurs`}
           media="/images/champs-lavande.jpg"
           alt="Nos fleurs cultivées en Bourgogne"
           title="Nos fleurs"

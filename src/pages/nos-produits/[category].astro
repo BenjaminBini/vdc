@@ -99,6 +99,7 @@ export function getStaticPaths() {
 
 const { categoryInfo, categoryId } = Astro.props;
 const products = productsData.products.filter(p => p.category === categoryId);
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title={categoryInfo.name} description={categoryInfo.description}>
@@ -150,7 +151,7 @@ const products = productsData.products.filter(p => p.category === categoryId);
               <p class="text-beaucharme-earth mt-2">{products.length} produits disponibles</p>
             </div>
             <a
-              href="/boutique"
+              href={`${baseUrl}/boutique`}
               class="inline-flex items-center text-beaucharme-terracotta font-medium hover:gap-3 transition-all"
             >
               Voir toute la boutique
@@ -163,7 +164,7 @@ const products = productsData.products.filter(p => p.category === categoryId);
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {products.map((product) => (
               <a
-                href={`/boutique?product=${product.id}`}
+                href={`${baseUrl}/boutique?product=${product.id}`}
                 class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
               >
                 <div class="relative aspect-square overflow-hidden">
@@ -211,7 +212,7 @@ const products = productsData.products.filter(p => p.category === categoryId);
       <!-- Back & CTA -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6 py-4">
         <a
-          href="/nos-produits"
+          href={`${baseUrl}/nos-produits`}
           class="inline-flex items-center text-beaucharme-earth hover:text-beaucharme-dark transition-colors"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,7 +221,7 @@ const products = productsData.products.filter(p => p.category === categoryId);
           Retour aux catégories
         </a>
         <a
-          href="/boutique"
+          href={`${baseUrl}/boutique`}
           class="inline-flex items-center bg-beaucharme-terracotta text-white px-6 py-3 rounded-full font-medium hover:bg-beaucharme-terracotta-dark transition-colors"
         >
           Accéder à la boutique
