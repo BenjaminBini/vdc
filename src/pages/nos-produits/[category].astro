@@ -13,7 +13,7 @@ export function getStaticPaths() {
     'huiles-vegetales': {
       name: 'Huiles végétales',
       tagline: 'De la graine à la bouteille',
-      hero: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1600&h=600&fit=crop',
+      hero: '/images/huiles-vegetales.jpg',
       description: 'Nos huiles sont pressées à froid dans notre atelier, à partir de graines cultivées sur notre ferme près de Vézelay. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles.',
       story: `
         <p>Tout commence par la graine. Nous semons nous-mêmes nos cultures au printemps, sur les terres argilo-calcaires de notre ferme bourguignonne. Le terroir, le climat et notre patience font le reste.</p>
@@ -26,7 +26,7 @@ export function getStaticPaths() {
     'huiles-soin': {
       name: 'Huiles de soin',
       tagline: 'Formulations signature',
-      hero: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1600&h=600&fit=crop',
+      hero: '/images/huiles-soin.jpg',
       description: 'Nos huiles de soin sont des assemblages subtils de nos meilleures huiles végétales, enrichies de macérats de plantes et de vitamine E naturelle.',
       story: `
         <p>Créer une huile de soin, c'est comme composer un parfum ou une recette de cuisine : il faut trouver l'équilibre parfait entre les différents ingrédients.</p>
@@ -39,7 +39,7 @@ export function getStaticPaths() {
     'savons': {
       name: 'Savons surgras',
       tagline: 'Saponification à froid',
-      hero: 'https://images.unsplash.com/photo-1588859490297-bdc0c15e2857?w=1600&h=600&fit=crop',
+      hero: '/images/savons-hero.jpg',
       description: 'Nos savons sont fabriqués selon la méthode ancestrale de saponification à froid, qui préserve la glycérine naturelle et les propriétés de nos huiles.',
       story: `
         <p>La saponification à froid est un procédé lent et délicat, mais c'est le seul qui permet de conserver toutes les propriétés de nos huiles précieuses.</p>
@@ -52,7 +52,7 @@ export function getStaticPaths() {
     'cremes-mains': {
       name: 'Crèmes mains',
       tagline: 'Sans eau, 100% actifs',
-      hero: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1600&h=600&fit=crop',
+      hero: '/images/cremes-mains.jpg',
       description: 'Une innovation dont nous sommes fiers : des crèmes mains sans eau ajoutée, conditionnées en tubes végétaux.',
       story: `
         <p>Pourquoi ajouter de l'eau dans une crème ? L'eau n'hydrate pas, elle dilue les actifs et nécessite des conservateurs. Nous avons voulu faire différemment.</p>
@@ -65,10 +65,10 @@ export function getStaticPaths() {
     'eaux-florales': {
       name: 'Eaux florales',
       tagline: 'Distillation artisanale',
-      hero: 'https://images.unsplash.com/photo-1595838122936-e0935bb7cc8b?w=1600&h=600&fit=crop',
+      hero: '/images/distillation.jpg',
       description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Des fleurs de notre jardin pour des soins frais et aromatiques.',
       story: `
-        <p>Au petit matin, quand la rosée perle encore sur les pétales, nous récoltons nos fleurs à la main. Lavande, rose, menthe, camomille... chacune a son moment idéal de récolte.</p>
+        <p>Au petit matin, quand la rosée perle encore sur les pétales, nous récoltons nos fleurs à la main. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... chacune a son moment idéal de récolte.</p>
         <p>Les fleurs sont immédiatement placées dans notre alambic en cuivre. La vapeur d'eau traverse doucement la matière végétale, emportant avec elle les précieuses molécules aromatiques.</p>
         <p>En refroidissant, cette vapeur se condense en deux phases : l'huile essentielle qui flotte, et l'hydrolat, chargé des principes actifs hydrosolubles de la plante. C'est cet hydrolat que nous embouteillons pour vous.</p>
       `,
@@ -78,7 +78,7 @@ export function getStaticPaths() {
     'coffrets': {
       name: 'Coffrets',
       tagline: 'L\'art d\'offrir',
-      hero: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1600&h=600&fit=crop',
+      hero: '/images/coffrets-hero.jpg',
       description: 'Nos coffrets réunissent une sélection de nos meilleurs produits pour découvrir notre univers ou faire un cadeau qui a du sens.',
       story: `
         <p>Offrir un coffret Beaucharme, c'est offrir un morceau de notre ferme, un peu de notre passion, beaucoup de nature.</p>
@@ -116,12 +116,10 @@ const products = productsData.products.filter(p => p.category === categoryId);
       />
 
       <!-- Introduction -->
-      <Section bg="cream" padding="normal">
-        <div class="container-custom">
-          <p class="text-lg md:text-xl text-beaucharme-earth leading-relaxed max-w-4xl">
-            {categoryInfo.description}
-          </p>
-        </div>
+      <Section bg="cream" padding="small" class="px-8 md:px-12">
+        <p class="text-lg md:text-xl text-beaucharme-earth leading-relaxed">
+          {categoryInfo.description}
+        </p>
       </Section>
 
       <!-- Story Section -->
@@ -210,28 +208,26 @@ const products = productsData.products.filter(p => p.category === categoryId);
       </section>
 
       <!-- Back & CTA -->
-      <Section bg="white" padding="normal" fullWidth card={false}>
-        <div class="container-custom flex flex-col sm:flex-row items-center justify-between gap-6">
-          <a
-            href="/nos-produits"
-            class="inline-flex items-center text-beaucharme-earth hover:text-beaucharme-dark transition-colors"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
-            </svg>
-            Retour aux catégories
-          </a>
-          <a
-            href="/boutique"
-            class="inline-flex items-center bg-beaucharme-terracotta text-white px-6 py-3 rounded-full font-medium hover:bg-beaucharme-terracotta-dark transition-colors"
-          >
-            Accéder à la boutique
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-          </a>
-        </div>
-      </Section>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 py-4">
+        <a
+          href="/nos-produits"
+          class="inline-flex items-center text-beaucharme-earth hover:text-beaucharme-dark transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+          </svg>
+          Retour aux catégories
+        </a>
+        <a
+          href="/boutique"
+          class="inline-flex items-center bg-beaucharme-terracotta text-white px-6 py-3 rounded-full font-medium hover:bg-beaucharme-terracotta-dark transition-colors"
+        >
+          Accéder à la boutique
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+        </a>
+      </div>
     </main>
 
     <Footer />

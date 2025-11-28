@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import CartSidebar from '../../components/CartSidebar.astro';
+import PageContainer from '../../components/PageContainer.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import Section from '../../components/Section.astro';
+import plants from '../../data/plants.json';
+
+export function getStaticPaths() {
+  return plants.map((plant) => ({
+    params: { id: plant.id },
+    props: { plant },
+  }));
+}
+
+const { plant } = Astro.props;
+
+const colorClasses: Record<string, { bg: string; text: string; light: string }> = {
+  blue: { bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50' },
+  gold: { bg: 'bg-amber-500', text: 'text-amber-600', light: 'bg-amber-50' },
+  white: { bg: 'bg-gray-200', text: 'text-gray-600', light: 'bg-gray-50' },
+  orange: { bg: 'bg-orange-500', text: 'text-orange-600', light: 'bg-orange-50' },
+  green: { bg: 'bg-green-600', text: 'text-green-700', light: 'bg-green-50' },
+  darkgreen: { bg: 'bg-green-800', text: 'text-green-800', light: 'bg-green-50' },
+  purple: { bg: 'bg-purple-500', text: 'text-purple-600', light: 'bg-purple-50' },
+  mint: { bg: 'bg-emerald-400', text: 'text-emerald-600', light: 'bg-emerald-50' },
+  lavender: { bg: 'bg-purple-400', text: 'text-purple-500', light: 'bg-purple-50' },
+  yellow: { bg: 'bg-yellow-400', text: 'text-yellow-600', light: 'bg-yellow-50' },
+};
+
+const colors = colorClasses[plant.color] || colorClasses.green;
+
+// Find adjacent plants for navigation
+const currentIndex = plants.findIndex(p => p.id === plant.id);
+const prevPlant = currentIndex > 0 ? plants[currentIndex - 1] : plants[plants.length - 1];
+const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : plants[0];
+---
+
+<Layout title={plant.name} description={`Découvrez les propriétés de ${plant.name} (${plant.latinName}) cultivée sur notre ferme en Bourgogne.`}>
+  <PageContainer>
+    <Header />
+
+    <HeroSection
+      image={plant.image}
+      alt={plant.name}
+      tagline={plant.family}
+      title={plant.name}
+      subtitle={plant.latinName}
+      height="medium"
+    />
+
+    <!-- Breadcrumb -->
+    <Section bg="transparent" card={false} padding="none" class="pt-6 pb-4">
+      <nav class="flex items-center space-x-2 text-sm text-beaucharme-earth/60">
+        <a href="/" class="hover:text-beaucharme-sage transition-colors">Accueil</a>
+        <span>/</span>
+        <a href="/nos-fleurs" class="hover:text-beaucharme-sage transition-colors">Nos Fleurs</a>
+        <span>/</span>
+        <span class="text-beaucharme-dark font-medium">{plant.name}</span>
+      </nav>
+    </Section>
+
+    <!-- Main Content -->
+    <Section bg="transparent" card={false} padding="none" class="pb-8">
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Left Column - Description & History -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Description -->
+          <div class="bg-white rounded-2xl shadow-md p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class={`w-4 h-4 rounded-full ${colors.bg}`}></div>
+              <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark">Description</h2>
+            </div>
+            <p class="text-beaucharme-earth leading-relaxed">
+              {plant.description}
+            </p>
+          </div>
+
+          <!-- History -->
+          <div class={`${colors.light} rounded-2xl p-8`}>
+            <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark mb-4">Histoire</h2>
+            <p class="text-beaucharme-earth leading-relaxed">
+              {plant.history}
+            </p>
+          </div>
+
+          <!-- Benefits -->
+          <div class="bg-white rounded-2xl shadow-md p-8">
+            <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark mb-6">Bienfaits cosmétiques</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {plant.benefits.map((benefit: { title: string; description: string }) => (
+                <div class="bg-beaucharme-cream/50 rounded-xl p-5">
+                  <h3 class={`font-semibold ${colors.text} mb-2`}>{benefit.title}</h3>
+                  <p class="text-sm text-beaucharme-earth/80">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Composition & Ideal For -->
+        <div class="space-y-5">
+          <!-- Composition Card -->
+          <div class="bg-white rounded-2xl shadow-md p-6">
+            <h3 class="font-serif text-xl font-semibold text-beaucharme-dark mb-4">Composition</h3>
+            <ul class="space-y-3">
+              {plant.composition.map((item: string) => (
+                <li class="flex items-start gap-3">
+                  <div class={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
+                  <span class="text-sm text-beaucharme-earth">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Ideal For Card -->
+          <div class={`${colors.light} rounded-2xl p-6`}>
+            <h3 class="font-serif text-xl font-semibold text-beaucharme-dark mb-4">Idéal pour</h3>
+            <div class="flex flex-wrap gap-2">
+              {plant.idealFor.map((item: string) => (
+                <span class={`${colors.bg} text-white text-sm px-3 py-1 rounded-full`}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- CTA Card -->
+          <div class="bg-beaucharme-sage rounded-2xl p-6 text-white">
+            <h3 class="font-serif text-xl font-semibold mb-3">Découvrez nos produits</h3>
+            <p class="text-white/80 text-sm mb-4">
+              Retrouvez {plant.name.toLowerCase()} dans nos cosmétiques naturels.
+            </p>
+            <a href="/nos-produits" class="inline-block bg-white text-beaucharme-sage px-6 py-2 rounded-full text-sm font-semibold hover:bg-beaucharme-cream transition-colors">
+              Voir les produits
+            </a>
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <!-- Navigation Between Plants -->
+    <Section bg="transparent" card={false} padding="none" class="py-10">
+      <div class="flex justify-between items-center">
+        <a href={`/nos-fleurs/${prevPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+          </svg>
+          <div class="text-right">
+            <span class="text-xs text-beaucharme-earth/60 block">Précédent</span>
+            <span class="font-medium">{prevPlant.name}</span>
+          </div>
+        </a>
+
+        <a href="/nos-fleurs" class="text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+        </a>
+
+        <a href={`/nos-fleurs/${nextPlant.id}`} class="group flex items-center gap-3 text-beaucharme-earth hover:text-beaucharme-sage transition-colors">
+          <div class="text-left">
+            <span class="text-xs text-beaucharme-earth/60 block">Suivant</span>
+            <span class="font-medium">{nextPlant.name}</span>
+          </div>
+          <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </Section>
+
+    <Newsletter />
+    <Footer />
+    <CartSidebar />
+  </PageContainer>
+</Layout>

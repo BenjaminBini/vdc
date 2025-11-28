@@ -4,27 +4,39 @@ const currentPath = Astro.url.pathname;
 
 <header class="bg-beaucharme-sage shadow-md rounded-2xl">
   <div class="container px-6 py-3 flex items-center justify-between relative">
-    <!-- Left nav -->
-    <nav class="hidden md:flex items-center space-x-6">
-      <a href="/" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/' ? 'text-beaucharme-cream' : ''}`}>Accueil</a>
-      <a href="/notre-histoire" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/notre-histoire' ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
-    </nav>
+    <!-- Left: Mobile hamburger OR Desktop nav -->
+    <div class="flex items-center">
+      <!-- Mobile Menu Button -->
+      <button
+        data-menu-toggle
+        class="md:hidden p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
+        aria-label="Menu"
+      >
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/notre-histoire" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/notre-histoire' ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
+        <a href="/nos-produits" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.startsWith('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
+      </nav>
+    </div>
 
     <!-- Center logo with brand name - always absolutely centered -->
     <a href="/" class="flex items-center group absolute left-1/2 -translate-x-1/2">
-      <span class="text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
+      <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
       <img
         src="/logo2.png"
         alt="Beaucharme"
-        class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 mx-3"
+        class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 lg:mx-3"
       />
-      <span class="text-white font-serif text-xl font-medium tracking-wide">cosmétique</span>
+      <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">cosmétique</span>
     </a>
 
-    <!-- Right nav + cart -->
+    <!-- Right: Desktop nav + cart -->
     <div class="flex items-center space-x-6">
       <nav class="hidden md:flex items-center space-x-6">
-        <a href="/nos-produits" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.startsWith('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
         <a href="/boutique" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/boutique' ? 'text-beaucharme-cream' : ''}`}>Boutique</a>
         <a href="/contact" class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath === '/contact' ? 'text-beaucharme-cream' : ''}`}>Contact</a>
       </nav>
@@ -42,22 +54,11 @@ const currentPath = Astro.url.pathname;
           style="display: none;"
         >0</span>
       </button>
-      <!-- Mobile Menu Button -->
-      <button
-        data-menu-toggle
-        class="md:hidden p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
-        aria-label="Menu"
-      >
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
     </div>
   </div>
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
     <div class="flex flex-col space-y-2">
-      <a href="/" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Accueil</a>
       <a href="/notre-histoire" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
       <a href="/nos-produits" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Produits</a>
       <a href="/boutique" class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Boutique</a>

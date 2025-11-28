@@ -12,7 +12,7 @@ const categories = [
     tagline: 'De la graine à la bouteille',
     description: 'Nos huiles sont pressées à froid dans notre atelier, à partir de graines cultivées sur notre ferme. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles et cultivée sans pesticides.',
     process: 'Semées au printemps, récoltées à maturité, puis pressées dans les jours qui suivent pour préserver tous leurs bienfaits.',
-    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&h=600&fit=crop',
+    image: '/images/huiles-vegetales.jpg',
     color: 'beaucharme-sage',
   },
   {
@@ -21,7 +21,7 @@ const categories = [
     tagline: 'Formulations signature',
     description: 'Nos huiles de soin sont des assemblages subtils de nos meilleures huiles végétales, enrichies de macérats de plantes et de vitamine E naturelle. Chaque formule est le fruit de longues recherches pour offrir le meilleur à votre peau.',
     process: 'Nous mélangeons nos huiles avec précision dans notre laboratoire, puis les laissons maturer avant la mise en flacon.',
-    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&h=600&fit=crop',
+    image: '/images/huiles-soin.jpg',
     color: 'beaucharme-terracotta',
   },
   {
@@ -30,7 +30,7 @@ const categories = [
     tagline: 'Saponification à froid',
     description: 'Nos savons sont fabriqués selon la méthode ancestrale de saponification à froid, qui préserve la glycérine naturelle et les propriétés de nos huiles. Enrichis à la cire d\'abeille de nos ruches pour une douceur incomparable.',
     process: 'Chaque savon est coulé à la main, puis séché pendant 4 à 6 semaines avant d\'être prêt à l\'emploi.',
-    image: 'https://images.unsplash.com/photo-1588859490297-bdc0c15e2857?w=800&h=600&fit=crop',
+    image: '/images/savons.jpg',
     color: 'beaucharme-gold',
   },
   {
@@ -39,16 +39,16 @@ const categories = [
     tagline: 'Sans eau, 100% actifs',
     description: 'Une innovation dont nous sommes fiers : des crèmes mains sans eau ajoutée, conditionnées en tubes végétaux. La formule concentrée en actifs nourrit intensément sans laisser de film gras.',
     process: 'Beurre de karité, cire d\'abeille et huiles précieuses sont fondus et émulsionnés à basse température.',
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=600&fit=crop',
+    image: '/images/cremes-mains.jpg',
     color: 'beaucharme-earth',
   },
   {
     id: 'eaux-florales',
     name: 'Eaux florales',
     tagline: 'Distillation artisanale',
-    description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Lavande, rose, menthe, camomille... des fleurs de notre jardin pour des soins frais et aromatiques.',
+    description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... des fleurs de notre jardin pour des soins frais et aromatiques.',
     process: 'Les fleurs sont récoltées tôt le matin puis distillées le jour même pour capturer toute leur essence.',
-    image: 'https://images.unsplash.com/photo-1595838122936-e0935bb7cc8b?w=800&h=600&fit=crop',
+    image: '/images/eaux-florales.jpg',
     color: 'beaucharme-sage',
   },
   {
@@ -57,7 +57,7 @@ const categories = [
     tagline: 'L\'art d\'offrir',
     description: 'Nos coffrets réunissent une sélection de nos meilleurs produits pour découvrir notre univers ou faire un cadeau qui a du sens. Chaque coffret est préparé avec soin dans notre atelier.',
     process: 'Emballages en carton recyclé, rubans en coton bio... nous soignons chaque détail.',
-    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&h=600&fit=crop',
+    image: 'https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png',
     color: 'beaucharme-terracotta',
   },
 ];
@@ -126,7 +126,7 @@ const categories = [
       </Section>
 
       <!-- CTA Section -->
-      <Section bg="sage" padding="large" fullWidth card={false}>
+      <Section bg="sage" padding="large"  card={true}>
         <div class="container-custom text-center">
           <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
             Prêt à commander ?

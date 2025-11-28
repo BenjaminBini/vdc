@@ -140,9 +140,14 @@ const { title, description = "Beaucharme Cosmétique - De la graine au flacon" }
         const cartToggle = target.closest('[data-cart-toggle]');
         if (cartToggle) {
           const sidebar = document.getElementById('cart-sidebar');
+          const overlay = document.getElementById('cart-overlay');
           if (sidebar) {
+            const isOpening = sidebar.classList.contains('translate-x-full');
             sidebar.classList.toggle('translate-x-full');
             document.body.classList.toggle('overflow-hidden');
+            if (overlay) {
+              overlay.classList.toggle('hidden', !isOpening);
+            }
           }
         }
 
@@ -150,9 +155,13 @@ const { title, description = "Beaucharme Cosmétique - De la graine au flacon" }
         const cartClose = target.closest('[data-cart-close]');
         if (cartClose) {
           const sidebar = document.getElementById('cart-sidebar');
+          const overlay = document.getElementById('cart-overlay');
           if (sidebar) {
             sidebar.classList.add('translate-x-full');
             document.body.classList.remove('overflow-hidden');
+            if (overlay) {
+              overlay.classList.add('hidden');
+            }
           }
         }
 

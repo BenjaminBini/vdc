@@ -1,0 +1,322 @@
+[
+  {
+    "id": "bourrache",
+    "name": "Bourrache",
+    "latinName": "Borrago officinalis L.",
+    "family": "Boraginaceae",
+    "image": "/images/plants/bourrache.jpg",
+    "color": "blue",
+    "shortDescription": "Fleur étoilée aux vertus régénérantes exceptionnelles",
+    "description": "La bourrache est une plante herbacée annuelle de 20 à 60 cm, originaire du Proche-Orient, aujourd'hui répandue dans toute l'Europe et l'Afrique du Nord. Ses fleurs bleues en forme d'étoile sont reconnaissables entre toutes.",
+    "history": "Les légionnaires romains consommaient du vin infusé à la bourrache avant les batailles. Au Moyen Âge, les Européens la considéraient comme une plante magique aux propriétés aphrodisiaques et médicinales.",
+    "composition": [
+      "Acide linoléique (Ω-6) : 30-48%",
+      "Acide linolénique (Ω-3) : 17-27%",
+      "Acide oléique (Ω-9) : 12-22%",
+      "Vitamine E et β-sitostérol"
+    ],
+    "benefits": [
+      {
+        "title": "Régénérante & Réparatrice",
+        "description": "La teneur équilibrée en oméga-6 rajeunit les peaux matures"
+      },
+      {
+        "title": "Apaisante",
+        "description": "Calme les peaux sensibles et problématiques"
+      },
+      {
+        "title": "Élasticité",
+        "description": "Maintient l'hydratation et la fermeté grâce à l'acide gamma-linolénique"
+      }
+    ],
+    "idealFor": ["Peaux sèches/ternes", "Peaux matures/ridées", "Peaux sensibles", "Prévention des vergetures"]
+  },
+  {
+    "id": "cameline",
+    "name": "Cameline",
+    "latinName": "Camelina sativa L.",
+    "family": "Brassicaceae",
+    "image": "/images/plants/cameline.jpg",
+    "color": "gold",
+    "shortDescription": "Plante ancestrale aux propriétés anti-âge remarquables",
+    "description": "La cameline est une plante crucifère originaire d'Europe du Nord et d'Asie centrale. Cultivée depuis plus de 3000 ans, elle était utilisée au Moyen Âge pour l'alimentation, la peinture et les cosmétiques.",
+    "history": "Plante oléagineuse traditionnelle, la cameline a décliné au XIXe siècle face au colza avant de connaître un regain d'intérêt pour ses propriétés cosmétiques exceptionnelles.",
+    "composition": [
+      "Acides gras oméga-3 : 28-45%",
+      "Acides gras oméga-6 : 12-25%",
+      "Vitamine E",
+      "β-sitostérol"
+    ],
+    "benefits": [
+      {
+        "title": "Anti-âge & Antioxydante",
+        "description": "Combat les signes du vieillissement cutané"
+      },
+      {
+        "title": "Régénérante",
+        "description": "Propriétés réparatrices et cicatrisantes"
+      },
+      {
+        "title": "Anti-inflammatoire",
+        "description": "Efficace contre l'acné et l'eczéma"
+      }
+    ],
+    "idealFor": ["Peaux matures", "Peaux acnéiques", "Peaux sensibles", "Eczéma"]
+  },
+  {
+    "id": "camomille",
+    "name": "Camomille romaine",
+    "latinName": "Chamaemelum nobile",
+    "family": "Asteraceae",
+    "image": "/images/plants/camomille.jpg",
+    "color": "white",
+    "shortDescription": "Fleur délicate aux vertus apaisantes ancestrales",
+    "description": "Petite plante herbacée originaire d'Europe de l'Ouest, la camomille romaine produit des fleurs blanches dont on extrait une huile essentielle précieuse. Il faut 250 kg de fleurs pour produire 1 litre d'huile essentielle.",
+    "history": "Utilisée depuis l'Antiquité, particulièrement en Grèce ancienne, la camomille était considérée comme une plante sacrée aux propriétés calmantes.",
+    "composition": [
+      "Acétate de géranyle",
+      "Formate de géranyle",
+      "Esters terpéniques",
+      "Flavonoïdes"
+    ],
+    "benefits": [
+      {
+        "title": "Apaisante",
+        "description": "Calme les irritations cutanées et les rougeurs"
+      },
+      {
+        "title": "Anti-inflammatoire",
+        "description": "Soulage l'eczéma et l'urticaire"
+      },
+      {
+        "title": "Régénérante",
+        "description": "Favorise la cicatrisation"
+      }
+    ],
+    "idealFor": ["Peaux irritées", "Peaux réactives", "Couperose", "Piqûres d'insectes"]
+  },
+  {
+    "id": "carthame",
+    "name": "Carthame",
+    "latinName": "Carthamus tinctorius L.",
+    "family": "Asteraceae",
+    "image": "/images/plants/carthame.jpg",
+    "color": "orange",
+    "shortDescription": "Le faux safran aux propriétés réparatrices",
+    "description": "Aussi appelé 'faux safran' pour la coloration similaire de ses pistils, le carthame appartient à la famille des Asteraceae et ressemble à un chardon. Plante mellifère, elle est utilisée depuis le Moyen Âge.",
+    "history": "Au Moyen Âge, le carthame était cultivé pour son huile et ses teintures utilisées par les travailleurs du textile. Ses pigments coloraient les tissus précieux.",
+    "composition": [
+      "Acide linoléique (Ω-6) : 70-75%",
+      "Acide oléique (Ω-9) : 7-17%",
+      "Vitamine E",
+      "Vitamine K"
+    ],
+    "benefits": [
+      {
+        "title": "Réparatrice",
+        "description": "Propriétés cicatrisantes grâce aux acides polyinsaturés"
+      },
+      {
+        "title": "Protection",
+        "description": "Renforce la barrière cutanée et réduit la perte en eau"
+      },
+      {
+        "title": "Anti-rougeurs",
+        "description": "La vitamine K aide à diminuer les rougeurs et cernes"
+      }
+    ],
+    "idealFor": ["Peaux matures", "Peaux sensibles", "Peaux atopiques", "Peaux rougies"]
+  },
+  {
+    "id": "chanvre",
+    "name": "Chanvre",
+    "latinName": "Cannabis sativa L.",
+    "family": "Cannabinaceae",
+    "image": "/images/plants/chanvre.jpg",
+    "color": "green",
+    "shortDescription": "Huile sèche aux vertus apaisantes exceptionnelles",
+    "description": "Le chanvre textile est une plante annuelle herbacée pouvant atteindre plus de 3 mètres. Nous utilisons la variété Cannabis sativa subsp. sativa, sans THC mais contenant du CBD aux propriétés apaisantes.",
+    "history": "L'une des plus anciennes plantes cultivées par l'homme, le chanvre était utilisé pour ses fibres, ses graines et son huile. Aujourd'hui légalement cultivé quand le taux de THC reste inférieur à 0.2%.",
+    "composition": [
+      "Acide linoléique : 45-65%",
+      "Acide linolénique : 17-20%",
+      "Acide oléique : 9-16%",
+      "CBD (~4%), Vitamines E et B"
+    ],
+    "benefits": [
+      {
+        "title": "Huile sèche",
+        "description": "Pénètre rapidement sans laisser de film gras"
+      },
+      {
+        "title": "Apaisante",
+        "description": "Réduit les rougeurs et irritations"
+      },
+      {
+        "title": "Anti-inflammatoire",
+        "description": "Efficace contre eczéma, psoriasis et dermatite"
+      }
+    ],
+    "idealFor": ["Peaux sèches", "Peaux irritées", "Eczéma/Psoriasis", "Acné"]
+  },
+  {
+    "id": "laurier",
+    "name": "Laurier noble",
+    "latinName": "Laurus nobilis L.",
+    "family": "Lauraceae",
+    "image": "/images/plants/laurier.jpg",
+    "color": "darkgreen",
+    "shortDescription": "Arbuste méditerranéen aux propriétés purifiantes",
+    "description": "Aussi appelé laurier vrai ou laurier sauce, c'est un arbuste à feuillage persistant originaire du bassin méditerranéen. Selon la tradition locale, c'est le seul arbre cultivé à n'avoir jamais été frappé par la foudre.",
+    "history": "Symbole de victoire dans l'Antiquité romaine, le laurier couronnait les empereurs et les poètes. Son huile essentielle est utilisée depuis des siècles pour ses propriétés médicinales.",
+    "composition": [
+      "Eucalyptol",
+      "Linalol",
+      "Terpènes",
+      "Antioxydants"
+    ],
+    "benefits": [
+      {
+        "title": "Purifiante",
+        "description": "Combat bactéries, champignons et virus"
+      },
+      {
+        "title": "Anti-âge",
+        "description": "Propriétés antioxydantes pour les peaux matures"
+      },
+      {
+        "title": "Équilibrante",
+        "description": "Réduit le stress et rééquilibre les émotions"
+      }
+    ],
+    "idealFor": ["Peaux grasses", "Peaux acnéiques", "Peaux matures", "Imperfections"]
+  },
+  {
+    "id": "lavandin",
+    "name": "Lavandin",
+    "latinName": "Lavandula angustifolia x latifolia",
+    "family": "Lamiaceae",
+    "image": "/images/plants/lavandin.jpg",
+    "color": "purple",
+    "shortDescription": "Hybride de lavande aux notes sucrées et camphrées",
+    "description": "Le lavandin est un hybride issu du croisement de la lavande vraie et de la lavande aspic. Son arôme sucré teinté de camphre est plus stimulant que relaxant, contrairement à la lavande vraie.",
+    "history": "Depuis le XIIIe siècle, les propriétés cicatrisantes et antiseptiques du lavandin sont reconnues. C'est aujourd'hui l'une des plantes les plus cultivées pour la parfumerie et la cosmétique.",
+    "composition": [
+      "Esters monoterpéniques",
+      "Hydrocarbures sesquiterpéniques",
+      "Linalol",
+      "Antioxydants"
+    ],
+    "benefits": [
+      {
+        "title": "Cicatrisante",
+        "description": "Propriétés antiseptiques et régénérantes"
+      },
+      {
+        "title": "Astringente",
+        "description": "Élimine l'excès de sébum pour un teint mat"
+      },
+      {
+        "title": "Anti-âge",
+        "description": "Combat les radicaux libres"
+      }
+    ],
+    "idealFor": ["Peaux grasses", "Peaux matures", "Brûlures légères", "Piqûres d'insectes"]
+  },
+  {
+    "id": "menthe-poivree",
+    "name": "Menthe poivrée",
+    "latinName": "Mentha piperita L.",
+    "family": "Lamiaceae",
+    "image": "/images/plants/menthe-poivree.jpg",
+    "color": "mint",
+    "shortDescription": "Fraîcheur stimulante aux vertus purifiantes",
+    "description": "L'huile essentielle de menthe poivrée est obtenue par distillation à la vapeur des feuilles fraîches. Cette variété est riche en menthone et menthol, offrant un profil mentholé puissant et frais.",
+    "history": "Utilisée depuis l'Antiquité égyptienne, la menthe poivrée était considérée comme une plante sacrée. Son nom vient de la nymphe Menthé de la mythologie grecque.",
+    "composition": [
+      "Menthol",
+      "Menthone",
+      "Antioxydants (ORAC élevé)",
+      "Composés antiviraux"
+    ],
+    "benefits": [
+      {
+        "title": "Rafraîchissante",
+        "description": "Le menthol active les thermorécepteurs pour un effet froid"
+      },
+      {
+        "title": "Antimicrobienne",
+        "description": "Activité antivirale et antibactérienne prouvée"
+      },
+      {
+        "title": "Stimulante",
+        "description": "Revigore le corps et l'esprit"
+      }
+    ],
+    "idealFor": ["Peaux fatiguées", "Jambes lourdes", "Maux de tête", "Démangeaisons"]
+  },
+  {
+    "id": "sauge",
+    "name": "Sauge sclarée",
+    "latinName": "Salvia sclarea L.",
+    "family": "Lamiaceae",
+    "image": "/images/plants/sauge.jpg",
+    "color": "lavender",
+    "shortDescription": "Plante équilibrante aux propriétés régulatrices",
+    "description": "La sauge sclarée fleurit en juin et est traditionnellement cultivée dans le sud de la France pour son huile essentielle et son sclaréol. Un dicton médiéval disait : 'Qui a de la Sauge dans son jardin n'a pas besoin d'un médecin'.",
+    "history": "Plante médicinale vénérée au Moyen Âge, la sauge était considérée comme une panacée. Son nom latin 'Salvia' vient de 'salvare' qui signifie sauver.",
+    "composition": [
+      "Acétate de linalyle",
+      "Sclaréol",
+      "Linalol",
+      "Terpènes"
+    ],
+    "benefits": [
+      {
+        "title": "Régulatrice",
+        "description": "Régule le sébum et la transpiration"
+      },
+      {
+        "title": "Relaxante",
+        "description": "Propriétés sédatives et calmantes"
+      },
+      {
+        "title": "Équilibrante",
+        "description": "Aide à l'équilibre hormonal"
+      }
+    ],
+    "idealFor": ["Peaux grasses", "Stress", "Troubles hormonaux", "Jambes lourdes"]
+  },
+  {
+    "id": "tournesol",
+    "name": "Tournesol",
+    "latinName": "Helianthus annuus",
+    "family": "Asteraceae",
+    "image": "/images/plants/tournesol.jpg",
+    "color": "yellow",
+    "shortDescription": "Fleur solaire aux propriétés nourrissantes",
+    "description": "Le tournesol appartient à la famille des Asteraceae et est pollinisé par les abeilles. Nous travaillons avec des apiculteurs locaux qui installent leurs ruches près de nos champs. L'huile est extraite des graines.",
+    "history": "Originaire d'Amérique du Nord, le tournesol était cultivé par les Amérindiens il y a plus de 3000 ans. Son nom vient de sa particularité à suivre la course du soleil.",
+    "composition": [
+      "Acide oléique",
+      "Acide linoléique (acide gras essentiel)",
+      "Vitamine E (~1%)",
+      "Vitamine K"
+    ],
+    "benefits": [
+      {
+        "title": "Éclat",
+        "description": "Redonne de la luminosité aux peaux ternes et fatiguées"
+      },
+      {
+        "title": "Assouplissante",
+        "description": "Apporte douceur et élasticité à la peau"
+      },
+      {
+        "title": "Hydratante",
+        "description": "Préserve l'hydratation naturelle de la peau"
+      }
+    ],
+    "idealFor": ["Peaux sèches", "Peaux très sèches", "Peaux ternes", "Peaux déshydratées"]
+  }
+]
