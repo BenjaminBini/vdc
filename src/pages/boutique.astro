@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProductCard from '../components/ProductCard.astro';
 import Newsletter from '../components/Newsletter.astro';
-import CartSidebar from '../components/CartSidebar.astro';
+import CartSidebar from '../components/CartSidebar.tsx';
 import PageContainer from '../components/PageContainer.astro';
 import HeroSection from '../components/HeroSection.astro';
 import Section from '../components/Section.astro';
@@ -88,7 +88,7 @@ const { products, categories } = productsData;
 
     <Newsletter />
     <Footer />
-    <CartSidebar />
+    <CartSidebar client:load />
   </PageContainer>
 </Layout>
 

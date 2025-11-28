@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CartSidebar from '../components/CartSidebar.astro';
+import CartSidebar from '../components/CartSidebar.tsx';
+import CartButton from '../components/CartButton.tsx';
 import HeroCard from '../components/HeroCard.astro';
 ---
 
@@ -33,20 +34,7 @@ import HeroCard from '../components/HeroCard.astro';
             <a href="/boutique" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Boutique</a>
             <a href="/contact" class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Contact</a>
           </nav>
-          <button
-            data-cart-toggle
-            class="relative p-2 hover:bg-beaucharme-sage-dark rounded-full transition-colors duration-300"
-            aria-label="Panier"
-          >
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-            <span
-              data-cart-count
-              class="absolute -top-1 -right-1 bg-white text-beaucharme-sage text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center"
-              style="display: none;"
-            >0</span>
-          </button>
+          <CartButton client:load />
         </div>
       </div>
     </header>
@@ -120,7 +108,7 @@ import HeroCard from '../components/HeroCard.astro';
   </div>
 
   <!-- Cart Sidebar -->
-  <CartSidebar />
+  <CartSidebar client:load />
 </Layout>
 
 
