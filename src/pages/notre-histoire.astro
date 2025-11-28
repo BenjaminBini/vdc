@@ -8,7 +8,6 @@ import PageContainer from '../components/PageContainer.astro';
 import HeroSection from '../components/HeroSection.astro';
 import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import ProcessStep from '../components/ProcessStep.astro';
 import StatBlock from '../components/StatBlock.astro';
 import ImageCard from '../components/ImageCard.astro';
 ---
@@ -102,7 +101,7 @@ import ImageCard from '../components/ImageCard.astro';
           <ImageCard
             image="/images/fleurs-bourrache.jpg"
             alt="Fleurs de bourrache"
-            class="h-64"
+            class="h-64 shadow-xl"
             overlay="none"
           />
 
@@ -131,49 +130,25 @@ import ImageCard from '../components/ImageCard.astro';
       </div>
     </Section>
 
-    <!-- Le Processus -->
-    <Section bg="white" card={false} padding="normal">
-      <div class="container-custom">
-        <SectionHeader
-          tagline="Notre savoir-faire"
-          title="De la culture à la formulation"
-        />
-
-        <div class="max-w-4xl mx-auto space-y-8">
-          <ProcessStep
-            number={1}
-            title="La Culture"
-            description="Nous cultivons nos plantes en agriculture biologique, sans pesticides ni engrais chimiques. Chaque variété est sélectionnée pour sa qualité et ses vertus cosmétiques. Bourrache, carthame, cameline, chanvre... Des trésors de la nature que nous chérissons."
-            image="/images/culture.jpg"
-            color="sage"
-          />
-
-          <ProcessStep
-            number={2}
-            title="La Récolte"
-            description="La récolte se fait à la main, au moment optimal de maturité. Nous respectons le rythme de chaque plante pour garantir une concentration maximale en actifs. C'est un travail de patience et d'observation."
-            image="/images/huiles-vegetales.jpg"
-            color="terracotta"
-            reverse
-          />
-
-          <ProcessStep
-            number={3}
-            title="La Distillation"
-            description="Notre alambic en cuivre, installé dans notre atelier, transforme délicatement les plantes en eaux florales et huiles essentielles. Une alchimie douce qui préserve toutes les propriétés des plantes."
-            image="/images/distillation.jpg"
-            color="gold"
-          />
-
-          <ProcessStep
-            number={4}
-            title="La Formulation"
-            description="Dans notre laboratoire, nous créons des formules innovantes et naturelles. Nos crèmes mains sans eau, nos huiles de soin précieuses, nos savons surgras... Chaque produit contient minimum 75% d'ingrédients de la ferme."
-            image="/images/huiles-soin.jpg"
-            color="sage-dark"
-            reverse
-          />
-        </div>
+    <!-- CTA vers De la fleur au flacon -->
+    <Section bg="sage" card={true} padding="normal">
+      <div class="text-center text-white">
+        <p class="text-sm tracking-[0.2em] uppercase mb-4 text-white/70">Notre savoir-faire</p>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">
+          De la fleur au flacon
+        </h2>
+        <p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+          Découvrez comment nous transformons nos plantes cultivées avec soin en cosmétiques naturels d'exception.
+        </p>
+        <a
+          href="/de-la-fleur-au-flacon"
+          class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-semibold hover:bg-beaucharme-cream transition-colors"
+        >
+          Découvrir notre processus
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
       </div>
     </Section>
 
