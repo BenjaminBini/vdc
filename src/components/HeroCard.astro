@@ -28,7 +28,7 @@ const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beau
 
 // Prepend base URL for local assets
 const baseUrl = import.meta.env.BASE_URL;
-const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${baseUrl}${media.slice(1)}` : media;
+const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${baseUrl}${media}` : media;
 ---
 
 <a

@@ -41,7 +41,7 @@ const Tag = href ? 'a' : 'div';
 
 // Prepend base URL for local assets
 const baseUrl = import.meta.env.BASE_URL;
-const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image.slice(1)}` : image;
+const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image}` : image;
 ---
 
 <Tag

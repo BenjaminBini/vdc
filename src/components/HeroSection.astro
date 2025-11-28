@@ -45,7 +45,7 @@ const textAlignClasses = {
 
 // Prepend base URL for local assets
 const baseUrl = import.meta.env.BASE_URL;
-const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image.slice(1)}` : image;
+const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image}` : image;
 ---
 
 <section class:list={["relative flex overflow-hidden rounded-2xl shadow-md", heightClasses[height], alignClasses[align]]}>

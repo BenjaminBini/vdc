@@ -21,7 +21,7 @@ const plants = plantsData.map((p: any) => ({ id: p.id, name: p.name }));
 // Prepend base URL to local image paths
 const products = rawProducts.map((p: any) => ({
   ...p,
-  image: p.image.startsWith('/') && !p.image.startsWith('//') ? `${baseUrl}${p.image.slice(1)}` : p.image
+  image: p.image.startsWith('/') && !p.image.startsWith('//') ? `${baseUrl}${p.image}` : p.image
 }));
 
 // Calculate price range from products
