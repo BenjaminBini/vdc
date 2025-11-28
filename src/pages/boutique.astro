@@ -2,16 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ProductCard from '../components/ProductCard.astro';
 import Newsletter from '../components/Newsletter.astro';
 import CartSidebar from '../components/CartSidebar.tsx';
 import PageContainer from '../components/PageContainer.astro';
 import HeroSection from '../components/HeroSection.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import StoreFilters from '../components/StoreFilters.tsx';
+import FilteredProductGrid from '../components/FilteredProductGrid.tsx';
+import MobileFilterToggle from '../components/MobileFilterToggle.tsx';
 import productsData from '../data/products.json';
+import plantsData from '../data/plants.json';
 
 const { products, categories } = productsData;
+const plants = plantsData.map((p: any) => ({ id: p.id, name: p.name }));
+
+// Calculate price range from products
+const prices = products.map(p => p.price);
+const minPrice = Math.floor(Math.min(...prices));
+const maxPrice = Math.ceil(Math.max(...prices));
 ---
 
 <Layout title="Boutique" description="Découvrez tous nos cosmétiques naturels fabriqués à la ferme : huiles végétales, crèmes, savons, eaux florales et coffrets.">
@@ -27,42 +36,48 @@ const { products, categories } = productsData;
       height="small"
     />
 
-    <Section bg="white" padding="normal" fullWidth card={false}>
-      <div class="container-custom">
-        <!-- Filters -->
-        <div class="mb-12">
-          <div class="flex flex-wrap gap-3 justify-center">
-            <button data-filter="all" class="filter-btn active">
-              Tous les produits
-            </button>
-            {categories.map(category => (
-              <button data-filter={category.id} class="filter-btn">
-                {category.name}
-              </button>
-            ))}
+    <div class="py-8">
+      <!-- Mobile Filter Toggle -->
+      <MobileFilterToggle
+        client:load
+        categories={categories}
+        plants={plants}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
+
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Filters Sidebar (Desktop) -->
+        <aside class="hidden lg:block lg:w-72 flex-shrink-0">
+          <div class="lg:sticky lg:top-6">
+            <Section bg="white" padding="none" class="p-6">
+              <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark mb-6">Filtres</h2>
+              <StoreFilters
+                client:load
+                categories={categories}
+                plants={plants}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+              />
+            </Section>
           </div>
-        </div>
+        </aside>
 
         <!-- Products Grid -->
-        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {products.map(product => (
-            <div class="product-item animate-on-scroll" data-category={product.category}>
-              <ProductCard {...product} />
-            </div>
-          ))}
-        </div>
-
-        <!-- No Results Message -->
-        <div id="no-results" class="hidden text-center py-16">
-          <svg class="w-24 h-24 text-beaucharme-beige mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <p class="text-beaucharme-earth text-lg">Aucun produit trouvé dans cette catégorie</p>
+        <div class="flex-1">
+          <FilteredProductGrid
+            client:load
+            products={products}
+            categories={categories}
+            plants={plants}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+          />
         </div>
       </div>
-    </Section>
+    </div>
 
-    <Section bg="transparent" card={false} padding="normal">
+    <Section bg="transparent" card={false} padding="small">
       <div class="container-custom">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <FeatureCard title="Livraison soignée" description="Expédition rapide et emballage éco-responsable pour protéger vos produits" iconColor="sage">
@@ -93,43 +108,6 @@ const { products, categories } = productsData;
 </Layout>
 
 <script is:inline>
-  // Filter functionality
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const productItems = document.querySelectorAll('.product-item');
-  const noResults = document.getElementById('no-results');
-
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-
-      // Update active button
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      // Filter products
-      let visibleCount = 0;
-      productItems.forEach((item) => {
-        const htmlElement = item;
-        const category = htmlElement.dataset.category;
-        if (filter === 'all' || category === filter) {
-          htmlElement.style.display = 'block';
-          visibleCount++;
-        } else {
-          htmlElement.style.display = 'none';
-        }
-      });
-
-      // Show/hide no results message
-      if (noResults) {
-        if (visibleCount === 0) {
-          noResults.classList.remove('hidden');
-        } else {
-          noResults.classList.add('hidden');
-        }
-      }
-    });
-  });
-
   // Handle hash navigation for direct product links
   if (window.location.hash) {
     const productId = window.location.hash.substring(1);
@@ -144,17 +122,6 @@ const { products, categories } = productsData;
 </script>
 
 <style>
-  .filter-btn {
-    @apply px-6 py-3 rounded-sm border-2 border-beaucharme-beige text-beaucharme-dark
-           font-medium tracking-wide transition-all duration-300
-           hover:border-beaucharme-sage hover:bg-beaucharme-sage/10;
-  }
-
-  .filter-btn.active {
-    @apply bg-beaucharme-terracotta border-beaucharme-terracotta text-white
-           hover:bg-beaucharme-terracotta-dark hover:border-beaucharme-terracotta-dark;
-  }
-
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
