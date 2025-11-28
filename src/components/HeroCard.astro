@@ -30,7 +30,7 @@ const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beau
 <a
   href={href}
   class:list={[
-    'rounded-2xl overflow-hidden relative group cursor-pointer shadow-md',
+    'bg-white relative rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2',
     bg,
     !media && 'flex items-center justify-center',
     className
