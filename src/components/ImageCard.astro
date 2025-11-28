@@ -43,9 +43,9 @@ const Tag = href ? 'a' : 'div';
 <Tag
   href={href}
   class:list={[
-    "rounded-2xl overflow-hidden shadow-lg relative group",
+    "rounded-2xl overflow-hidden shadow-md relative group transition-all duration-300",
     aspectClasses[aspectRatio],
-    href && "cursor-pointer",
+    href && "cursor-pointer hover:shadow-2xl hover:-translate-y-2",
     className
   ]}
   style={height ? `height: ${height}` : undefined}
@@ -53,7 +53,7 @@ const Tag = href ? 'a' : 'div';
   <img
     src={image}
     alt={alt}
-    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    class="w-full h-full object-cover"
   />
   {overlay !== 'none' && (
     <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
