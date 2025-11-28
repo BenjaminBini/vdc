@@ -1,121 +1,86 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Newsletter from '../components/Newsletter.astro';
-import CartSidebar from '../components/CartSidebar.tsx';
-import PageContainer from '../components/PageContainer.astro';
-import HeroSection from '../components/HeroSection.astro';
-import Section from '../components/Section.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import plants from '../data/plants.json';
+import type { ImageMetadata } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+import PageContainer from '@components/PageContainer.astro';
+import HeroCard from '@components/HeroCard.astro';
+import plants from '@data/plants.json';
+
+// Import all plant images
+const plantImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/plants/*.{jpg,jpeg,png}', { eager: true });
+
+// Helper to get plant image
+function getPlantImage(imagePath: string): ImageMetadata | string {
+  const fileName = imagePath.split('/').pop();
+  const key = `/src/assets/images/plants/${fileName}`;
+  return plantImages[key]?.default || imagePath;
+}
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const colorClasses: Record<string, string> = {
-  blue: 'bg-blue-500',
-  gold: 'bg-amber-500',
-  white: 'bg-gray-100',
-  orange: 'bg-orange-500',
-  green: 'bg-green-600',
-  darkgreen: 'bg-green-800',
-  purple: 'bg-purple-500',
-  mint: 'bg-emerald-400',
-  lavender: 'bg-purple-400',
-  yellow: 'bg-yellow-400',
-};
+// Grid position classes for bento layout (10 plants)
+const gridClasses = [
+  'md:col-span-2 md:row-span-2',  // bourrache - large
+  'md:col-span-2',                 // cameline
+  'md:col-span-2',                 // camomille
+  'md:col-span-2',                 // carthame
+  'md:col-span-2 md:row-span-2',  // chanvre - large
+  'md:col-span-2',                 // laurier
+  'md:col-span-2',                 // lavandin
+  'md:col-span-2 md:row-span-2',  // menthe - large
+  'md:col-span-2',                 // sauge
+  'md:col-span-2',                 // tournesol
+];
 ---
 
 <Layout title="Nos Fleurs" description="Découvrez les 10 plantes cultivées sur notre ferme en Bourgogne pour créer nos cosmétiques naturels.">
   <PageContainer>
     <Header />
 
-    <HeroSection
-      image="/images/champs-lavande.jpg"
-      alt="Nos champs de plantes en Bourgogne"
-      tagline="De notre ferme"
-      title="Nos Fleurs"
-      subtitle="10 plantes cultivées avec passion dans l'Yonne"
-      height="medium"
-    />
-
-    <!-- Introduction -->
-    <Section bg="transparent" card={false} padding="normal">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-lg text-beaucharme-earth leading-relaxed">
-          Sur notre ferme près de Vézelay, nous cultivons avec soin <strong>10 plantes</strong> aux vertus
-          cosmétiques exceptionnelles. De la bourrache au tournesol, chaque plante est sélectionnée pour
-          ses propriétés uniques et cultivée en agriculture biologique.
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
+      <!-- Title Card -->
+      <div class="col-span-2 md:col-span-2 bg-beaucharme-sage rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+        <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">De notre ferme</p>
+        <h1 class="font-serif text-3xl md:text-4xl font-bold mb-3">Nos Fleurs</h1>
+        <p class="text-white/80 text-sm md:text-base">
+          10 plantes cultivées avec passion dans l'Yonne pour créer nos cosmétiques naturels.
         </p>
       </div>
-    </Section>
 
-    <!-- Plants Grid -->
-    <Section bg="transparent" card={false} padding="normal">
-      <SectionHeader
-        tagline="Nos cultures"
-        title="Les plantes de notre ferme"
-      />
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {plants.map((plant) => (
-          <a
+      {plants.map((plant, index) => {
+        const img = getPlantImage(plant.image);
+        return (
+          <HeroCard
             href={`${baseUrl}/nos-fleurs/${plant.id}`}
-            class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 aspect-[4/3]"
+            media={img}
+            alt={plant.name}
+            class={`min-h-[200px] ${gridClasses[index]}`}
           >
-            <img
-              src={plant.image}
-              alt={plant.name}
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-
-            <!-- Color indicator -->
-            <div class={`absolute top-4 right-4 w-4 h-4 rounded-full ${colorClasses[plant.color]} ring-2 ring-white/50`}></div>
-
-            <!-- Content -->
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <span class="text-white/70 text-sm italic">{plant.latinName}</span>
-              <h3 class="font-serif text-2xl font-semibold text-white mt-1 group-hover:text-beaucharme-cream transition-colors">
-                {plant.name}
-              </h3>
-              <p class="text-white/80 text-sm mt-2 line-clamp-2">
-                {plant.shortDescription}
-              </p>
-              <div class="mt-4 flex items-center text-beaucharme-cream text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                Découvrir
-                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-beaucharme-dark/80 via-beaucharme-dark/20 to-transparent" />
+            <div class="absolute inset-0 p-5 md:p-6 flex flex-col justify-end">
+              <span class="text-white/60 text-xs italic">{plant.latinName}</span>
+              <h3 class="font-serif text-xl md:text-2xl font-semibold text-white mt-1">{plant.name}</h3>
+              <p class="text-white/70 text-sm mt-1 line-clamp-2 hidden md:block">{plant.shortDescription}</p>
             </div>
-          </a>
-        ))}
-      </div>
-    </Section>
+          </HeroCard>
+        );
+      })}
 
-    <!-- CTA Section -->
-    <Section bg="sage" card={false} padding="normal" fullWidth>
-      <div class="max-w-3xl mx-auto text-center text-white">
-        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">
-          De la fleur au flacon
-        </h2>
-        <p class="text-white/80 text-lg mb-8">
-          Chaque plante est cultivée, récoltée et transformée sur notre ferme
-          pour créer des cosmétiques naturels d'exception.
+      <!-- CTA Card -->
+      <div class="col-span-2 md:col-span-2 bg-beaucharme-terracotta rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+        <h2 class="font-serif text-2xl font-semibold mb-3">De la fleur au flacon</h2>
+        <p class="text-white/80 text-sm mb-4">
+          Découvrez comment nous transformons nos plantes en cosmétiques naturels.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href={`${baseUrl}/nos-produits`} class="inline-block bg-white text-beaucharme-sage px-8 py-3 rounded-full font-semibold hover:bg-beaucharme-cream transition-colors">
-            Découvrir nos produits
-          </a>
-          <a href={`${baseUrl}/notre-histoire`} class="inline-block bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors">
-            Notre histoire
-          </a>
-        </div>
+        <a href={`${baseUrl}/de-la-fleur-au-flacon`} class="inline-block bg-white text-beaucharme-terracotta px-6 py-2 rounded-full font-semibold text-sm hover:bg-beaucharme-cream transition-colors w-fit">
+          En savoir plus
+        </a>
       </div>
-    </Section>
+    </div>
 
-    <Newsletter />
     <Footer />
     <CartSidebar />
   </PageContainer>

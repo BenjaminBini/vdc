@@ -1,5 +1,8 @@
 ---
-import CartButton from './CartButton.tsx';
+import { Image } from 'astro:assets';
+import CartButton from '@components/CartButton.tsx';
+import logo2 from '@images/logo2.png';
+
 const currentPath = Astro.url.pathname;
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -21,15 +24,18 @@ const baseUrl = import.meta.env.BASE_URL;
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center space-x-6">
         <a href={`${baseUrl}/notre-histoire`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/notre-histoire') ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
+        <a href={`${baseUrl}/nos-valeurs`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/nos-valeurs') ? 'text-beaucharme-cream' : ''}`}>Nos Valeurs</a>
         <a href={`${baseUrl}/nos-produits`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
     </div>
 
     <!-- Center logo with brand name - always absolutely centered -->
     <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
       <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
-      <img
-        src={`${baseUrl}/logo2.png`}
-        alt="Beaucharme"
+      <Image
+        src={logo2}
+        alt="Beaucharme logo"
+        width={40}
+        height={40}
         class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 lg:mx-3"
       />
       <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">cosmétique</span>
@@ -58,6 +64,7 @@ const baseUrl = import.meta.env.BASE_URL;
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
     <div class="flex flex-col space-y-2">
       <a href={`${baseUrl}/notre-histoire`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
+      <a href={`${baseUrl}/nos-valeurs`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Valeurs</a>
       <a href={`${baseUrl}/nos-produits`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Produits</a>
       <a href={`${baseUrl}/boutique`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Boutique</a>
       <a href={`${baseUrl}/contact`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Contact</a>

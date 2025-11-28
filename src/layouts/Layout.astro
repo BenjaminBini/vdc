@@ -20,7 +20,9 @@ const { title, description = "Beaucharme Cosmétique - De la graine au flacon" }
     <title>{title} | Beaucharme Cosmétique</title>
   </head>
   <body class="bg-grain bg-beaucharme-beige">
-    <slot />
+    <div class="relative z-10">
+      <slot />
+    </div>
 
     <script is:inline>
       // Scroll reveal animation
