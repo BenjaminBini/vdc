@@ -10,6 +10,8 @@ import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import StatBlock from '../components/StatBlock.astro';
 import ImageCard from '../components/ImageCard.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Notre Histoire" description="Découvrez l'histoire de Beaucharme Cosmétique, deux agriculteurs bourguignons passionnés par les cosmétiques naturels.">
@@ -31,7 +33,7 @@ import ImageCard from '../components/ImageCard.astro';
         <!-- Image Card -->
         <div class="relative rounded-2xl overflow-hidden shadow-md min-h-80">
           <img
-            src="/images/founders.jpg"
+            src={`${baseUrl}images/founders.jpg`}
             alt="Les fondateurs de Beaucharme dans leur ferme"
             class="w-full h-full object-cover"
           />

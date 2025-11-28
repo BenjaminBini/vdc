@@ -42,12 +42,16 @@ const textAlignClasses = {
   center: 'text-center',
   bottom: 'pb-12 md:pb-20'
 };
+
+// Prepend base URL for local assets
+const baseUrl = import.meta.env.BASE_URL;
+const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image.slice(1)}` : image;
 ---
 
 <section class:list={["relative flex overflow-hidden rounded-2xl shadow-md", heightClasses[height], alignClasses[align]]}>
   <div class="absolute inset-0 z-0">
     <img
-      src={image}
+      src={imageUrl}
       alt={alt}
       class="w-full h-full object-cover"
     />

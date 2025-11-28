@@ -38,6 +38,10 @@ const overlayClasses = {
 };
 
 const Tag = href ? 'a' : 'div';
+
+// Prepend base URL for local assets
+const baseUrl = import.meta.env.BASE_URL;
+const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image.slice(1)}` : image;
 ---
 
 <Tag
@@ -51,7 +55,7 @@ const Tag = href ? 'a' : 'div';
   style={height ? `height: ${height}` : undefined}
 >
   <img
-    src={image}
+    src={imageUrl}
     alt={alt}
     class="w-full h-full object-cover"
   />

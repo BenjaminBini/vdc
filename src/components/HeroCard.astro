@@ -25,6 +25,10 @@ const {
 
 const hasSlot = Astro.slots.has('default');
 const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beaucharme-dark/40' : '');
+
+// Prepend base URL for local assets
+const baseUrl = import.meta.env.BASE_URL;
+const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${baseUrl}${media.slice(1)}` : media;
 ---
 
 <a
@@ -38,7 +42,7 @@ const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beau
 >
   {media && mediaType === 'video' && (
     <video
-      src={media}
+      src={mediaUrl}
       muted
       loop
       playsinline
@@ -49,7 +53,7 @@ const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beau
 
   {media && mediaType === 'image' && (
     <img
-      src={media}
+      src={mediaUrl}
       alt={alt}
       class="w-full h-full object-cover"
     />

@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import CartSidebar from '../components/CartSidebar.tsx';
 import CartButton from '../components/CartButton.tsx';
 import HeroCard from '../components/HeroCard.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Accueil" description="Beaucharme Cosmétique - De la graine au flacon. Cosmétiques naturels créés avec passion près de Vézelay, en Bourgogne.">
@@ -20,7 +22,7 @@ import HeroCard from '../components/HeroCard.astro';
         <a href="/" class="flex items-center group absolute left-1/2 -translate-x-1/2">
           <span class="text-white font-serif text-lg tracking-wide">beaucharme</span>
           <img
-            src="/logo2.png"
+            src={`${baseUrl}logo2.png`}
             alt="Beaucharme"
             class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 mx-3"
           />
@@ -53,7 +55,7 @@ import HeroCard from '../components/HeroCard.astro';
           class="col-span-2 md:col-span-4 row-span-2"
         >
           <div class="absolute inset-0 flex items-center justify-center">
-            <img src="/logo.png" alt="Beaucharme logo" class="h-[13rem] shrink-0" />
+            <img src={`${baseUrl}logo.png`} alt="Beaucharme logo" class="h-[13rem] shrink-0" />
           </div>
         </HeroCard>
 
