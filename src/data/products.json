@@ -84,6 +84,7 @@
       "price": 18,
       "description": "Cultivée sur nos terres bourguignonnes, notre huile de chanvre est riche en oméga-3 et parfaite pour les peaux sensibles.",
       "ingredients": ["100% graines de chanvre de la ferme"],
+      "plants": ["chanvre"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
       "inStock": true,
       "featured": true
@@ -95,6 +96,7 @@
       "price": 15,
       "description": "Pressée à froid dans notre atelier. Douce et nourrissante, elle convient à tous les types de peau.",
       "ingredients": ["100% graines de tournesol de la ferme"],
+      "plants": ["tournesol"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
       "inStock": true,
       "featured": false
@@ -106,6 +108,7 @@
       "price": 22,
       "description": "Une plante oubliée que nous avons réintroduite. Exceptionnelle pour régénérer la peau.",
       "ingredients": ["100% graines de cameline de la ferme"],
+      "plants": ["cameline"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
       "inStock": true,
       "featured": false
@@ -117,6 +120,7 @@
       "price": 24,
       "description": "Cultivée avec patience, cette huile rare apporte éclat et souplesse à votre peau.",
       "ingredients": ["100% graines de carthame de la ferme"],
+      "plants": ["carthame"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
       "inStock": true,
       "featured": false
@@ -128,6 +132,7 @@
       "price": 28,
       "description": "Notre trésor. Une culture délicate pour une huile précieuse aux vertus incomparables.",
       "ingredients": ["100% graines de bourrache de la ferme"],
+      "plants": ["bourrache"],
       "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
       "inStock": true,
       "featured": true
@@ -139,6 +144,7 @@
       "price": 39,
       "description": "Notre formule signature. Un blend précieux d'huiles rares pour une peau sublimée.",
       "ingredients": ["Huile de bourrache", "Huile de carthame", "Huile de cameline", "Vitamine E naturelle"],
+      "plants": ["bourrache", "carthame", "cameline"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
       "inStock": true,
       "featured": true
@@ -150,6 +156,7 @@
       "price": 35,
       "description": "Texture soyeuse et parfum délicat. Pour un moment de pure indulgence.",
       "ingredients": ["Huile de chanvre", "Huile de tournesol", "Macérat de calendula", "Huile essentielle de lavande"],
+      "plants": ["chanvre", "tournesol", "lavandin"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
       "inStock": true,
       "featured": false
@@ -161,6 +168,7 @@
       "price": 28,
       "description": "Spécialement formulée pour calmer les peaux réactives et sensibles.",
       "ingredients": ["Huile de chanvre", "Macérat de camomille", "Huile de calendula"],
+      "plants": ["chanvre", "camomille"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
       "inStock": false,
       "featured": false
@@ -172,7 +180,8 @@
       "price": 13.80,
       "description": "Sans eau ajoutée, juste l'essentiel. Une formule concentrée dans un tube végétal.",
       "ingredients": ["Huile de bourrache", "Beurre de karité", "Cire d'abeille", "Vitamine E"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "plants": ["bourrache"],
+      "image": "/images/products/creme-mains-sublime.jpg",
       "inStock": true,
       "featured": false,
       "badge": "Sans eau"
@@ -184,7 +193,8 @@
       "price": 13.80,
       "description": "Formule innovante sans eau pour des mains douces et protégées toute la journée.",
       "ingredients": ["Huile de carthame", "Beurre de karité", "Cire d'abeille", "Macérat de calendula"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "plants": ["carthame"],
+      "image": "/images/products/creme-mains-radieuse.jpg",
       "inStock": true,
       "featured": false,
       "badge": "Sans eau"
@@ -196,7 +206,8 @@
       "price": 13.80,
       "description": "Conçue pour les mains sensibles. Réconfort immédiat en toute légèreté.",
       "ingredients": ["Huile de chanvre", "Beurre de karité", "Cire d'abeille"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "plants": ["chanvre"],
+      "image": "/images/products/creme-mains-delicate.jpg",
       "inStock": true,
       "featured": false,
       "badge": "Sans eau"
@@ -208,7 +219,8 @@
       "price": 13.80,
       "description": "Texture veloutée, pénétration rapide. Nos mains d'agriculteurs l'adorent.",
       "ingredients": ["Huile de tournesol", "Beurre de karité", "Cire d'abeille", "Huile essentielle de lavande"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "plants": ["tournesol", "lavandin"],
+      "image": "/images/products/creme-mains-soyeuse.jpg",
       "inStock": true,
       "featured": false,
       "badge": "Sans eau"
@@ -220,6 +232,7 @@
       "price": 7,
       "description": "Surgras enrichi à la cire d'abeille de nos ruches. Pour une peau lumineuse.",
       "ingredients": ["Huile de tournesol", "Huile de carthame", "Cire d'abeille locale", "Argile jaune"],
+      "plants": ["tournesol", "carthame"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
       "inStock": true,
       "featured": false
@@ -231,6 +244,7 @@
       "price": 7,
       "description": "Extra-doux, parfait pour les peaux sensibles et les enfants.",
       "ingredients": ["Huile de chanvre", "Huile de tournesol", "Cire d'abeille locale", "Calendula"],
+      "plants": ["chanvre", "tournesol"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
       "inStock": true,
       "featured": false
@@ -242,6 +256,7 @@
       "price": 7,
       "description": "Nettoyage en douceur au quotidien. Simple et efficace.",
       "ingredients": ["Huile de tournesol", "Huile de cameline", "Cire d'abeille locale"],
+      "plants": ["tournesol", "cameline"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
       "inStock": true,
       "featured": false
@@ -253,6 +268,7 @@
       "price": 7,
       "description": "Sans parfum, sans ajout superflu. L'essentiel à l'état pur.",
       "ingredients": ["Huile de tournesol", "Cire d'abeille locale"],
+      "plants": ["tournesol"],
       "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
       "inStock": false,
       "featured": false
@@ -264,6 +280,7 @@
       "price": 9,
       "description": "Distillée dans notre alambic. Apaise et rafraîchit instantanément.",
       "ingredients": ["100% hydrolat de lavande de la ferme"],
+      "plants": ["lavandin"],
       "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
       "inStock": true,
       "featured": false
@@ -286,6 +303,7 @@
       "price": 7,
       "description": "Fraîcheur vivifiante. Parfait après une journée aux champs.",
       "ingredients": ["100% hydrolat de menthe poivrée de la ferme"],
+      "plants": ["menthe-poivree"],
       "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
       "inStock": true,
       "featured": false
@@ -297,6 +315,7 @@
       "price": 8,
       "description": "Douceur et réconfort pour les peaux sensibles. Un classique revisité.",
       "ingredients": ["100% hydrolat de camomille de la ferme"],
+      "plants": ["camomille"],
       "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
       "inStock": true,
       "featured": false
