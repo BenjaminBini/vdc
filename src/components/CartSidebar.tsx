@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useCart } from '../stores/cartStore';
+import { useCart } from '@stores/cartStore';
 
 export default function CartSidebar() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } = useCart();

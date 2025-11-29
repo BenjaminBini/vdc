@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cartStore, type CartItem } from '../stores/cartStore';
+import { cartStore, type CartItem } from '@stores/cartStore';
 
 interface Props {
   product: Omit<CartItem, 'quantity'>;

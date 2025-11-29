@@ -1,8 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import CartSidebar from '../components/CartSidebar.tsx';
-import CartButton from '../components/CartButton.tsx';
-import HeroCard from '../components/HeroCard.astro';
+import { Image } from 'astro:assets';
+import Layout from '@layouts/Layout.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+import CartButton from '@components/CartButton.tsx';
+import HeroCard from '@components/HeroCard.astro';
+
+import logo from '@images/logo.png';
+import logo2 from '@images/logo2.png';
+import champsLavande from '@images/champs-lavande.jpg';
 
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -21,9 +26,11 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Center logo with brand name - always absolutely centered -->
         <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
           <span class="text-white font-serif text-lg tracking-wide">beaucharme</span>
-          <img
-            src={`${baseUrl}/logo2.png`}
-            alt="Beaucharme"
+          <Image
+            src={logo2}
+            alt="Beaucharme logo"
+            width={40}
+            height={40}
             class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 mx-3"
           />
           <span class="text-white font-serif text-lg tracking-wide">cosmétique</span>
@@ -54,8 +61,10 @@ const baseUrl = import.meta.env.BASE_URL;
           overlay
           class="col-span-2 md:col-span-4 row-span-2"
         >
-          <div class="absolute inset-0 flex items-center justify-center">
-            <img src={`${baseUrl}/logo.png`} alt="Beaucharme logo" class="h-[13rem] shrink-0" />
+          <div class="absolute inset-0 flex items-center justify-center ">
+            <div class="max-w-[20rem]">
+            <Image src={logo} class='max-w-full' alt="Beaucharme logo" />
+          </div>
           </div>
         </HeroCard>
 
@@ -88,7 +97,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <!-- Block 5: Nos Valeurs -->
         <HeroCard
-          href={`${baseUrl}/notre-histoire`}
+          href={`${baseUrl}/nos-valeurs`}
           media="/bee.mp4"
           mediaType="video"
           title="Nos valeurs"
@@ -98,7 +107,7 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Block 6: Nos Fleurs -->
         <HeroCard
           href={`${baseUrl}/nos-fleurs`}
-          media="/images/champs-lavande.jpg"
+          media={champsLavande}
           alt="Nos fleurs cultivées en Bourgogne"
           title="Nos fleurs"
           class="min-h-[170px] col-span-2 row-span-1"

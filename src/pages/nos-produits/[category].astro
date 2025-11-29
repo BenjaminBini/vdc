@@ -1,20 +1,51 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import PageContainer from '../../components/PageContainer.astro';
-import HeroSection from '../../components/HeroSection.astro';
-import Section from '../../components/Section.astro';
-import CheckList from '../../components/CheckList.astro';
-import CartSidebar from '../../components/CartSidebar.tsx';
-import productsData from '../../data/products.json';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PageContainer from '@components/PageContainer.astro';
+import HeroSection from '@components/HeroSection.astro';
+import Section from '@components/Section.astro';
+import CheckList from '@components/CheckList.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+import productsData from '@data/products.json';
+
+// Import hero images for categories
+import huilesVegetales from '@images/huiles-vegetales.jpg';
+import huilesSoin from '@images/huiles-soin.jpg';
+import savonsHero from '@images/savons-hero.jpg';
+import cremesMains from '@images/cremes-mains.jpg';
+import distillation from '@images/distillation.jpg';
+import coffretsHero from '@images/coffrets-hero.jpg';
+
+// Import product images
+const productImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/products/*.jpg', { eager: true });
+
+function getProductImage(imagePath: string): ImageMetadata | string {
+  // If it's an external URL, return as is
+  if (imagePath.startsWith('http')) return imagePath;
+
+  const fileName = imagePath.split('/').pop();
+  const key = `/src/assets/images/products/${fileName}`;
+  return productImages[key]?.default || imagePath;
+}
+
+// Hero images mapping
+const heroImages: Record<string, ImageMetadata> = {
+  'huiles-vegetales': huilesVegetales,
+  'huiles-soin': huilesSoin,
+  'savons': savonsHero,
+  'cremes-mains': cremesMains,
+  'eaux-florales': distillation,
+  'coffrets': coffretsHero,
+};
 
 export function getStaticPaths() {
   const categoriesInfo = {
     'huiles-vegetales': {
       name: 'Huiles végétales',
       tagline: 'De la graine à la bouteille',
-      hero: '/images/huiles-vegetales.jpg',
       description: 'Nos huiles sont pressées à froid dans notre atelier, à partir de graines cultivées sur notre ferme près de Vézelay. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles.',
       story: `
         <p>Tout commence par la graine. Nous semons nous-mêmes nos cultures au printemps, sur les terres argilo-calcaires de notre ferme bourguignonne. Le terroir, le climat et notre patience font le reste.</p>
@@ -27,7 +58,6 @@ export function getStaticPaths() {
     'huiles-soin': {
       name: 'Huiles de soin',
       tagline: 'Formulations signature',
-      hero: '/images/huiles-soin.jpg',
       description: 'Nos huiles de soin sont des assemblages subtils de nos meilleures huiles végétales, enrichies de macérats de plantes et de vitamine E naturelle.',
       story: `
         <p>Créer une huile de soin, c'est comme composer un parfum ou une recette de cuisine : il faut trouver l'équilibre parfait entre les différents ingrédients.</p>
@@ -40,7 +70,6 @@ export function getStaticPaths() {
     'savons': {
       name: 'Savons surgras',
       tagline: 'Saponification à froid',
-      hero: '/images/savons-hero.jpg',
       description: 'Nos savons sont fabriqués selon la méthode ancestrale de saponification à froid, qui préserve la glycérine naturelle et les propriétés de nos huiles.',
       story: `
         <p>La saponification à froid est un procédé lent et délicat, mais c'est le seul qui permet de conserver toutes les propriétés de nos huiles précieuses.</p>
@@ -53,7 +82,6 @@ export function getStaticPaths() {
     'cremes-mains': {
       name: 'Crèmes mains',
       tagline: 'Sans eau, 100% actifs',
-      hero: '/images/cremes-mains.jpg',
       description: 'Une innovation dont nous sommes fiers : des crèmes mains sans eau ajoutée, conditionnées en tubes végétaux.',
       story: `
         <p>Pourquoi ajouter de l'eau dans une crème ? L'eau n'hydrate pas, elle dilue les actifs et nécessite des conservateurs. Nous avons voulu faire différemment.</p>
@@ -66,7 +94,6 @@ export function getStaticPaths() {
     'eaux-florales': {
       name: 'Eaux florales',
       tagline: 'Distillation artisanale',
-      hero: '/images/distillation.jpg',
       description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Des fleurs de notre jardin pour des soins frais et aromatiques.',
       story: `
         <p>Au petit matin, quand la rosée perle encore sur les pétales, nous récoltons nos fleurs à la main. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... chacune a son moment idéal de récolte.</p>
@@ -79,7 +106,6 @@ export function getStaticPaths() {
     'coffrets': {
       name: 'Coffrets',
       tagline: 'L\'art d\'offrir',
-      hero: '/images/coffrets-hero.jpg',
       description: 'Nos coffrets réunissent une sélection de nos meilleurs produits pour découvrir notre univers ou faire un cadeau qui a du sens.',
       story: `
         <p>Offrir un coffret Beaucharme, c'est offrir un morceau de notre ferme, un peu de notre passion, beaucoup de nature.</p>
@@ -108,7 +134,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
     <main class="min-h-screen flex flex-col gap-8">
       <HeroSection
-        image={categoryInfo.hero}
+        image={heroImages[categoryId]}
         alt={categoryInfo.name}
         tagline={categoryInfo.tagline}
         title={categoryInfo.name}
@@ -168,11 +194,14 @@ const baseUrl = import.meta.env.BASE_URL;
                 class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
               >
                 <div class="relative aspect-square overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    class="w-full h-full object-cover"
-                  />
+                  {(() => {
+                    const img = getProductImage(product.image);
+                    return typeof img === 'string' ? (
+                      <Image src={img} alt={product.name} width={400} height={400} class="w-full h-full object-cover" />
+                    ) : (
+                      <Image src={img} alt={product.name} width={400} height={400} class="w-full h-full object-cover" />
+                    );
+                  })()}
                   {!product.inStock && (
                     <div class="absolute top-4 right-4 bg-beaucharme-dark/80 text-white text-xs px-3 py-1 rounded-full">
                       Rupture
@@ -239,6 +268,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <style>
   .prose p {
-    @apply text-beaucharme-earth leading-relaxed;
+    color: var(--color-beaucharme-earth);
+    line-height: 1.625;
   }
 </style>

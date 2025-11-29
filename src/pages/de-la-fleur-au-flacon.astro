@@ -1,57 +1,67 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PageContainer from '../components/PageContainer.astro';
-import HeroSection from '../components/HeroSection.astro';
-import Section from '../components/Section.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import CartSidebar from '../components/CartSidebar.tsx';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PageContainer from '@components/PageContainer.astro';
+import HeroSection from '@components/HeroSection.astro';
+import Section from '@components/Section.astro';
+import FeatureCard from '@components/FeatureCard.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+
+import fleursHero from '@images/fleurs-hero.jpg';
+import semis from '@images/semis.jpg';
+import cultureEte from '@images/culture-ete.jpg';
+import recolte from '@images/recolte.jpg';
+import huilesVegetales from '@images/huiles-vegetales.jpg';
+import formulation from '@images/formulation.jpg';
+import huilesSoin from '@images/huiles-soin.jpg';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const steps = [
+const steps: { number: string; title: string; season: string; description: string; image: ImageMetadata }[] = [
   {
     number: '01',
     title: 'Semis',
     season: 'Printemps',
     description: 'Tout commence par la graine. Chaque année au printemps, nous semons nos cultures sur les terres argilo-calcaires de notre ferme bourguignonne. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles.',
-    image: '/images/semis.jpg',
+    image: semis,
   },
   {
     number: '02',
     title: 'Culture',
     season: 'Été',
     description: 'Nos plantes grandissent au rythme des saisons, sans pesticides ni engrais chimiques. Nous pratiquons une agriculture raisonnée, respectueuse de la terre et de la biodiversité. Les abeilles de nos ruches participent à la pollinisation.',
-    image: '/images/culture-ete.jpg',
+    image: cultureEte,
   },
   {
     number: '03',
     title: 'Récolte',
     season: 'Fin d\'été',
     description: 'À maturité, nous récoltons nos plantes avec soin. Les graines sont séchées naturellement, les fleurs sont cueillies à la main tôt le matin, quand leur concentration en principes actifs est maximale.',
-    image: '/images/recolte.jpg',
+    image: recolte,
   },
   {
     number: '04',
     title: 'Extraction',
     season: 'Automne',
     description: 'Dans notre atelier, nous transformons nos récoltes. Les graines sont pressées à froid pour en extraire des huiles pures. Les fleurs sont distillées dans notre alambic en cuivre pour obtenir des hydrolats précieux.',
-    image: '/images/huiles-vegetales.jpg',
+    image: huilesVegetales,
   },
   {
     number: '05',
     title: 'Formulation',
     season: 'Toute l\'année',
     description: 'Dans notre laboratoire, nous assemblons nos ingrédients selon des recettes développées avec passion. Chaque formule est le fruit de longs mois de recherche pour trouver l\'équilibre parfait entre efficacité et naturalité.',
-    image: '/images/formulation.jpg',
+    image: formulation,
   },
   {
     number: '06',
     title: 'Mise en flacon',
     season: 'Toute l\'année',
     description: 'Chaque produit est conditionné à la main dans notre atelier. Flacons en verre, tubes végétaux, emballages recyclés... Nous soignons chaque détail jusqu\'à ce que le produit soit prêt à rejoindre votre salle de bain.',
-    image: '/images/huiles-soin.jpg',
+    image: huilesSoin,
   },
 ];
 ---
@@ -62,7 +72,7 @@ const steps = [
 
     <main class="min-h-screen flex flex-col gap-8">
       <HeroSection
-        image="/images/fleurs-hero.jpg"
+        image={fleursHero}
         alt="Champs de fleurs"
         tagline="Notre processus"
         title="De la graine au flacon"
@@ -93,9 +103,11 @@ const steps = [
           {steps.map((step, index) => (
             <div class="grid md:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-md">
               <div class:list={["relative min-h-64 overflow-hidden", index % 2 === 1 && 'md:order-2']}>
-                <img
+                <Image
                   src={step.image}
                   alt={step.title}
+                  width={800}
+                  height={600}
                   class="w-full h-full object-cover"
                 />
                 <div class="absolute top-4 left-4 bg-beaucharme-terracotta text-white text-sm px-4 py-2 rounded-full">
