@@ -3,26 +3,30 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
-  image: ImageMetadata | string;
-  alt: string;
+  image?: ImageMetadata | string;
+  alt?: string;
   title: string;
   subtitle?: string;
   tagline?: string;
   height?: 'small' | 'medium' | 'large';
   overlay?: 'dark' | 'gradient' | 'gradient-bottom';
   align?: 'center' | 'bottom';
+  bg?: 'sage' | 'sage-dark' | 'terracotta' | 'earth' | 'dark';
 }
 
 const {
   image,
-  alt,
+  alt = '',
   title,
   subtitle,
   tagline,
   height = 'medium',
   overlay = 'dark',
-  align = 'center'
+  align = 'center',
+  bg
 } = Astro.props;
+
+const hasImage = !!image;
 
 const heightClasses = {
   small: 'h-64 md:h-80',
@@ -36,6 +40,14 @@ const overlayClasses = {
   'gradient-bottom': 'bg-gradient-to-t from-beaucharme-dark/80 via-beaucharme-dark/30 to-transparent'
 };
 
+const bgClasses = {
+  sage: 'bg-beaucharme-sage',
+  'sage-dark': 'bg-beaucharme-sage-dark',
+  terracotta: 'bg-beaucharme-terracotta',
+  earth: 'bg-beaucharme-earth',
+  dark: 'bg-beaucharme-dark'
+};
+
 const alignClasses = {
   center: 'items-center justify-center',
   bottom: 'items-end'
@@ -47,30 +59,37 @@ const textAlignClasses = {
 };
 
 // Check if image is imported or a string URL
-const isImportedImage = typeof image !== 'string';
+const isImportedImage = image && typeof image !== 'string';
 ---
 
-<section class:list={["relative flex overflow-hidden rounded-2xl shadow-md", heightClasses[height], alignClasses[align]]}>
-  <div class="absolute inset-0 z-0">
-    {isImportedImage ? (
-      <Image
-        src={image as ImageMetadata}
-        alt={alt}
-        width={1920}
-        height={1080}
-        class="w-full h-full object-cover"
-      />
-    ) : (
-      <Image
-        src={image}
-        alt={alt}
-        width={1920}
-        height={1080}
-        class="w-full h-full object-cover"
-      />
-    )}
-    <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
-  </div>
+<section class:list={[
+  "relative flex overflow-hidden rounded-2xl shadow-md",
+  heightClasses[height],
+  alignClasses[align],
+  !hasImage && bg && bgClasses[bg]
+]}>
+  {hasImage && (
+    <div class="absolute inset-0 z-0">
+      {isImportedImage ? (
+        <Image
+          src={image as ImageMetadata}
+          alt={alt}
+          width={1920}
+          height={1080}
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={alt}
+          width={1920}
+          height={1080}
+          class="w-full h-full object-cover"
+        />
+      )}
+      <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
+    </div>
+  )}
 
   <div class:list={["container-custom relative z-10 text-white", textAlignClasses[align]]}>
     {tagline && (
