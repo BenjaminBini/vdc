@@ -3,74 +3,156 @@ import { Image } from 'astro:assets';
 import CartButton from '@components/CartButton.tsx';
 import logo2 from '@images/logo2.png';
 
+interface Props {
+  static?: boolean;
+}
+
+const { static: isStatic = false } = Astro.props;
+
 const currentPath = Astro.url.pathname;
 const baseUrl = import.meta.env.BASE_URL;
+
+const navLinks = [
+  { href: `${baseUrl}/notre-histoire`, label: 'Notre Histoire', match: '/notre-histoire' },
+  { href: `${baseUrl}/nos-valeurs`, label: 'Nos Valeurs', match: '/nos-valeurs' },
+  { href: `${baseUrl}/nos-produits`, label: 'Nos Produits', match: '/nos-produits' },
+  { href: `${baseUrl}/nos-fleurs`, label: 'Nos Fleurs', match: '/nos-fleurs' },
+  { href: `${baseUrl}/boutique`, label: 'Boutique', match: '/boutique' },
+  { href: `${baseUrl}/contact`, label: 'Contact', match: '/contact' },
+];
 ---
 
-<header class="bg-beaucharme-sage shadow-md rounded-2xl">
-  <div class="container px-6 py-3 flex items-center justify-between relative">
-    <!-- Left: Mobile hamburger OR Desktop nav -->
-    <div class="flex items-center">
-      <!-- Mobile Menu Button -->
-      <button
-        data-menu-toggle
-        class="md:hidden p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
-        aria-label="Menu"
-      >
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href={`${baseUrl}/notre-histoire`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/notre-histoire') ? 'text-beaucharme-cream' : ''}`}>Notre Histoire</a>
-        <a href={`${baseUrl}/nos-valeurs`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/nos-valeurs') ? 'text-beaucharme-cream' : ''}`}>Nos Valeurs</a>
-        <a href={`${baseUrl}/nos-produits`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes('/nos-produits') ? 'text-beaucharme-cream' : ''}`}>Nos Produits</a>
+<header id="main-header" class:list={["header-menu bg-beaucharme-sage-dark shadow-md rounded-2xl", { "header-static": isStatic }]}>
+  <div class="container px-6 py-3 flex items-center justify-center relative">
+    <!-- Mobile Menu Button (left) -->
+    <button
+      data-menu-toggle
+      class="md:hidden absolute left-4 p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
+      aria-label="Menu"
+    >
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Center content wrapper -->
+    <div class="menu-content relative flex items-center justify-center">
+      <!-- Logo (default state) -->
+      <a href={baseUrl || '/'} class="logo-container flex items-center">
+        <span class="hidden sm:inline text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
+        <Image
+          src={logo2}
+          alt="Beaucharme logo"
+          width={40}
+          height={40}
+          class="h-10 w-10 object-contain brightness-0 invert mx-3"
+        />
+        <span class="hidden sm:inline text-white font-serif text-xl font-medium tracking-wide">cosmétique</span>
+      </a>
+
+      <!-- Navigation (revealed on hover) -->
+      <nav class="nav-container hidden md:flex items-center gap-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class={`nav-link text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
     </div>
 
-    <!-- Center logo with brand name - always absolutely centered -->
-    <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
-      <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">beaucharme</span>
-      <Image
-        src={logo2}
-        alt="Beaucharme logo"
-        width={40}
-        height={40}
-        class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 lg:mx-3"
-      />
-      <span class="hidden lg:inline text-white font-serif text-xl font-medium tracking-wide">cosmétique</span>
-    </a>
-
-    <!-- Right: Desktop nav + cart -->
-    <div class="flex items-center space-x-6">
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href={`${baseUrl}/boutique`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/boutique') ? 'text-beaucharme-cream' : ''}`}>Boutique</a>
-        <a href={`${baseUrl}/contact`} class={`text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.endsWith('/contact') ? 'text-beaucharme-cream' : ''}`}>Contact</a>
-      </nav>
+    <!-- Cart (right) -->
+    <div class="absolute right-4">
       <CartButton client:load />
-      <!-- Mobile Menu Button -->
-      <button
-        data-menu-toggle
-        class="md:hidden p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
-        aria-label="Menu"
-      >
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
     </div>
   </div>
+
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
     <div class="flex flex-col space-y-2">
-      <a href={`${baseUrl}/notre-histoire`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
-      <a href={`${baseUrl}/nos-valeurs`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Valeurs</a>
-      <a href={`${baseUrl}/nos-produits`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Nos Produits</a>
-      <a href={`${baseUrl}/boutique`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Boutique</a>
-      <a href={`${baseUrl}/contact`} class="text-white font-medium py-2 hover:text-beaucharme-cream transition-colors">Contact</a>
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class={`text-white font-medium py-2 hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
+        >
+          {link.label}
+        </a>
+      ))}
     </div>
   </div>
 </header>
+
+<style>
+  .menu-content {
+    min-width: 300px;
+  }
+
+  .logo-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-container {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-link {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.3s ease;
+  }
+
+  /* Hover state - hide logo, show nav */
+  @media (min-width: 768px) {
+    .header-menu:hover .logo-container {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+    }
+
+    .header-menu:hover .nav-container {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .header-menu:hover .nav-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered animation for nav links */
+    .header-menu:hover .nav-link:nth-child(1) { transition-delay: 0.05s; }
+    .header-menu:hover .nav-link:nth-child(2) { transition-delay: 0.1s; }
+    .header-menu:hover .nav-link:nth-child(3) { transition-delay: 0.15s; }
+    .header-menu:hover .nav-link:nth-child(4) { transition-delay: 0.2s; }
+    .header-menu:hover .nav-link:nth-child(5) { transition-delay: 0.25s; }
+  }
+
+  /* Static header - always show nav, hide logo */
+  .header-static .logo-container {
+    display: none;
+  }
+
+  .header-static .nav-container {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .header-static .nav-link {
+    opacity: 1;
+    transform: none;
+  }
+</style>
 
 <script>
   const menuToggle = document.querySelector('[data-menu-toggle]');
