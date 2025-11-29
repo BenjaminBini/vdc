@@ -10,7 +10,6 @@ import HeroSection from '@components/HeroSection.astro';
 import Section from '@components/Section.astro';
 import SectionHeader from '@components/SectionHeader.astro';
 
-import champsLavande from '@images/champs-lavande.jpg';
 import formulation from '@images/formulation.jpg';
 import culture from '@images/culture.jpg';
 
@@ -22,12 +21,11 @@ const baseUrl = import.meta.env.BASE_URL;
     <Header />
 
     <HeroSection
-      image={champsLavande}
-      alt="Champs de lavande de la ferme Beaucharme"
+      bg="sage-dark"
       tagline="Ce qui nous guide"
       title="Nos Valeurs"
       subtitle="Authenticité, traçabilité et respect de l'environnement"
-      height="medium"
+      height="small"
     />
 
     <!-- Philosophie principale -->

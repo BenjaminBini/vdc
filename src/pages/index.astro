@@ -15,38 +15,7 @@ const baseUrl = import.meta.env.BASE_URL;
 <Layout title="Accueil" description="Beaucharme Cosmétique - De la graine au flacon. Cosmétiques naturels créés avec passion près de Vézelay, en Bourgogne.">
   <div class="h-screen flex flex-col overflow-auto">
     <!-- Header - Full width with contained content -->
-    <header class="mx-3 md:mx-4 lg:mx-5 mt-3 bg-beaucharme-sage shadow-md rounded-2xl">
-      <div class="container px-6 py-3 flex items-center justify-between relative">
-        <!-- Left nav -->
-        <nav class="hidden md:flex items-center space-x-6">
-          <a href={baseUrl || '/'} class="text-beaucharme-cream font-medium text-sm hover:text-beaucharme-cream transition-colors">Accueil</a>
-          <a href={`${baseUrl}/notre-histoire`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Notre Histoire</a>
-        </nav>
-
-        <!-- Center logo with brand name - always absolutely centered -->
-        <a href={baseUrl || '/'} class="flex items-center group absolute left-1/2 -translate-x-1/2">
-          <span class="text-white font-serif text-lg tracking-wide">beaucharme</span>
-          <Image
-            src={logo2}
-            alt="Beaucharme logo"
-            width={40}
-            height={40}
-            class="h-10 w-10 object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110 mx-3"
-          />
-          <span class="text-white font-serif text-lg tracking-wide">cosmétique</span>
-        </a>
-
-        <!-- Right nav + cart -->
-        <div class="flex items-center space-x-6">
-          <nav class="hidden md:flex items-center space-x-6">
-            <a href={`${baseUrl}/nos-produits`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Nos Produits</a>
-            <a href={`${baseUrl}/boutique`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Boutique</a>
-            <a href={`${baseUrl}/contact`} class="text-white font-medium text-sm hover:text-beaucharme-cream transition-colors">Contact</a>
-          </nav>
-          <CartButton client:load />
-        </div>
-      </div>
-    </header>
+ 
 
     <!-- Main Grid  -->
     <main class="flex-1 min-h-0 pt-3 pb-3 md:pb-4 lg:pb-5">
@@ -107,7 +76,8 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Block 6: Nos Fleurs -->
         <HeroCard
           href={`${baseUrl}/nos-fleurs`}
-          media={champsLavande}
+          media="/flowers-2.mp4"
+          mediaType="video"
           alt="Nos fleurs cultivées en Bourgogne"
           title="Nos fleurs"
           class="min-h-[170px] col-span-2 row-span-1"

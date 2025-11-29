@@ -11,6 +11,8 @@ import SectionHeader from '@components/SectionHeader.astro';
 import ImageCard from '@components/ImageCard.astro';
 import CheckList from '@components/CheckList.astro';
 
+import founders from '@images/founders.jpg';
+
 const baseUrl = import.meta.env.BASE_URL;
 ---
 
@@ -19,8 +21,7 @@ const baseUrl = import.meta.env.BASE_URL;
     <Header />
 
     <HeroSection
-      image="/images/farm-landscape.jpg"
-      alt="La ferme de Beaucharme"
+      bg="sage"
       tagline="Restons en contact"
       title="Contactez-nous"
       subtitle="Une question, une envie de visiter notre ferme ? Nous sommes là pour vous"
@@ -214,7 +215,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <ImageCard
-            image="/images/farm-landscape.jpg"
+            image={founders}
             alt="La ferme de Beaucharme"
             class="md:col-span-2 h-72 md:h-80"
           >
