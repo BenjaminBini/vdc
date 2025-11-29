@@ -46,7 +46,7 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="card-product group relative" data-animate="fade-up">
-      <a href={`/boutique#${product.id}`} className="block">
+      <a href={`/vdc/produit/${product.id}`} className="block">
         <div className="aspect-square overflow-hidden relative">
           <img
             src={product.image}

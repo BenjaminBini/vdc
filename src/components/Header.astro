@@ -16,8 +16,9 @@ const navLinks = [
   { href: `${baseUrl}/`, label: 'Accueil', match: '/' },
   { href: `${baseUrl}/notre-histoire`, label: 'Notre Histoire', match: '/notre-histoire' },
   { href: `${baseUrl}/nos-valeurs`, label: 'Nos Valeurs', match: '/nos-valeurs' },
-  { href: `${baseUrl}/nos-produits`, label: 'Nos Produits', match: '/nos-produits' },
+  { href: `${baseUrl}/de-la-fleur-au-flacon`, label: 'Notre processus', match: '/de-la-fleur-au-flacon' },
   { href: `${baseUrl}/nos-fleurs`, label: 'Nos Fleurs', match: '/nos-fleurs' },
+  { href: `${baseUrl}/nos-produits`, label: 'Nos Produits', match: '/nos-produits' },
   { href: `${baseUrl}/boutique`, label: 'Boutique', match: '/boutique' },
   { href: `${baseUrl}/contact`, label: 'Contact', match: '/contact' },
 ];
@@ -56,7 +57,7 @@ const navLinks = [
         {navLinks.map((link) => (
           <a
             href={link.href}
-            class={`nav-link text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
+            class={`nav-link text-center text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
           >
             {link.label}
           </a>
