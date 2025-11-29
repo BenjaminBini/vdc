@@ -22,16 +22,16 @@ const baseUrl = import.meta.env.BASE_URL;
 
 // Grid position classes for bento layout (10 plants)
 const gridClasses = [
-  'md:col-span-2 md:row-span-2',  // bourrache - large
-  'md:col-span-2',                 // cameline
-  'md:col-span-2',                 // camomille
-  'md:col-span-2',                 // carthame
-  'md:col-span-2 md:row-span-2',  // chanvre - large
-  'md:col-span-2',                 // laurier
-  'md:col-span-2',                 // lavandin
-  'md:col-span-2 md:row-span-2',  // menthe - large
-  'md:col-span-2',                 // sauge
-  'md:col-span-2',                 // tournesol
+  'sm:col-span-2 md:row-span-2',  // bourrache - large
+  'sm:col-span-2 md:col-span-2',  // cameline
+  'sm:col-span-2 md:col-span-2',  // camomille
+  'sm:col-span-2 md:col-span-2',  // carthame
+  'sm:col-span-2 md:row-span-2',  // chanvre - large
+  'sm:col-span-2 md:col-span-2',  // laurier
+  'sm:col-span-2 md:col-span-2',  // lavandin
+  'sm:col-span-2 md:row-span-2',  // menthe - large
+  'sm:col-span-2 md:col-span-2',  // sauge
+  'sm:col-span-2 md:col-span-2',  // tournesol
 ];
 ---
 
@@ -40,9 +40,9 @@ const gridClasses = [
     <Header />
 
     <!-- Bento Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
       <!-- Title Card -->
-      <div class="col-span-2 md:col-span-2 bg-beaucharme-sage rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+      <div class="sm:col-span-2 bg-beaucharme-sage rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
         <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">De notre ferme</p>
         <h1 class="font-serif text-3xl md:text-4xl font-bold mb-3">Nos Fleurs</h1>
         <p class="text-white/80 text-sm md:text-base">
@@ -70,7 +70,7 @@ const gridClasses = [
       })}
 
       <!-- CTA Card -->
-      <div class="col-span-2 md:col-span-2 bg-beaucharme-terracotta rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+      <div class="sm:col-span-2 bg-beaucharme-terracotta rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
         <h2 class="font-serif text-2xl font-semibold mb-3">De la fleur au flacon</h2>
         <p class="text-white/80 text-sm mb-4">
           Découvrez comment nous transformons nos plantes en cosmétiques naturels.

@@ -1,68 +1,67 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PageContainer from '../components/PageContainer.astro';
-import Section from '../components/Section.astro';
-import CartSidebar from '../components/CartSidebar.tsx';
+import type { ImageMetadata } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PageContainer from '@components/PageContainer.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+import HeroCard from '@components/HeroCard.astro';
+
+import huilesVegetales from '@images/huiles-vegetales.jpg';
+import huilesSoin from '@images/huiles-soin.jpg';
+import savons from '@images/savons.jpg';
+import cremesMains from '@images/cremes-mains.jpg';
+import eauxFlorales from '@images/eaux-florales.jpg';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const categories = [
+const categories: { id: string; name: string; tagline: string; image: ImageMetadata | string }[] = [
   {
     id: 'huiles-vegetales',
     name: 'Huiles végétales',
-    tagline: 'De la graine à la bouteille',
-    description: 'Nos huiles sont pressées à froid dans notre atelier, à partir de graines cultivées sur notre ferme. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles et cultivée sans pesticides.',
-    process: 'Semées au printemps, récoltées à maturité, puis pressées dans les jours qui suivent pour préserver tous leurs bienfaits.',
-    image: '/images/huiles-vegetales.jpg',
-    color: 'beaucharme-sage',
+    tagline: 'Pressées à froid',
+    image: huilesVegetales,
   },
   {
     id: 'huiles-soin',
     name: 'Huiles de soin',
     tagline: 'Formulations signature',
-    description: 'Nos huiles de soin sont des assemblages subtils de nos meilleures huiles végétales, enrichies de macérats de plantes et de vitamine E naturelle. Chaque formule est le fruit de longues recherches pour offrir le meilleur à votre peau.',
-    process: 'Nous mélangeons nos huiles avec précision dans notre laboratoire, puis les laissons maturer avant la mise en flacon.',
-    image: '/images/huiles-soin.jpg',
-    color: 'beaucharme-terracotta',
+    image: huilesSoin,
   },
   {
     id: 'savons',
     name: 'Savons surgras',
     tagline: 'Saponification à froid',
-    description: 'Nos savons sont fabriqués selon la méthode ancestrale de saponification à froid, qui préserve la glycérine naturelle et les propriétés de nos huiles. Enrichis à la cire d\'abeille de nos ruches pour une douceur incomparable.',
-    process: 'Chaque savon est coulé à la main, puis séché pendant 4 à 6 semaines avant d\'être prêt à l\'emploi.',
-    image: '/images/savons.jpg',
-    color: 'beaucharme-gold',
+    image: savons,
   },
   {
     id: 'cremes-mains',
     name: 'Crèmes mains',
     tagline: 'Sans eau, 100% actifs',
-    description: 'Une innovation dont nous sommes fiers : des crèmes mains sans eau ajoutée, conditionnées en tubes végétaux. La formule concentrée en actifs nourrit intensément sans laisser de film gras.',
-    process: 'Beurre de karité, cire d\'abeille et huiles précieuses sont fondus et émulsionnés à basse température.',
-    image: '/images/cremes-mains.jpg',
-    color: 'beaucharme-earth',
+    image: cremesMains,
   },
   {
     id: 'eaux-florales',
     name: 'Eaux florales',
     tagline: 'Distillation artisanale',
-    description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... des fleurs de notre jardin pour des soins frais et aromatiques.',
-    process: 'Les fleurs sont récoltées tôt le matin puis distillées le jour même pour capturer toute leur essence.',
-    image: '/images/eaux-florales.jpg',
-    color: 'beaucharme-sage',
+    image: eauxFlorales,
   },
   {
     id: 'coffrets',
     name: 'Coffrets',
-    tagline: 'L\'art d\'offrir',
-    description: 'Nos coffrets réunissent une sélection de nos meilleurs produits pour découvrir notre univers ou faire un cadeau qui a du sens. Chaque coffret est préparé avec soin dans notre atelier.',
-    process: 'Emballages en carton recyclé, rubans en coton bio... nous soignons chaque détail.',
+    tagline: "L'art d'offrir",
     image: 'https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png',
-    color: 'beaucharme-terracotta',
   },
+];
+
+// Grid classes for bento layout (6 categories)
+const gridClasses = [
+  'sm:col-span-2 md:row-span-2',  // huiles-vegetales - large
+  'sm:col-span-2 md:col-span-2',  // huiles-soin
+  'sm:col-span-2 md:col-span-2',  // savons
+  'sm:col-span-2 md:col-span-2',  // cremes-mains
+  'sm:col-span-2 md:row-span-2',  // eaux-florales - large
+  'sm:col-span-2 md:col-span-2',  // coffrets
 ];
 ---
 
@@ -70,85 +69,43 @@ const categories = [
   <PageContainer>
     <Header />
 
-    <main class="min-h-screen flex flex-col gap-8">
-      <!-- Hero Section -->
-      <Section bg="cream" padding="large">
-        <div class="container-custom">
-          <div class="max-w-3xl">
-            <p class="text-sm tracking-[0.2em] uppercase mb-4 text-beaucharme-terracotta">Nos produits</p>
-            <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-beaucharme-dark mb-6">
-              De la terre à votre peau
-            </h1>
-            <p class="text-lg text-beaucharme-earth leading-relaxed">
-              Chaque produit Beaucharme est le fruit d'un savoir-faire paysan et d'une transformation artisanale.
-              Découvrez nos différentes gammes et les secrets de leur fabrication.
-            </p>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
+      <!-- Title Card -->
+      <div class="sm:col-span-2 bg-beaucharme-sage rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+        <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">Nos produits</p>
+        <h1 class="font-serif text-3xl md:text-4xl font-bold mb-3">De la terre à votre peau</h1>
+        <p class="text-white/80 text-sm md:text-base">
+          Cosmétiques naturels créés avec passion, de la graine au flacon.
+        </p>
+      </div>
+
+      {categories.map((category, index) => (
+        <HeroCard
+          href={`${baseUrl}/nos-produits/${category.id}`}
+          media={category.image}
+          alt={category.name}
+          class={`min-h-[200px] ${gridClasses[index]}`}
+        >
+          <div class="absolute inset-0 bg-gradient-to-t from-beaucharme-dark/80 via-beaucharme-dark/20 to-transparent" />
+          <div class="absolute inset-0 p-5 md:p-6 flex flex-col justify-end">
+            <span class="text-white/60 text-xs uppercase tracking-wider">{category.tagline}</span>
+            <h3 class="font-serif text-xl md:text-2xl font-semibold text-white mt-1">{category.name}</h3>
           </div>
-        </div>
-      </Section>
+        </HeroCard>
+      ))}
 
-      <!-- Categories Grid -->
-      <Section bg="transparent" card={false} padding="none">
-        <div class="grid gap-8">
-            {categories.map((category, index) => (
-              <a
-                href={`${baseUrl}/nos-produits/${category.id}`}
-                class="group grid md:grid-cols-2 md:h-80 bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300"
-              >
-                <div class:list={["relative h-64 md:h-full overflow-hidden", index % 2 === 1 && 'md:order-2']}>
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div class={`absolute top-4 left-4 bg-${category.color} text-white text-xs uppercase tracking-wider px-3 py-1.5 rounded-full`}>
-                    {category.tagline}
-                  </div>
-                </div>
-
-                <div class="p-6 md:p-10 flex flex-col justify-center overflow-hidden">
-                  <h2 class="font-serif text-2xl md:text-3xl font-extrabold text-beaucharme-dark mb-4 group-hover:text-beaucharme-terracotta transition-colors">
-                    {category.name}
-                  </h2>
-                  <p class="text-beaucharme-earth mb-4 leading-relaxed line-clamp-3">
-                    {category.description}
-                  </p>
-                  <p class="text-sm text-beaucharme-earth/70 italic mb-6 line-clamp-2">
-                    {category.process}
-                  </p>
-                  <span class="inline-flex items-center text-beaucharme-terracotta font-medium group-hover:gap-3 transition-all">
-                    Découvrir la gamme
-                    <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                  </span>
-                </div>
-              </a>
-            ))}
-        </div>
-      </Section>
-
-      <!-- CTA Section -->
-      <Section bg="sage" padding="large"  card={true}>
-        <div class="container-custom text-center">
-          <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
-            Prêt à commander ?
-          </h2>
-          <p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Retrouvez tous nos produits dans notre boutique en ligne. Livraison soignée dans toute la France.
-          </p>
-          <a
-            href={`${baseUrl}/boutique`}
-            class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-medium hover:bg-beaucharme-cream transition-colors"
-          >
-            Accéder à la boutique
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-          </a>
-        </div>
-      </Section>
-    </main>
+      <!-- CTA Card -->
+      <div class="sm:col-span-2 bg-beaucharme-terracotta rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
+        <h2 class="font-serif text-2xl font-semibold mb-3">Prêt à commander ?</h2>
+        <p class="text-white/80 text-sm mb-4">
+          Retrouvez tous nos produits dans notre boutique en ligne.
+        </p>
+        <a href={`${baseUrl}/boutique`} class="inline-block bg-white text-beaucharme-terracotta px-6 py-2 rounded-full font-semibold text-sm hover:bg-beaucharme-cream transition-colors w-fit">
+          Accéder à la boutique
+        </a>
+      </div>
+    </div>
 
     <Footer />
     <CartSidebar client:load />
