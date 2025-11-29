@@ -1,9 +1,12 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   number: number;
   title: string;
   description: string;
-  image: string;
+  image: ImageMetadata | string;
   color?: 'sage' | 'terracotta' | 'gold' | 'sage-dark';
   reverse?: boolean;
 }
@@ -16,6 +19,8 @@ const {
   color = 'sage',
   reverse = false
 } = Astro.props;
+
+const isImportedImage = typeof image !== 'string';
 
 const colorClasses = {
   sage: 'bg-beaucharme-sage',
@@ -38,11 +43,23 @@ const colorClasses = {
     </div>
     <div class:list={[reverse ? "order-1" : "order-1 md:order-2"]}>
       <div class="aspect-square">
-        <img
-          src={image}
-          alt={title}
-          class="w-full h-full object-cover"
-        />
+        {isImportedImage ? (
+          <Image
+            src={image as ImageMetadata}
+            alt={title}
+            width={600}
+            height={600}
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <Image
+            src={image}
+            alt={title}
+            width={600}
+            height={600}
+            class="w-full h-full object-cover"
+          />
+        )}
       </div>
     </div>
   </div>

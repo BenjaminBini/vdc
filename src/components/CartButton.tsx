@@ -1,4 +1,4 @@
-import { useCart } from '../stores/cartStore';
+import { useCart } from '@stores/cartStore';
 
 export default function CartButton() {
   const { toggleCart, getItemCount } = useCart();

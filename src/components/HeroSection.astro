@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  image: string;
+  image: ImageMetadata | string;
   alt: string;
   title: string;
   subtitle?: string;
@@ -43,18 +46,29 @@ const textAlignClasses = {
   bottom: 'pb-12 md:pb-20'
 };
 
-// Prepend base URL for local assets
-const baseUrl = import.meta.env.BASE_URL;
-const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image}` : image;
+// Check if image is imported or a string URL
+const isImportedImage = typeof image !== 'string';
 ---
 
 <section class:list={["relative flex overflow-hidden rounded-2xl shadow-md", heightClasses[height], alignClasses[align]]}>
   <div class="absolute inset-0 z-0">
-    <img
-      src={imageUrl}
-      alt={alt}
-      class="w-full h-full object-cover"
-    />
+    {isImportedImage ? (
+      <Image
+        src={image as ImageMetadata}
+        alt={alt}
+        width={1920}
+        height={1080}
+        class="w-full h-full object-cover"
+      />
+    ) : (
+      <Image
+        src={image}
+        alt={alt}
+        width={1920}
+        height={1080}
+        class="w-full h-full object-cover"
+      />
+    )}
     <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
   </div>
 

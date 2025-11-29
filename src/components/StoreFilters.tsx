@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useFilters, type SortOption } from '../stores/filterStore';
+import { useFilters, type SortOption } from '@stores/filterStore';
 
 interface Category {
   id: string;

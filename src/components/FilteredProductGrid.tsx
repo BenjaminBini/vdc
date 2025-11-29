@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useFilters } from '../stores/filterStore';
-import { cartStore } from '../stores/cartStore';
+import { useFilters } from '@stores/filterStore';
+import { cartStore } from '@stores/cartStore';
 
 interface Product {
   id: string;

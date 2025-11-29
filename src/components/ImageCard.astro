@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  image: string;
+  image: ImageMetadata | string;
   alt: string;
   title?: string;
   subtitle?: string;
@@ -39,9 +42,8 @@ const overlayClasses = {
 
 const Tag = href ? 'a' : 'div';
 
-// Prepend base URL for local assets
-const baseUrl = import.meta.env.BASE_URL;
-const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}${image}` : image;
+// Check if image is imported or a string URL
+const isImportedImage = typeof image !== 'string';
 ---
 
 <Tag
@@ -54,11 +56,23 @@ const imageUrl = image.startsWith('/') && !image.startsWith('//') ? `${baseUrl}$
   ]}
   style={height ? `height: ${height}` : undefined}
 >
-  <img
-    src={imageUrl}
-    alt={alt}
-    class="w-full h-full object-cover"
-  />
+  {isImportedImage ? (
+    <Image
+      src={image as ImageMetadata}
+      alt={alt}
+      width={800}
+      height={600}
+      class="w-full h-full object-cover"
+    />
+  ) : (
+    <Image
+      src={image}
+      alt={alt}
+      width={800}
+      height={600}
+      class="w-full h-full object-cover"
+    />
+  )}
   {overlay !== 'none' && (
     <div class:list={["absolute inset-0", overlayClasses[overlay]]}></div>
   )}

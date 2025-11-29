@@ -1,7 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   href: string;
-  media?: string;
+  media?: ImageMetadata | string;
   mediaType?: 'image' | 'video';
   alt?: string;
   title?: string;
@@ -26,9 +29,12 @@ const {
 const hasSlot = Astro.slots.has('default');
 const overlayClass = typeof overlay === 'string' ? overlay : (overlay ? 'bg-beaucharme-dark/40' : '');
 
-// Prepend base URL for local assets
+// Handle media URL for videos (strings only)
 const baseUrl = import.meta.env.BASE_URL;
-const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${baseUrl}${media}` : media;
+const isImportedImage = media && typeof media !== 'string';
+const videoUrl = !isImportedImage && media && typeof media === 'string' && media.startsWith('/') && !media.startsWith('//')
+  ? `${baseUrl}${media}`
+  : media;
 ---
 
 <a
@@ -40,9 +46,9 @@ const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${
     className
   ]}
 >
-  {media && mediaType === 'video' && (
+  {media && mediaType === 'video' && typeof media === 'string' && (
     <video
-      src={mediaUrl}
+      src={videoUrl as string}
       muted
       loop
       playsinline
@@ -51,10 +57,22 @@ const mediaUrl = media && media.startsWith('/') && !media.startsWith('//') ? `${
     />
   )}
 
-  {media && mediaType === 'image' && (
-    <img
-      src={mediaUrl}
+  {media && mediaType === 'image' && isImportedImage && (
+    <Image
+      src={media as ImageMetadata}
       alt={alt}
+      width={800}
+      height={600}
+      class="w-full h-full object-cover"
+    />
+  )}
+
+  {media && mediaType === 'image' && !isImportedImage && typeof media === 'string' && (
+    <Image
+      src={media}
+      alt={alt}
+      width={800}
+      height={600}
       class="w-full h-full object-cover"
     />
   )}

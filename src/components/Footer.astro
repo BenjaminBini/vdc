@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '@images/logo.png';
+
 const baseUrl = import.meta.env.BASE_URL;
 ---
 
@@ -8,9 +11,11 @@ const baseUrl = import.meta.env.BASE_URL;
       <!-- Brand -->
       <div class="lg:col-span-1">
         <a href={baseUrl || '/'} class="flex justify-center mb-6">
-          <img
-            src={`${baseUrl}/logo.png`}
-            alt="Beaucharme"
+          <Image
+            src={logo}
+            alt="Beaucharme logo"
+            width={128}
+            height={128}
             class="h-32 object-contain brightness-0 invert"
           />
         </a>
@@ -94,12 +99,26 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <style>
   .footer-link {
-    @apply text-beaucharme-cream/80 hover:text-white transition-colors duration-300;
+    color: rgb(from var(--color-beaucharme-cream) r g b / 0.8);
+    transition: color 0.3s;
+  }
+  .footer-link:hover {
+    color: white;
   }
 
   .social-link {
-    @apply w-10 h-10 rounded-full bg-beaucharme-earth/30 flex items-center justify-center
-           text-beaucharme-cream hover:bg-beaucharme-terracotta hover:text-white
-           transition-all duration-300;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background-color: rgb(from var(--color-beaucharme-earth) r g b / 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-beaucharme-cream);
+    transition: all 0.3s;
+  }
+  .social-link:hover {
+    background-color: var(--color-beaucharme-terracotta);
+    color: white;
   }
 </style>
