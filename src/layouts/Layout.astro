@@ -34,13 +34,39 @@ const { title, description = "Beaucharme Cosmétique - De la graine au flacon" }
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('is-visible');
+            // Once visible, stop observing (animation plays only once)
+            observer.unobserve(entry.target);
           }
         });
       }, observerOptions);
 
-      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-        observer.observe(el);
+      // Function to observe all animatable elements
+      function observeAnimatedElements() {
+        document.querySelectorAll('[data-animate]:not(.is-visible)').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // Initial observation
+      observeAnimatedElements();
+
+      // Re-observe when React components hydrate (MutationObserver)
+      const mutationObserver = new MutationObserver((mutations) => {
+        let shouldObserve = false;
+        mutations.forEach((mutation) => {
+          if (mutation.addedNodes.length > 0) {
+            shouldObserve = true;
+          }
+        });
+        if (shouldObserve) {
+          observeAnimatedElements();
+        }
+      });
+
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true
       });
 
       // Handle add to cart button clicks (for Astro components that use data attributes)

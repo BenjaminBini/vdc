@@ -11,6 +11,7 @@ interface Props {
   aspectRatio?: 'square' | '4/3' | '3/4' | '16/9' | 'auto';
   height?: string;
   overlay?: 'bottom' | 'full' | 'none';
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
   class?: string;
 }
 
@@ -23,6 +24,7 @@ const {
   aspectRatio = 'auto',
   height,
   overlay = 'bottom',
+  animate = 'fade-up',
   class: className = ''
 } = Astro.props;
 
@@ -55,6 +57,7 @@ const isImportedImage = typeof image !== 'string';
     className
   ]}
   style={height ? `height: ${height}` : undefined}
+  data-animate={animate || undefined}
 >
   {isImportedImage ? (
     <Image

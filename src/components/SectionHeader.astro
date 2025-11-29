@@ -5,6 +5,7 @@ interface Props {
   subtitle?: string;
   align?: 'left' | 'center';
   variant?: 'dark' | 'light';
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   title,
   subtitle,
   align = 'center',
-  variant = 'dark'
+  variant = 'dark',
+  animate = 'fade-up'
 } = Astro.props;
 
 const alignClasses = {
@@ -36,7 +38,7 @@ const subtitleClasses = {
 };
 ---
 
-<div class:list={[alignClasses[align], "mb-12"]}>
+<div class:list={[alignClasses[align], "mb-12"]} data-animate={animate || undefined}>
   {tagline && (
     <p class:list={["text-sm tracking-[0.3em] uppercase mb-4", taglineClasses[variant]]}>
       {tagline}

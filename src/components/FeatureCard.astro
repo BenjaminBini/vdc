@@ -4,13 +4,15 @@ interface Props {
   description: string;
   iconColor?: 'sage' | 'terracotta' | 'gold' | 'white';
   variant?: 'default' | 'centered' | 'dark';
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
 }
 
 const {
   title,
   description,
   iconColor = 'sage',
-  variant = 'default'
+  variant = 'default',
+  animate = 'fade-up'
 } = Astro.props;
 
 const iconBgClasses = {
@@ -46,7 +48,7 @@ const descClasses = {
 };
 ---
 
-<div class:list={[variantClasses[variant], variant === 'default' && 'text-center']}>
+<div class:list={[variantClasses[variant], variant === 'default' && 'text-center']} data-animate={animate || undefined}>
   <div class:list={[
     "w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto",
     iconBgClasses[iconColor]

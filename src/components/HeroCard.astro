@@ -11,6 +11,7 @@ interface Props {
   titleSize?: 'small' | 'large';
   overlay?: boolean | string;
   bg?: string;
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
   class?: string;
 }
 
@@ -23,6 +24,7 @@ const {
   titleSize = 'small',
   overlay = false,
   bg,
+  animate = 'fade-up',
   class: className = ''
 } = Astro.props;
 
@@ -45,6 +47,7 @@ const videoUrl = !isImportedImage && media && typeof media === 'string' && media
     !media && 'flex items-center justify-center',
     className
   ]}
+  data-animate={animate || undefined}
 >
   {media && mediaType === 'video' && typeof media === 'string' && (
     <video

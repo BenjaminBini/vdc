@@ -12,9 +12,10 @@ interface Props {
   inStock?: boolean;
   badge?: string;
   featured?: boolean;
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
 }
 
-const { id, name, price, image, category, description, inStock = true, badge, featured } = Astro.props;
+const { id, name, price, image, category, description, inStock = true, badge, featured, animate = 'fade-up' } = Astro.props;
 
 const isImportedImage = typeof image !== 'string';
 
@@ -27,7 +28,7 @@ const productData = JSON.stringify({
 });
 ---
 
-<article class="card-product relative">
+<article class="card-product relative" data-animate={animate || undefined}>
   {!inStock && (
     <div class="absolute top-4 left-4 z-10">
       <span class="badge-out">Rupture de stock</span>

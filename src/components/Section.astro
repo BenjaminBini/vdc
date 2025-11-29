@@ -4,6 +4,7 @@ interface Props {
   card?: boolean;
   padding?: 'none' | 'small' | 'normal' | 'large';
   fullWidth?: boolean;
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
   class?: string;
 }
 
@@ -12,6 +13,7 @@ const {
   card = true,
   padding = 'normal',
   fullWidth = false,
+  animate = 'fade-up',
   class: className = ''
 } = Astro.props;
 
@@ -35,6 +37,9 @@ const cardClasses = card ? 'rounded-2xl shadow-md' : '';
 const fullWidthClasses = fullWidth ? 'relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen px-4 md:px-8 lg:px-16' : '';
 ---
 
-<section class:list={[bgClasses[bg], cardClasses, paddingClasses[padding], fullWidthClasses, className]}>
+<section
+  class:list={[bgClasses[bg], cardClasses, paddingClasses[padding], fullWidthClasses, className]}
+  data-animate={animate || undefined}
+>
   <slot />
 </section>
