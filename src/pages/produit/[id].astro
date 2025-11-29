@@ -1,0 +1,370 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import PageContainer from '@components/PageContainer.astro';
+import Section from '@components/Section.astro';
+import CartSidebar from '@components/CartSidebar.tsx';
+import productsData from '@data/products.json';
+import plantsData from '@data/plants.json';
+
+// Import product images
+const productImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/products/*.jpg', { eager: true });
+
+function getProductImage(imagePath: string): ImageMetadata | string {
+  if (imagePath.startsWith('http')) return imagePath;
+  const fileName = imagePath.split('/').pop();
+  const key = `/src/assets/images/products/${fileName}`;
+  return productImages[key]?.default || imagePath;
+}
+
+export function getStaticPaths() {
+  return productsData.products.map((product) => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+
+// Get category info
+const category = productsData.categories.find(c => c.id === product.category);
+
+// Get related products (same category, excluding current)
+const relatedProducts = productsData.products
+  .filter(p => p.category === product.category && p.id !== product.id)
+  .slice(0, 3);
+
+// Get plant info if product has plants
+const productPlants = product.plants?.map((plantId: string) =>
+  plantsData.find((p: any) => p.id === plantId)
+).filter(Boolean) || [];
+
+const productData = JSON.stringify({
+  id: product.id,
+  name: product.name,
+  price: product.price,
+  image: product.image,
+  category: product.category
+});
+
+const isImportedImage = !product.image.startsWith('http');
+const productImage = getProductImage(product.image);
+---
+
+<Layout title={product.name} description={product.description}>
+  <PageContainer>
+    <Header />
+
+    <main class="min-h-screen">
+      <!-- Product Hero -->
+      <section class="grid lg:grid-cols-2 gap-0 lg:gap-12 mb-12">
+        <!-- Image -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg bg-white" data-animate="fade-right">
+          <div class="aspect-square">
+            {typeof productImage === 'string' ? (
+              <img
+                src={productImage}
+                alt={product.name}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={productImage}
+                alt={product.name}
+                width={800}
+                height={800}
+                class="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          {product.badge && (
+            <div class="absolute top-6 left-6">
+              <span class="bg-beaucharme-terracotta text-white text-sm font-medium px-4 py-2 rounded-full">
+                {product.badge}
+              </span>
+            </div>
+          )}
+          {!product.inStock && (
+            <div class="absolute top-6 right-6">
+              <span class="bg-beaucharme-earth/80 text-white text-sm font-medium px-4 py-2 rounded-full">
+                Rupture de stock
+              </span>
+            </div>
+          )}
+        </div>
+
+        <!-- Product Info -->
+        <div class="flex flex-col justify-center py-8 lg:py-12" data-animate="fade-left">
+          <!-- Breadcrumb -->
+          <nav class="mb-6">
+            <ol class="flex items-center gap-2 text-sm text-beaucharme-earth/70">
+              <li>
+                <a href={`${baseUrl}/boutique`} class="hover:text-beaucharme-terracotta transition-colors">
+                  Boutique
+                </a>
+              </li>
+              <li>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </li>
+              <li>
+                <a href={`${baseUrl}/nos-produits/${product.category}`} class="hover:text-beaucharme-terracotta transition-colors">
+                  {category?.name}
+                </a>
+              </li>
+            </ol>
+          </nav>
+
+          <!-- Category -->
+          <p class="text-sm tracking-[0.2em] uppercase text-beaucharme-terracotta mb-3">
+            {category?.name}
+          </p>
+
+          <!-- Title -->
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-beaucharme-dark mb-6">
+            {product.name}
+          </h1>
+
+          <!-- Description -->
+          <p class="text-lg text-beaucharme-earth leading-relaxed mb-8 max-w-xl">
+            {product.description}
+          </p>
+
+          <!-- Price -->
+          <div class="mb-8">
+            <span class="font-serif text-4xl font-bold text-beaucharme-dark">
+              {product.price.toFixed(2).replace('.', ',')} €
+            </span>
+          </div>
+
+          <!-- Add to Cart -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            {product.inStock ? (
+              <button
+                data-add-to-cart
+                data-product={productData}
+                class="btn-primary text-lg px-12 py-5 flex items-center justify-center gap-3"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                </svg>
+                Ajouter au panier
+              </button>
+            ) : (
+              <button
+                disabled
+                class="bg-gray-300 text-gray-500 text-lg px-12 py-5 rounded-sm font-medium cursor-not-allowed"
+              >
+                Indisponible
+              </button>
+            )}
+          </div>
+
+          <!-- Features -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex items-center gap-3 text-beaucharme-earth">
+              <div class="w-10 h-10 rounded-full bg-beaucharme-sage/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <span class="text-sm">Fabriqué en France</span>
+            </div>
+            <div class="flex items-center gap-3 text-beaucharme-earth">
+              <div class="w-10 h-10 rounded-full bg-beaucharme-sage/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <span class="text-sm">Expédition 24-48h</span>
+            </div>
+            <div class="flex items-center gap-3 text-beaucharme-earth">
+              <div class="w-10 h-10 rounded-full bg-beaucharme-sage/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </div>
+              <span class="text-sm">100% naturel</span>
+            </div>
+            <div class="flex items-center gap-3 text-beaucharme-earth">
+              <div class="w-10 h-10 rounded-full bg-beaucharme-sage/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <span class="text-sm">Sans additifs</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ingredients Section -->
+      <Section bg="cream" padding="large" class="mb-8">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12" data-animate="fade-up">
+            <p class="text-sm tracking-[0.2em] uppercase text-beaucharme-terracotta mb-3">Composition</p>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-beaucharme-dark">
+              Ingrédients naturels
+            </h2>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {product.ingredients.map((ingredient: string, index: number) => (
+              <div
+                class="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4"
+                data-animate="fade-up"
+              >
+                <div class="w-12 h-12 rounded-full bg-beaucharme-sage/20 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                  </svg>
+                </div>
+                <span class="text-beaucharme-dark font-medium">{ingredient}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <!-- Plants Section (if applicable) -->
+      {productPlants.length > 0 && (
+        <Section bg="transparent" padding="normal" card={false} class="mb-8">
+          <div class="text-center mb-12" data-animate="fade-up">
+            <p class="text-sm tracking-[0.2em] uppercase text-beaucharme-terracotta mb-3">De notre ferme</p>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-beaucharme-dark">
+              Plantes utilisées
+            </h2>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {productPlants.map((plant: any) => (
+              <a
+                href={`${baseUrl}/nos-fleurs/${plant.id}`}
+                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                data-animate="fade-up"
+              >
+                <div class="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={plant.image}
+                    alt={plant.name}
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <div class="p-6">
+                  <p class="text-xs italic text-beaucharme-earth/60 mb-1">{plant.latinName}</p>
+                  <h3 class="font-serif text-xl font-semibold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors">
+                    {plant.name}
+                  </h3>
+                  <p class="text-sm text-beaucharme-earth/80 mt-2 line-clamp-2">
+                    {plant.shortDescription}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      <!-- Related Products -->
+      {relatedProducts.length > 0 && (
+        <Section bg="white" padding="large" class="mb-8">
+          <div class="text-center mb-12" data-animate="fade-up">
+            <p class="text-sm tracking-[0.2em] uppercase text-beaucharme-terracotta mb-3">Découvrir aussi</p>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold text-beaucharme-dark">
+              Produits similaires
+            </h2>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {relatedProducts.map((relatedProduct: any) => {
+              const relatedImage = getProductImage(relatedProduct.image);
+              return (
+                <a
+                  href={`${baseUrl}/produit/${relatedProduct.id}`}
+                  class="group bg-beaucharme-cream rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                  data-animate="fade-up"
+                >
+                  <div class="aspect-square overflow-hidden">
+                    {typeof relatedImage === 'string' ? (
+                      <img
+                        src={relatedImage}
+                        alt={relatedProduct.name}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <Image
+                        src={relatedImage}
+                        alt={relatedProduct.name}
+                        width={400}
+                        height={400}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    )}
+                  </div>
+                  <div class="p-6">
+                    <h3 class="font-serif text-xl font-semibold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors mb-2">
+                      {relatedProduct.name}
+                    </h3>
+                    <p class="text-sm text-beaucharme-earth/80 line-clamp-2 mb-4">
+                      {relatedProduct.description}
+                    </p>
+                    <span class="font-serif text-xl font-bold text-beaucharme-dark">
+                      {relatedProduct.price.toFixed(2).replace('.', ',')} €
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+
+          <div class="text-center mt-12">
+            <a
+              href={`${baseUrl}/nos-produits/${product.category}`}
+              class="inline-flex items-center text-beaucharme-terracotta font-medium hover:gap-3 transition-all"
+            >
+              Voir tous les {category?.name.toLowerCase()}
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </div>
+        </Section>
+      )}
+
+      <!-- CTA Section -->
+      <Section bg="sage" padding="large" animate="zoom-in">
+        <div class="text-center text-white">
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">
+            Une question sur ce produit ?
+          </h2>
+          <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+            Nous sommes là pour vous conseiller et répondre à toutes vos interrogations.
+          </p>
+          <a
+            href={`${baseUrl}/contact`}
+            class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-medium hover:bg-beaucharme-cream transition-colors"
+          >
+            Nous contacter
+          </a>
+        </div>
+      </Section>
+    </main>
+
+    <Footer />
+    <CartSidebar client:load />
+  </PageContainer>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
