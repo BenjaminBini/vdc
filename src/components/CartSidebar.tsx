@@ -22,11 +22,10 @@ export default function CartSidebar() {
 
   return (
     <>
-      {/* Sidebar - translate-x-full is the default (closed) state */}
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-full md:w-[450px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ${
-          isOpen ? "translate-x-0!" : ""
-        }`}
+        className="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white shadow-2xl z-50 transition-transform duration-300"
+        style={{ transform: isOpen ? "translateX(0)" : "translateX(100%)" }}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
@@ -208,11 +207,13 @@ export default function CartSidebar() {
         </div>
       </div>
 
-      {/* Overlay - hidden by default */}
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 ${
-          isOpen ? "!opacity-100 !pointer-events-auto" : ""
-        }`}
+        className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+        style={{
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
         onClick={closeCart}
       />
     </>

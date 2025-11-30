@@ -1,4 +1,4 @@
-import { useSyncExternalStore, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface CartItem {
   id: string;
@@ -14,21 +14,7 @@ interface CartState {
 }
 
 const STORAGE_KEY = 'beaucharme-cart';
-
-// Server-safe initial state (never changes during SSR)
-const emptyState: CartState = {
-  items: [],
-  isOpen: false,
-};
-
-let state: CartState = { ...emptyState };
-let isInitialized = false;
-
-const listeners = new Set<() => void>();
-
-function emitChange() {
-  listeners.forEach((listener) => listener());
-}
+const CART_EVENT = 'beaucharme-cart-change';
 
 function loadFromStorage(): CartItem[] {
   if (typeof window === 'undefined') return [];
@@ -45,142 +31,109 @@ function saveToStorage(items: CartItem[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
 
-export const cartStore = {
-  subscribe(listener: () => void) {
-    listeners.add(listener);
-    return () => listeners.delete(listener);
-  },
+const emptyState: CartState = { items: [], isOpen: false };
 
-  getSnapshot(): CartState {
-    return state;
-  },
+function getState(): CartState {
+  if (typeof window === 'undefined') return emptyState;
+  return (window as any).__beaucharmeCartState || emptyState;
+}
 
-  getServerSnapshot(): CartState {
-    return emptyState;
-  },
+function setState(newState: CartState) {
+  if (typeof window === 'undefined') return;
+  (window as any).__beaucharmeCartState = newState;
+  window.dispatchEvent(new CustomEvent(CART_EVENT));
+}
 
-  // Call this after hydration to load from localStorage
-  initialize() {
-    if (!isInitialized && typeof window !== 'undefined') {
-      isInitialized = true;
-      const items = loadFromStorage();
-      if (items.length > 0) {
-        state = { ...state, items };
-        emitChange();
-      }
-    }
-  },
+function initializeCart() {
+  if (typeof window === 'undefined') return;
+  if (!(window as any).__beaucharmeCartInitialized) {
+    (window as any).__beaucharmeCartInitialized = true;
+    const items = loadFromStorage();
+    (window as any).__beaucharmeCartState = { items, isOpen: false };
+    window.dispatchEvent(new CustomEvent(CART_EVENT));
+  }
+}
 
-  openCart() {
-    state = { ...state, isOpen: true };
-    document.body.classList.add('overflow-hidden');
-    emitChange();
-  },
+export function useCart() {
+  const [state, setLocalState] = useState<CartState>(emptyState);
 
-  closeCart() {
-    state = { ...state, isOpen: false };
-    document.body.classList.remove('overflow-hidden');
-    emitChange();
-  },
+  useEffect(() => {
+    // Initialize cart from localStorage (only once globally)
+    initializeCart();
 
-  toggleCart() {
-    if (state.isOpen) {
-      cartStore.closeCart();
-    } else {
-      cartStore.openCart();
-    }
-  },
+    // Sync local state with global state
+    setLocalState({ ...getState() });
 
-  addItem(product: Omit<CartItem, 'quantity'>) {
-    // Ensure initialized before adding
-    if (!isInitialized) cartStore.initialize();
+    // Listen for changes from other components
+    const handleChange = () => setLocalState({ ...getState() });
+    window.addEventListener(CART_EVENT, handleChange);
+    return () => window.removeEventListener(CART_EVENT, handleChange);
+  }, []);
 
-    const existing = state.items.find((item) => item.id === product.id);
+  const openCart = () => {
+    setState({ ...getState(), isOpen: true });
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeCart = () => {
+    setState({ ...getState(), isOpen: false });
+    document.body.style.overflow = '';
+  };
+
+  const addItem = (product: Omit<CartItem, 'quantity'>) => {
+    const current = getState();
+    const existing = current.items.find((item) => item.id === product.id);
     let newItems: CartItem[];
 
     if (existing) {
-      newItems = state.items.map((item) =>
+      newItems = current.items.map((item) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
     } else {
-      newItems = [...state.items, { ...product, quantity: 1 }];
+      newItems = [...current.items, { ...product, quantity: 1 }];
     }
 
-    state = { ...state, items: newItems };
+    setState({ ...current, items: newItems });
     saveToStorage(newItems);
-    emitChange();
-  },
+  };
 
-  removeItem(productId: string) {
-    const newItems = state.items.filter((item) => item.id !== productId);
-    state = { ...state, items: newItems };
+  const removeItem = (productId: string) => {
+    const current = getState();
+    const newItems = current.items.filter((item) => item.id !== productId);
+    setState({ ...current, items: newItems });
     saveToStorage(newItems);
-    emitChange();
-  },
+  };
 
-  updateQuantity(productId: string, quantity: number) {
+  const updateQuantity = (productId: string, quantity: number) => {
     if (quantity <= 0) {
-      cartStore.removeItem(productId);
+      removeItem(productId);
       return;
     }
-
-    const newItems = state.items.map((item) =>
+    const current = getState();
+    const newItems = current.items.map((item) =>
       item.id === productId ? { ...item, quantity } : item
     );
-    state = { ...state, items: newItems };
+    setState({ ...current, items: newItems });
     saveToStorage(newItems);
-    emitChange();
-  },
+  };
 
-  getTotal(): number {
+  const getTotal = () => {
     return state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  },
+  };
 
-  getItemCount(): number {
+  const getItemCount = () => {
     return state.items.reduce((sum, item) => sum + item.quantity, 0);
-  },
-
-  clear() {
-    state = { ...state, items: [] };
-    saveToStorage([]);
-    emitChange();
-  },
-};
-
-export function useCart() {
-  // Track if we're mounted (client-side)
-  const [isMounted, setIsMounted] = useState(false);
-
-  const cartState = useSyncExternalStore(
-    cartStore.subscribe,
-    cartStore.getSnapshot,
-    cartStore.getServerSnapshot
-  );
-
-  // Initialize from localStorage after mount
-  useEffect(() => {
-    cartStore.initialize();
-    setIsMounted(true);
-  }, []);
-
-  // Return empty state during SSR/hydration to match server
-  const safeState = isMounted ? cartState : emptyState;
+  };
 
   return {
-    ...safeState,
-    openCart: cartStore.openCart,
-    closeCart: cartStore.closeCart,
-    toggleCart: cartStore.toggleCart,
-    addItem: cartStore.addItem,
-    removeItem: cartStore.removeItem,
-    updateQuantity: cartStore.updateQuantity,
-    getTotal: isMounted ? cartStore.getTotal : () => 0,
-    getItemCount: isMounted ? cartStore.getItemCount : () => 0,
-    clear: cartStore.clear,
+    items: state.items,
+    isOpen: state.isOpen,
+    openCart,
+    closeCart,
+    addItem,
+    removeItem,
+    updateQuantity,
+    getTotal,
+    getItemCount,
   };
-}
-
-// Make cart available globally for non-React components
-if (typeof window !== 'undefined') {
-  (window as any).beaucharmeCart = cartStore;
 }

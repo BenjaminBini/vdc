@@ -1,12 +1,12 @@
 import { useCart } from '@stores/cartStore';
 
 export default function CartButton() {
-  const { toggleCart, getItemCount } = useCart();
+  const { openCart, getItemCount } = useCart();
   const itemCount = getItemCount();
 
   return (
     <button
-      onClick={toggleCart}
+      onClick={openCart}
       className="relative p-2 hover:bg-beaucharme-sage-dark rounded-full transition-colors duration-300 cursor-pointer"
       aria-label="Panier"
     >

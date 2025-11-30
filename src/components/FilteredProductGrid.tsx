@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from 'react';
 import { useFilters } from '@stores/filterStore';
-import { useCart, cartStore } from '@stores/cartStore';
+import { useCart } from '@stores/cartStore';
 
 interface Product {
   id: string;
@@ -35,12 +35,12 @@ interface FilteredProductGridProps {
 }
 
 function ProductCard({ product }: { product: Product }) {
-  const { items, updateQuantity } = useCart();
+  const { items, addItem, updateQuantity } = useCart();
   const cartItem = items.find((item) => item.id === product.id);
   const quantity = cartItem?.quantity || 0;
 
   const handleAddToCart = () => {
-    cartStore.addItem({
+    addItem({
       id: product.id,
       name: product.name,
       price: product.price,
