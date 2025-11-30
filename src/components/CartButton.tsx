@@ -7,7 +7,7 @@ export default function CartButton() {
   return (
     <button
       onClick={toggleCart}
-      className="relative p-2 hover:bg-beaucharme-sage-dark rounded-full transition-colors duration-300"
+      className="relative p-2 hover:bg-beaucharme-sage-dark rounded-full transition-colors duration-300 cursor-pointer"
       aria-label="Panier"
     >
       <svg

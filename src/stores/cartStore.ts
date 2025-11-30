@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, useEffect, useState } from 'react';
 
 export interface CartItem {
   id: string;
@@ -15,10 +15,14 @@ interface CartState {
 
 const STORAGE_KEY = 'beaucharme-cart';
 
-let state: CartState = {
+// Server-safe initial state (never changes during SSR)
+const emptyState: CartState = {
   items: [],
   isOpen: false,
 };
+
+let state: CartState = { ...emptyState };
+let isInitialized = false;
 
 const listeners = new Set<() => void>();
 
@@ -28,18 +32,17 @@ function emitChange() {
 
 function loadFromStorage(): CartItem[] {
   if (typeof window === 'undefined') return [];
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : [];
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
 }
 
 function saveToStorage(items: CartItem[]) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-}
-
-// Initialize from localStorage
-if (typeof window !== 'undefined') {
-  state.items = loadFromStorage();
 }
 
 export const cartStore = {
@@ -53,7 +56,19 @@ export const cartStore = {
   },
 
   getServerSnapshot(): CartState {
-    return { items: [], isOpen: false };
+    return emptyState;
+  },
+
+  // Call this after hydration to load from localStorage
+  initialize() {
+    if (!isInitialized && typeof window !== 'undefined') {
+      isInitialized = true;
+      const items = loadFromStorage();
+      if (items.length > 0) {
+        state = { ...state, items };
+        emitChange();
+      }
+    }
   },
 
   openCart() {
@@ -77,6 +92,9 @@ export const cartStore = {
   },
 
   addItem(product: Omit<CartItem, 'quantity'>) {
+    // Ensure initialized before adding
+    if (!isInitialized) cartStore.initialize();
+
     const existing = state.items.find((item) => item.id === product.id);
     let newItems: CartItem[];
 
@@ -130,22 +148,34 @@ export const cartStore = {
 };
 
 export function useCart() {
+  // Track if we're mounted (client-side)
+  const [isMounted, setIsMounted] = useState(false);
+
   const cartState = useSyncExternalStore(
     cartStore.subscribe,
     cartStore.getSnapshot,
     cartStore.getServerSnapshot
   );
 
+  // Initialize from localStorage after mount
+  useEffect(() => {
+    cartStore.initialize();
+    setIsMounted(true);
+  }, []);
+
+  // Return empty state during SSR/hydration to match server
+  const safeState = isMounted ? cartState : emptyState;
+
   return {
-    ...cartState,
+    ...safeState,
     openCart: cartStore.openCart,
     closeCart: cartStore.closeCart,
     toggleCart: cartStore.toggleCart,
     addItem: cartStore.addItem,
     removeItem: cartStore.removeItem,
     updateQuantity: cartStore.updateQuantity,
-    getTotal: cartStore.getTotal,
-    getItemCount: cartStore.getItemCount,
+    getTotal: isMounted ? cartStore.getTotal : () => 0,
+    getItemCount: isMounted ? cartStore.getItemCount : () => 0,
     clear: cartStore.clear,
   };
 }

@@ -1,22 +1,23 @@
-import { useEffect } from 'react';
-import { useCart } from '@stores/cartStore';
+import { useEffect } from "react";
+import { useCart } from "@stores/cartStore";
 
 export default function CartSidebar() {
-  const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } = useCart();
+  const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } =
+    useCart();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         closeCart();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, closeCart]);
 
   const formatPrice = (price: number) => {
-    return price.toFixed(2).replace('.', ',') + ' €';
+    return price.toFixed(2).replace(".", ",") + " €";
   };
 
   return (
@@ -24,7 +25,7 @@ export default function CartSidebar() {
       {/* Sidebar - translate-x-full is the default (closed) state */}
       <div
         className={`fixed top-0 right-0 h-full w-full md:w-[450px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ${
-          isOpen ? '!translate-x-0' : ''
+          isOpen ? "translate-x-0!" : ""
         }`}
       >
         <div className="flex flex-col h-full">
@@ -38,7 +39,12 @@ export default function CartSidebar() {
               className="p-2 hover:bg-beaucharme-cream rounded-full transition-colors duration-300"
               aria-label="Fermer"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -66,8 +72,12 @@ export default function CartSidebar() {
                     d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                   />
                 </svg>
-                <p className="text-beaucharme-earth text-lg mb-2">Votre panier est vide</p>
-                <p className="text-beaucharme-earth/70 text-sm">Découvrez nos produits naturels</p>
+                <p className="text-beaucharme-earth text-lg mb-2">
+                  Votre panier est vide
+                </p>
+                <p className="text-beaucharme-earth/70 text-sm">
+                  Découvrez nos produits naturels
+                </p>
               </div>
             ) : (
               items.map((item) => (
@@ -81,7 +91,9 @@ export default function CartSidebar() {
                     className="w-24 h-24 object-cover rounded-sm"
                   />
                   <div className="flex-1">
-                    <h3 className="font-medium text-beaucharme-dark mb-1">{item.name}</h3>
+                    <h3 className="font-medium text-beaucharme-dark mb-1">
+                      {item.name}
+                    </h3>
                     <p className="text-sm text-beaucharme-earth/70 mb-3">
                       {formatPrice(item.price)}
                     </p>
@@ -89,7 +101,9 @@ export default function CartSidebar() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2 border border-beaucharme-beige rounded-sm">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity - 1)
+                          }
                           className="px-3 py-1 hover:bg-beaucharme-cream transition-colors duration-300"
                           aria-label="Diminuer"
                         >
@@ -107,9 +121,13 @@ export default function CartSidebar() {
                             />
                           </svg>
                         </button>
-                        <span className="px-3 font-medium">{item.quantity}</span>
+                        <span className="px-3 font-medium">
+                          {item.quantity}
+                        </span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
                           className="px-3 py-1 hover:bg-beaucharme-cream transition-colors duration-300"
                           aria-label="Augmenter"
                         >
@@ -159,7 +177,9 @@ export default function CartSidebar() {
           <div className="border-t border-beaucharme-beige p-6 bg-beaucharme-cream/30">
             <div className="space-y-4">
               <div className="flex justify-between items-center text-lg">
-                <span className="font-medium text-beaucharme-dark">Sous-total</span>
+                <span className="font-medium text-beaucharme-dark">
+                  Sous-total
+                </span>
                 <span className="font-serif text-2xl font-semibold text-beaucharme-dark">
                   {formatPrice(getTotal())}
                 </span>
@@ -172,7 +192,7 @@ export default function CartSidebar() {
               <button
                 onClick={() =>
                   alert(
-                    'Merci pour votre commande ! Cette fonctionnalité sera bientôt disponible. (Interface de démonstration)'
+                    "Merci pour votre commande ! Cette fonctionnalité sera bientôt disponible. (Interface de démonstration)"
                   )
                 }
                 className="w-full btn-primary"
@@ -191,7 +211,7 @@ export default function CartSidebar() {
       {/* Overlay - hidden by default */}
       <div
         className={`fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 ${
-          isOpen ? '!opacity-100 !pointer-events-auto' : ''
+          isOpen ? "!opacity-100 !pointer-events-auto" : ""
         }`}
         onClick={closeCart}
       />

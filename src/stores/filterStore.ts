@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, useState, useEffect } from 'react';
 
 export type SortOption = 'default' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc';
 
@@ -14,7 +14,8 @@ export interface FilterState {
 const DEFAULT_PRICE_MIN = 0;
 const DEFAULT_PRICE_MAX = 100;
 
-let state: FilterState = {
+// Cached empty state for SSR - must be same reference
+const emptyState: FilterState = {
   categories: [],
   plants: [],
   priceRange: [DEFAULT_PRICE_MIN, DEFAULT_PRICE_MAX],
@@ -22,6 +23,8 @@ let state: FilterState = {
   sortBy: 'default',
   searchQuery: '',
 };
+
+let state: FilterState = { ...emptyState };
 
 const listeners = new Set<() => void>();
 
@@ -40,14 +43,7 @@ export const filterStore = {
   },
 
   getServerSnapshot(): FilterState {
-    return {
-      categories: [],
-      plants: [],
-      priceRange: [DEFAULT_PRICE_MIN, DEFAULT_PRICE_MAX],
-      inStockOnly: false,
-      sortBy: 'default',
-      searchQuery: '',
-    };
+    return emptyState;
   },
 
   setCategories(categories: string[]) {
@@ -121,14 +117,23 @@ export const filterStore = {
 };
 
 export function useFilters() {
+  const [isMounted, setIsMounted] = useState(false);
+
   const filterState = useSyncExternalStore(
     filterStore.subscribe,
     filterStore.getSnapshot,
     filterStore.getServerSnapshot
   );
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Return empty state during SSR/hydration to match server
+  const safeState = isMounted ? filterState : emptyState;
+
   return {
-    ...filterState,
+    ...safeState,
     setCategories: filterStore.setCategories,
     toggleCategory: filterStore.toggleCategory,
     setPlants: filterStore.setPlants,
@@ -138,7 +143,7 @@ export function useFilters() {
     setSortBy: filterStore.setSortBy,
     setSearchQuery: filterStore.setSearchQuery,
     resetFilters: filterStore.resetFilters,
-    hasActiveFilters: filterStore.hasActiveFilters,
+    hasActiveFilters: isMounted ? filterStore.hasActiveFilters : () => false,
   };
 }
 
