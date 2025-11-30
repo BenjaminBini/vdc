@@ -6,6 +6,8 @@ import HeroCard from '@components/HeroCard.astro';
 import VideoToggle from '@components/VideoToggle.tsx';
 
 import logo from '@images/logo.png';
+import produitsImg from '@images/produits.webp';
+import boutiqueImg from '@images/boutique.webp';
 
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -43,7 +45,7 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Block 2: Nos Produits -->
         <HeroCard
           href={`${baseUrl}/nos-produits`}
-          media="https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png"
+          media={produitsImg}
           alt="Nos produits cosmétiques naturels"
           title="Nos produits"
           class="min-h-[170px] lg:col-span-2"
@@ -52,7 +54,7 @@ const baseUrl = import.meta.env.BASE_URL;
         <!-- Block 3: Notre Boutique -->
         <HeroCard
           href={`${baseUrl}/boutique`}
-          media="https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png"
+          media={boutiqueImg}
           alt="Coffret cadeau élégant"
           title="Notre boutique"
           class="min-h-[170px] lg:col-span-2"
