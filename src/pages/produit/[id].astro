@@ -7,6 +7,7 @@ import Footer from '@components/Footer.astro';
 import PageContainer from '@components/PageContainer.astro';
 import Section from '@components/Section.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
+import ProductAddToCart from '@components/ProductAddToCart.tsx';
 import productsData from '@data/products.json';
 import plantsData from '@data/plants.json';
 
@@ -43,15 +44,6 @@ const productPlants = product.plants?.map((plantId: string) =>
   plantsData.find((p: any) => p.id === plantId)
 ).filter(Boolean) || [];
 
-const productData = JSON.stringify({
-  id: product.id,
-  name: product.name,
-  price: product.price,
-  image: product.image,
-  category: product.category
-});
-
-const isImportedImage = !product.image.startsWith('http');
 const productImage = getProductImage(product.image);
 ---
 
@@ -61,26 +53,24 @@ const productImage = getProductImage(product.image);
 
     <main class="min-h-screen">
       <!-- Product Hero -->
-      <section class="grid lg:grid-cols-2 gap-0 lg:gap-12 mb-12">
+      <section class="grid lg:grid-cols-2 gap-0 lg:gap-12 mb-12 items-center">
         <!-- Image -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg bg-white" data-animate="fade-right">
-          <div class="aspect-square">
-            {typeof productImage === 'string' ? (
-              <img
-                src={productImage}
-                alt={product.name}
-                class="w-full h-full object-cover"
-              />
-            ) : (
-              <Image
-                src={productImage}
-                alt={product.name}
-                width={800}
-                height={800}
-                class="w-full h-full object-cover"
-              />
-            )}
-          </div>
+        <div class="relative aspect-square rounded-2xl overflow-hidden shadow-lg" data-animate="fade-right">
+          {typeof productImage === 'string' ? (
+            <img
+              src={productImage}
+              alt={product.name}
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={productImage}
+              alt={product.name}
+              width={800}
+              height={800}
+              class="w-full h-full object-cover"
+            />
+          )}
           {product.badge && (
             <div class="absolute top-6 left-6">
               <span class="bg-beaucharme-terracotta text-white text-sm font-medium px-4 py-2 rounded-full">
@@ -144,25 +134,16 @@ const productImage = getProductImage(product.image);
 
           <!-- Add to Cart -->
           <div class="flex flex-col sm:flex-row gap-4 mb-8">
-            {product.inStock ? (
-              <button
-                data-add-to-cart
-                data-product={productData}
-                class="btn-primary text-lg px-12 py-5 flex items-center justify-center gap-3"
-              >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                </svg>
-                Ajouter au panier
-              </button>
-            ) : (
-              <button
-                disabled
-                class="bg-gray-300 text-gray-500 text-lg px-12 py-5 rounded-sm font-medium cursor-not-allowed"
-              >
-                Indisponible
-              </button>
-            )}
+            <ProductAddToCart
+              client:load
+              product={{
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image
+              }}
+              inStock={product.inStock}
+            />
           </div>
 
           <!-- Features -->
@@ -213,7 +194,7 @@ const productImage = getProductImage(product.image);
             </h2>
           </div>
 
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
             {product.ingredients.map((ingredient: string, index: number) => (
               <div
                 class="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4"
@@ -272,8 +253,8 @@ const productImage = getProductImage(product.image);
 
       <!-- Related Products -->
       {relatedProducts.length > 0 && (
-        <Section bg="white" padding="large" class="mb-8">
-          <div class="text-center mb-12" data-animate="fade-up">
+        <section class="mb-12">
+          <div class="text-center mb-8" data-animate="fade-up">
             <p class="text-sm tracking-[0.2em] uppercase text-beaucharme-terracotta mb-3">Découvrir aussi</p>
             <h2 class="font-serif text-3xl md:text-4xl font-bold text-beaucharme-dark">
               Produits similaires
@@ -286,7 +267,7 @@ const productImage = getProductImage(product.image);
               return (
                 <a
                   href={`${baseUrl}/produit/${relatedProduct.id}`}
-                  class="group bg-beaucharme-cream rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                  class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                   data-animate="fade-up"
                 >
                   <div class="aspect-square overflow-hidden">
@@ -322,7 +303,7 @@ const productImage = getProductImage(product.image);
             })}
           </div>
 
-          <div class="text-center mt-12">
+          <div class="text-center mt-8">
             <a
               href={`${baseUrl}/nos-produits/${product.category}`}
               class="inline-flex items-center text-beaucharme-terracotta font-medium hover:gap-3 transition-all"
@@ -333,7 +314,7 @@ const productImage = getProductImage(product.image);
               </svg>
             </a>
           </div>
-        </Section>
+        </section>
       )}
 
       <!-- CTA Section -->
