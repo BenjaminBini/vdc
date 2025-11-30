@@ -14,7 +14,7 @@ const currentPath = Astro.url.pathname;
 const baseUrl = import.meta.env.BASE_URL;
 
 const navLinks = [
-  { href: `${baseUrl}/`, label: 'Accueil', match: '/', exact: true },
+  { href: `${baseUrl}/`, label: 'Accueil', match: '/', exact: true, icon: true },
   { href: `${baseUrl}/notre-histoire`, label: 'Notre Histoire', match: '/notre-histoire' },
   { href: `${baseUrl}/nos-valeurs`, label: 'Nos Valeurs', match: '/nos-valeurs' },
   { href: `${baseUrl}/de-la-fleur-au-flacon`, label: 'Notre processus', match: '/de-la-fleur-au-flacon' },
@@ -35,7 +35,7 @@ const isActive = (link: typeof navLinks[0]) => {
 const logoSrc = logo2.src;
 ---
 
-<header id="main-header" class:list={["header-menu menu-expanded bg-beaucharme-sage-dark shadow-md rounded-2xl sticky top-3 z-50", { "header-static": isStatic }]}>
+<header id="main-header" class:list={["header-menu menu-expanded bg-beaucharme-sage-dark shadow-md/30 rounded-2xl sticky top-3 z-50", { "header-static": isStatic }]}>
   <div class="container px-6 py-3 flex items-center justify-center relative">
     <!-- Mobile Menu (React Island) -->
     <MobileMenu
@@ -68,13 +68,21 @@ const logoSrc = logo2.src;
             <a
               href={link.href}
               class:list={[
-                "nav-link relative px-2 lg:px-3 py-1.5 text-xs lg:text-sm font-medium tracking-wide transition-all duration-300 text-center max-w-[80px] lg:max-w-none",
+                "nav-link relative px-2 lg:px-3 py-1.5 text-xs lg:text-sm font-medium tracking-wide transition-all duration-300 text-center",
+                link.icon ? '' : 'max-w-[80px] lg:max-w-none',
                 isActive(link)
                   ? 'text-white bg-white/15 rounded-md'
                   : 'text-white/80 hover:text-white'
               ]}
+              aria-label={link.icon ? link.label : undefined}
             >
-              <span class="relative z-10">{link.label}</span>
+              <span class="relative z-10">
+                {link.icon ? (
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                ) : link.label}
+              </span>
               {!isActive(link) && (
                 <span class="nav-underline absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-beaucharme-cream transition-all duration-300" />
               )}
