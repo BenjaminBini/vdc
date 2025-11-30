@@ -79,8 +79,8 @@ const isImportedImage = image && typeof image !== 'string';
           class="w-full h-full object-cover"
         />
       ) : (
-        <Image
-          src={image}
+        <img
+          src={image as string}
           alt={alt}
           width={1920}
           height={1080}
