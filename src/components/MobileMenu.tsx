@@ -103,12 +103,12 @@ export default function MobileMenu({ navLinks, currentPath, logoSrc, baseUrl }: 
 
         {/* Menu Panel */}
         <div
-          className={`absolute inset-y-0 left-0 w-full max-w-sm bg-beaucharme-sage-dark shadow-2xl transition-transform duration-300 ease-out ${
+          className={`absolute inset-y-0 left-0 w-full max-w-sm bg-beaucharme-sage-dark shadow-2xl transition-transform duration-300 ease-out flex flex-col ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
           {/* Menu Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/10">
+          <div className="flex-shrink-0 flex items-center justify-between p-6 border-b border-white/10">
             <a href={baseUrl || '/'} className="flex items-center gap-2" onClick={closeMenu}>
               <img
                 src={logoSrc}
@@ -130,34 +130,36 @@ export default function MobileMenu({ navLinks, currentPath, logoSrc, baseUrl }: 
             </button>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="flex flex-col p-6">
-            {navLinks.map((link, index) => {
-              const isActive = checkIsActive(link);
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMenu}
-                  className={`py-4 text-xl font-serif font-medium border-b border-white/10 transition-all duration-300 ${
-                    isActive
-                      ? 'text-beaucharme-cream'
-                      : 'text-white hover:text-beaucharme-cream hover:pl-2'
-                  }`}
-                  style={{
-                    opacity: isOpen ? 1 : 0,
-                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
-                    transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
-                  }}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
+          {/* Navigation Links - Scrollable */}
+          <nav className="flex-1 overflow-y-auto p-6">
+            <div className="flex flex-col">
+              {navLinks.map((link, index) => {
+                const isActive = checkIsActive(link);
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className={`py-4 text-xl font-serif font-medium border-b border-white/10 transition-all duration-300 ${
+                      isActive
+                        ? 'text-beaucharme-cream'
+                        : 'text-white hover:text-beaucharme-cream hover:pl-2'
+                    }`}
+                    style={{
+                      opacity: isOpen ? 1 : 0,
+                      transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
+                      transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
           </nav>
 
           {/* Footer */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
+          <div className="flex-shrink-0 p-6 border-t border-white/10">
             <p className="text-white/50 text-sm text-center">
               Cosmétiques naturels de Bourgogne
             </p>
