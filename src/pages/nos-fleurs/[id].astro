@@ -11,7 +11,7 @@ import Section from '@components/Section.astro';
 import plants from '@data/plants.json';
 
 // Import all plant images
-const plantImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/plants/*.{jpg,jpeg,png}', { eager: true });
+const plantImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/plants/*.{jpg,jpeg,png,webp}', { eager: true });
 
 // Helper to get plant image
 function getPlantImage(imagePath: string): ImageMetadata | string {
