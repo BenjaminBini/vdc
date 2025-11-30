@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { cartStore, type CartItem } from '@stores/cartStore';
+import { useCart, type CartItem } from '@stores/cartStore';
 
 interface Props {
   product: Omit<CartItem, 'quantity'>;
 }
 
 export default function AddToCartButton({ product }: Props) {
+  const { addItem } = useCart();
   const [isAdded, setIsAdded] = useState(false);
 
   const handleClick = () => {
-    cartStore.addItem(product);
+    addItem(product);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1500);
   };
