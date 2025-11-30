@@ -8,7 +8,7 @@ interface Props {
   title: string;
   subtitle?: string;
   tagline?: string;
-  height?: 'small' | 'medium' | 'large';
+  height?: 'xsmall' | 'small' | 'medium' | 'large';
   overlay?: 'dark' | 'gradient' | 'gradient-bottom';
   align?: 'center' | 'bottom';
   bg?: 'sage' | 'sage-dark' | 'terracotta' | 'earth' | 'dark';
@@ -29,6 +29,7 @@ const {
 const hasImage = !!image;
 
 const heightClasses = {
+  xsmall: 'h-48 md:h-56',
   small: 'h-64 md:h-80',
   medium: 'h-80 md:h-96',
   large: 'h-96 md:h-[28rem]'

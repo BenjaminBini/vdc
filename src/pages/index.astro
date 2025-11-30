@@ -18,7 +18,7 @@ const baseUrl = import.meta.env.BASE_URL;
     <!-- Main Grid  -->
     <main class="flex-1 min-h-0">
       <div class="h-full p-4 md:p-8">
-        <div class="h-full grid md:grid-cols-6 grid-rows-[minmax(170px,1fr)_minmax(170px,1fr)_minmax(170px,1fr)] gap-8">
+        <div class="h-full grid lg:grid-cols-6 grid-rows-[minmax(170px,1fr)_minmax(170px,1fr)_minmax(170px,1fr)] gap-4 lg:gap-8">
 
         <!-- Block 1: Main Hero -->
         <HeroCard
@@ -26,7 +26,7 @@ const baseUrl = import.meta.env.BASE_URL;
           media="/flowers.mp4"
           mediaType="video"
           overlay
-          class="col-span-2 md:col-span-4 sm:row-span-2 row-span-1.5"
+          class="col-span-full lg:col-span-4 row-span-2"
         >
           <!-- Video Toggle Button -->
           <div class="absolute top-4 left-4 z-20">
@@ -46,7 +46,7 @@ const baseUrl = import.meta.env.BASE_URL;
           media="https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png"
           alt="Nos produits cosmétiques naturels"
           title="Nos produits"
-          class="min-h-[170px] md:col-span-2"
+          class="min-h-[170px] lg:col-span-2"
         />
 
         <!-- Block 3: Notre Boutique -->
@@ -55,7 +55,7 @@ const baseUrl = import.meta.env.BASE_URL;
           media="https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png"
           alt="Coffret cadeau élégant"
           title="Notre boutique"
-          class="min-h-[170px] md:col-span-2"
+          class="min-h-[170px] lg:col-span-2"
         />
 
         <!-- Block 4: Notre Histoire -->
@@ -64,7 +64,7 @@ const baseUrl = import.meta.env.BASE_URL;
           media="/farmers.mp4"
           mediaType="video"
           title="Notre histoire"
-          class="min-h-[170px]  col-span-2"
+          class="min-h-[170px] lg:col-span-2"
         />
 
         <!-- Block 5: Nos Valeurs -->
@@ -73,7 +73,7 @@ const baseUrl = import.meta.env.BASE_URL;
           media="/bee.mp4"
           mediaType="video"
           title="Nos valeurs"
-          class="min-h-[170px] col-span-2"
+          class="min-h-[170px] lg:col-span-2"
         />
 
         <!-- Block 6: Nos Fleurs -->
@@ -83,7 +83,7 @@ const baseUrl = import.meta.env.BASE_URL;
           mediaType="video"
           alt="Nos fleurs cultivées en Bourgogne"
           title="Nos fleurs"
-          class="min-h-[170px] col-span-2 row-span-1"
+          class="min-h-[170px] lg:col-span-2"
         />
 
         </div>

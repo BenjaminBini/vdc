@@ -34,13 +34,20 @@ const maxPrice = Math.ceil(Math.max(...prices));
   <PageContainer>
     <Header />
 
-    <HeroSection
-      bg="sage"
-      tagline="Nos créations"
-      title="Boutique"
-      subtitle="Cosmétiques naturels créés avec passion dans notre ferme bourguignonne"
-      height="small"
-    />
+    <!-- Modern Boutique Hero -->
+    <section class="relative overflow-hidden rounded-2xl bg-beaucharme-terracotta">
+      <!-- Decorative elements -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-beaucharme-cream rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      </div>
+
+      <div class="relative z-10 px-8 py-6 md:py-6 text-center">
+        <p class="text-sm tracking-[0.3em] uppercase mb-3 text-white/60">Nos créations</p>
+        <h1 class="font-serif text-4xl md:text-5xl font-bold text-white mb-3">Boutique</h1>
+        <p class="text-white/80 max-w-md mx-auto">Cosmétiques naturels créés avec passion dans notre ferme bourguignonne</p>
+      </div>
+    </section>
 
     <div class="py-8">
       <!-- Mobile Filter Toggle -->
@@ -57,7 +64,10 @@ const maxPrice = Math.ceil(Math.max(...prices));
         <aside class="hidden lg:block lg:w-72 flex-shrink-0">
           <div class="lg:sticky lg:top-24">
             <Section bg="white" padding="none" class="p-6">
-              <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark mb-6">Filtres</h2>
+              <div class="flex items-baseline gap-2 mb-6">
+                <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark">Filtres</h2>
+                <span id="product-count" class="text-sm text-beaucharme-earth"></span>
+              </div>
               <StoreFilters
                 client:load
                 categories={categories}
