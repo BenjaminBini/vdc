@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import CartButton from '@components/CartButton.tsx';
+import MobileMenu from '@components/MobileMenu.tsx';
 import logo2 from '@images/logo2.png';
 
 interface Props {
@@ -13,7 +14,7 @@ const currentPath = Astro.url.pathname;
 const baseUrl = import.meta.env.BASE_URL;
 
 const navLinks = [
-  { href: `${baseUrl}/`, label: 'Accueil', match: '/' },
+  { href: `${baseUrl}/`, label: 'Accueil', match: '/', exact: true },
   { href: `${baseUrl}/notre-histoire`, label: 'Notre Histoire', match: '/notre-histoire' },
   { href: `${baseUrl}/nos-valeurs`, label: 'Nos Valeurs', match: '/nos-valeurs' },
   { href: `${baseUrl}/de-la-fleur-au-flacon`, label: 'Notre processus', match: '/de-la-fleur-au-flacon' },
@@ -22,20 +23,28 @@ const navLinks = [
   { href: `${baseUrl}/boutique`, label: 'Boutique', match: '/boutique' },
   { href: `${baseUrl}/contact`, label: 'Contact', match: '/contact' },
 ];
+
+const isActive = (link: typeof navLinks[0]) => {
+  if (link.exact) {
+    return currentPath === '/' || currentPath === baseUrl || currentPath === `${baseUrl}/`;
+  }
+  return currentPath.includes(link.match);
+};
+
+// Get logo URL for React component
+const logoSrc = logo2.src;
 ---
 
-<header id="main-header" class:list={["header-menu bg-beaucharme-sage-dark shadow-md rounded-2xl", { "header-static": isStatic }]}>
+<header id="main-header" class:list={["header-menu menu-expanded bg-beaucharme-sage-dark shadow-md rounded-2xl sticky top-3 z-50", { "header-static": isStatic }]}>
   <div class="container px-6 py-3 flex items-center justify-center relative">
-    <!-- Mobile Menu Button (left) -->
-    <button
-      data-menu-toggle
-      class="md:hidden absolute left-4 p-2 hover:bg-beaucharme-sage-dark rounded-lg transition-colors duration-300"
-      aria-label="Menu"
-    >
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
+    <!-- Mobile Menu (React Island) -->
+    <MobileMenu
+      client:load
+      navLinks={navLinks}
+      currentPath={currentPath}
+      logoSrc={logoSrc}
+      baseUrl={baseUrl}
+    />
 
     <!-- Center content wrapper -->
     <div class="menu-content relative flex items-center justify-center">
@@ -53,14 +62,27 @@ const navLinks = [
       </a>
 
       <!-- Navigation (revealed on hover) -->
-      <nav class="nav-container hidden md:flex items-center gap-8">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class={`nav-link text-center text-white font-medium text-sm hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
-          >
-            {link.label}
-          </a>
+      <nav class="nav-container hidden md:flex items-center gap-0.5 lg:gap-1">
+        {navLinks.map((link, index) => (
+          <>
+            <a
+              href={link.href}
+              class:list={[
+                "nav-link relative px-2 lg:px-3 py-1.5 text-xs lg:text-sm font-medium tracking-wide transition-all duration-300 text-center max-w-[80px] lg:max-w-none",
+                isActive(link)
+                  ? 'text-white bg-white/15 rounded-full'
+                  : 'text-white/80 hover:text-white'
+              ]}
+            >
+              <span class="relative z-10">{link.label}</span>
+              {!isActive(link) && (
+                <span class="nav-underline absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-beaucharme-cream transition-all duration-300" />
+              )}
+            </a>
+            {index < navLinks.length - 1 && (
+              <span class="nav-separator hidden lg:block w-1 h-1 rounded-full bg-white/20 mx-0.5 lg:mx-1" />
+            )}
+          </>
         ))}
       </nav>
     </div>
@@ -68,20 +90,6 @@ const navLinks = [
     <!-- Cart (right) -->
     <div class="absolute right-4">
       <CartButton client:load />
-    </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-    <div class="flex flex-col space-y-2">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class={`text-white font-medium py-2 hover:text-beaucharme-cream transition-colors ${currentPath.includes(link.match) ? 'text-beaucharme-cream' : ''}`}
-        >
-          {link.label}
-        </a>
-      ))}
     </div>
   </div>
 </header>
@@ -107,37 +115,79 @@ const navLinks = [
 
   .nav-link {
     opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, color 0.3s ease;
+    transform: translateY(8px) scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.3s ease, background-color 0.3s ease;
   }
 
-  /* Hover state - hide logo, show nav */
+  .nav-link:hover .nav-underline {
+    width: 60%;
+  }
+
+  .nav-separator {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Hover state and expanded state - hide logo, show nav */
   @media (min-width: 768px) {
-    .header-menu:hover .logo-container {
+    .header-menu:hover .logo-container,
+    .header-menu.menu-expanded .logo-container {
       opacity: 0;
       transform: translateY(-10px);
       pointer-events: none;
     }
 
-    .header-menu:hover .nav-container {
+    .header-menu:hover .nav-container,
+    .header-menu.menu-expanded .nav-container {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
     }
 
-    .header-menu:hover .nav-link {
+    .header-menu:hover .nav-link,
+    .header-menu.menu-expanded .nav-link {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
-    /* Staggered animation for nav links */
-    .header-menu:hover .nav-link:nth-child(1) { transition-delay: 0.05s; }
-    .header-menu:hover .nav-link:nth-child(2) { transition-delay: 0.1s; }
-    .header-menu:hover .nav-link:nth-child(3) { transition-delay: 0.15s; }
-    .header-menu:hover .nav-link:nth-child(4) { transition-delay: 0.2s; }
-    .header-menu:hover .nav-link:nth-child(5) { transition-delay: 0.25s; }
-    .header-menu:hover .nav-link:nth-child(6) { transition-delay: 0.3s; }
-    .header-menu:hover .nav-link:nth-child(7) { transition-delay: 0.35s; }
+    .header-menu:hover .nav-separator,
+    .header-menu.menu-expanded .nav-separator {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Staggered animation for nav links and separators */
+    .header-menu:hover .nav-link:nth-of-type(1),
+    .header-menu.menu-expanded .nav-link:nth-of-type(1) { transition-delay: 0.02s; }
+    .header-menu:hover .nav-separator:nth-of-type(1),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(1) { transition-delay: 0.04s; }
+    .header-menu:hover .nav-link:nth-of-type(2),
+    .header-menu.menu-expanded .nav-link:nth-of-type(2) { transition-delay: 0.06s; }
+    .header-menu:hover .nav-separator:nth-of-type(2),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(2) { transition-delay: 0.08s; }
+    .header-menu:hover .nav-link:nth-of-type(3),
+    .header-menu.menu-expanded .nav-link:nth-of-type(3) { transition-delay: 0.1s; }
+    .header-menu:hover .nav-separator:nth-of-type(3),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(3) { transition-delay: 0.12s; }
+    .header-menu:hover .nav-link:nth-of-type(4),
+    .header-menu.menu-expanded .nav-link:nth-of-type(4) { transition-delay: 0.14s; }
+    .header-menu:hover .nav-separator:nth-of-type(4),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(4) { transition-delay: 0.16s; }
+    .header-menu:hover .nav-link:nth-of-type(5),
+    .header-menu.menu-expanded .nav-link:nth-of-type(5) { transition-delay: 0.18s; }
+    .header-menu:hover .nav-separator:nth-of-type(5),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(5) { transition-delay: 0.2s; }
+    .header-menu:hover .nav-link:nth-of-type(6),
+    .header-menu.menu-expanded .nav-link:nth-of-type(6) { transition-delay: 0.22s; }
+    .header-menu:hover .nav-separator:nth-of-type(6),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(6) { transition-delay: 0.24s; }
+    .header-menu:hover .nav-link:nth-of-type(7),
+    .header-menu.menu-expanded .nav-link:nth-of-type(7) { transition-delay: 0.26s; }
+    .header-menu:hover .nav-separator:nth-of-type(7),
+    .header-menu.menu-expanded .nav-separator:nth-of-type(7) { transition-delay: 0.28s; }
+    .header-menu:hover .nav-link:nth-of-type(8),
+    .header-menu.menu-expanded .nav-link:nth-of-type(8) { transition-delay: 0.3s; }
   }
 
   /* Static header - always show nav, hide logo */
@@ -156,13 +206,26 @@ const navLinks = [
     opacity: 1;
     transform: none;
   }
+
+  .header-static .nav-separator {
+    opacity: 1;
+    transform: scale(1);
+  }
 </style>
 
 <script>
-  const menuToggle = document.querySelector('[data-menu-toggle]');
-  const mobileMenu = document.getElementById('mobile-menu');
+  function initHeaderCollapse() {
+    const header = document.getElementById('main-header');
+    if (header && header.classList.contains('menu-expanded')) {
+      setTimeout(() => {
+        header.classList.remove('menu-expanded');
+      }, 1500);
+    }
+  }
 
-  menuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
+  // Run on initial load
+  initHeaderCollapse();
+
+  // Run on Astro page transitions
+  document.addEventListener('astro:page-load', initHeaderCollapse);
 </script>
