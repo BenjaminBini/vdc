@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  bg?: 'sage' | 'terracotta' | 'gold';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  buttonText,
+  buttonHref,
+  bg = 'terracotta',
+  class: className = '',
+} = Astro.props;
+
+const bgClasses = {
+  sage: 'bg-beaucharme-sage',
+  terracotta: 'bg-beaucharme-terracotta',
+  gold: 'bg-beaucharme-gold',
+};
+
+const buttonClasses = {
+  sage: 'text-beaucharme-sage',
+  terracotta: 'text-beaucharme-terracotta',
+  gold: 'text-beaucharme-gold',
+};
+---
+
+<div class:list={[
+  'rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white',
+  bgClasses[bg],
+  className
+]}>
+  <h2 class="font-serif text-2xl font-semibold mb-3">{title}</h2>
+  <p class="text-white/80 text-sm mb-4">{description}</p>
+  <a
+    href={buttonHref}
+    class:list={[
+      'inline-block bg-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-beaucharme-cream transition-colors w-fit',
+      buttonClasses[bg]
+    ]}
+  >
+    {buttonText}
+  </a>
+</div>

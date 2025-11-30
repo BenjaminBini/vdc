@@ -6,6 +6,8 @@ import Footer from '@components/Footer.astro';
 import PageContainer from '@components/PageContainer.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
 import HeroCard from '@components/HeroCard.astro';
+import BentoTitleCard from '@components/BentoTitleCard.astro';
+import BentoCTACard from '@components/BentoCTACard.astro';
 
 import huilesVegetales from '@images/huiles-vegetales.jpg';
 import huilesSoin from '@images/huiles-soin.jpg';
@@ -71,14 +73,13 @@ const gridClasses = [
 
     <!-- Bento Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3 md:gap-4">
-      <!-- Title Card -->
-      <div class="sm:col-span-2 bg-beaucharme-sage-dark rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
-        <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">Nos produits</p>
-        <h1 class="font-serif text-3xl md:text-4xl font-bold mb-3">De la terre à votre peau</h1>
-        <p class="text-white/80 text-sm md:text-base">
-          Cosmétiques naturels créés avec passion, de la graine au flacon.
-        </p>
-      </div>
+      <BentoTitleCard
+      bg="sage"
+        tagline="Nos produits"
+        title="De la terre à votre peau"
+        description="Cosmétiques nat  urels créés avec passion, de la graine au flacon."
+        class="sm:col-span-2"
+      />
 
       {categories.map((category, index) => (
         <HeroCard
@@ -95,16 +96,13 @@ const gridClasses = [
         </HeroCard>
       ))}
 
-      <!-- CTA Card -->
-      <div class="sm:col-span-2 bg-beaucharme-terracotta rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white">
-        <h2 class="font-serif text-2xl font-semibold mb-3">Prêt à commander ?</h2>
-        <p class="text-white/80 text-sm mb-4">
-          Retrouvez tous nos produits dans notre boutique en ligne.
-        </p>
-        <a href={`${baseUrl}/boutique`} class="inline-block bg-white text-beaucharme-terracotta px-6 py-2 rounded-full font-semibold text-sm hover:bg-beaucharme-cream transition-colors w-fit">
-          Accéder à la boutique
-        </a>
-      </div>
+      <BentoCTACard
+        title="Prêt à commander ?"
+        description="Retrouvez tous nos produits dans notre boutique en ligne."
+        buttonText="Accéder à la boutique"
+        buttonHref={`${baseUrl}/boutique`}
+        class="sm:col-span-2"
+      />
     </div>
 
     <Footer />

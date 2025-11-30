@@ -7,8 +7,9 @@ import Footer from '@components/Footer.astro';
 import PageContainer from '@components/PageContainer.astro';
 import HeroSection from '@components/HeroSection.astro';
 import Section from '@components/Section.astro';
-import FeatureCard from '@components/FeatureCard.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
+import IconBlock from '@components/IconBlock.astro';
+import CenteredCallout from '@components/CenteredCallout.astro';
 
 import fleursHero from '@images/fleurs-hero.jpg';
 import semis from '@images/semis.jpg';
@@ -70,7 +71,7 @@ const steps: { number: string; title: string; season: string; description: strin
   <PageContainer>
     <Header />
 
-    <main class="min-h-screen flex flex-col gap-8">
+    <main class="min-h-screen flex flex-col gap-8 mb-12">
       <HeroSection
         image={fleursHero}
         alt="Champs de fleurs"
@@ -99,27 +100,27 @@ const steps: { number: string; title: string; season: string; description: strin
 
       <!-- Process Steps -->
       <Section bg="transparent" padding="none" card={false}>
-        <div class="grid gap-8">
-          {steps.map((step, index) => (
-            <div class="grid md:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-md">
-              <div class:list={["relative min-h-64 overflow-hidden", index % 2 === 1 && 'md:order-2']}>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {steps.map((step) => (
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md">
+              <div class="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={step.image}
                   alt={step.title}
-                  width={800}
-                  height={600}
+                  width={600}
+                  height={450}
                   class="w-full h-full object-cover"
                 />
-                <div class="absolute top-4 left-4 bg-beaucharme-terracotta text-white text-sm px-4 py-2 rounded-full">
-                  {step.season}
+                <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm text-beaucharme-terracotta text-2xl font-bold px-3 py-1 rounded-lg">
+                  {step.number}
                 </div>
               </div>
-              <div class:list={["p-8 md:p-12 flex flex-col justify-center", index % 2 === 1 && 'md:order-1']}>
-                <div class="flex items-baseline gap-4 mb-4">
-                  <span class="text-5xl md:text-6xl font-bold text-beaucharme-beige">{step.number}</span>
-                  <h3 class="font-serif text-2xl md:text-3xl font-semibold text-beaucharme-dark">{step.title}</h3>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="font-serif text-xl font-semibold text-beaucharme-dark">{step.title}</h3>
+                  <span class="bg-beaucharme-sage text-white text-xs font-medium px-3 py-1 rounded-full">{step.season}</span>
                 </div>
-                <p class="text-beaucharme-earth leading-relaxed">
+                <p class="text-sm text-beaucharme-earth leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -129,74 +130,64 @@ const steps: { number: string; title: string; season: string; description: strin
       </Section>
 
       <!-- Values Section -->
-      <Section bg="sage" padding="large">
+      <Section bg="sage-dark" padding="large">
         <div class="container-custom">
           <div class="text-center mb-12">
             <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
               Nos engagements
             </h2>
           </div>
-          <div class="grid md:grid-cols-3 gap-8">
-            <FeatureCard
+          <div class="grid md:grid-cols-3 gap-12">
+            <IconBlock
               title="Circuit ultra-court"
               description="De notre champ à votre peau, sans intermédiaire. Une traçabilité totale."
               iconColor="white"
-              variant="centered"
+              layout="vertical"
             >
               <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-            </FeatureCard>
+            </IconBlock>
 
-            <FeatureCard
+            <IconBlock
               title="Agriculture naturelle"
               description="Sans pesticides, sans engrais chimiques. Le respect de la terre avant tout."
               iconColor="white"
-              variant="centered"
+              layout="vertical"
             >
               <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
-            </FeatureCard>
+            </IconBlock>
 
-            <FeatureCard
+            <IconBlock
               title="Fait main"
               description="Chaque produit est fabriqué et conditionné à la main dans notre atelier."
               iconColor="white"
-              variant="centered"
+              layout="vertical"
             >
               <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
               </svg>
-            </FeatureCard>
+            </IconBlock>
           </div>
         </div>
       </Section>
 
       <!-- CTA Section -->
       <Section bg="sage" padding="large">
-        <div class="text-center">
-          <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
-            Envie de découvrir nos produits ?
-          </h2>
-          <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            Maintenant que vous connaissez notre processus, découvrez le résultat de tout ce travail.
-          </p>
-          <div class="flex flex-wrap justify-center gap-4">
-            <a
-              href={`${baseUrl}/nos-produits`}
-              class="inline-flex items-center bg-white text-beaucharme-sage px-8 py-4 rounded-full font-medium hover:bg-beaucharme-cream transition-colors"
-            >
-              Découvrir nos produits
-            </a>
-            <a
-              href={`${baseUrl}/boutique`}
-              class="inline-flex items-center bg-beaucharme-dark text-white px-8 py-4 rounded-full font-medium hover:bg-beaucharme-dark/90 transition-colors"
-            >
-              Visiter la boutique
-            </a>
-          </div>
-        </div>
+        <CenteredCallout
+          title="Envie de découvrir nos produits ?"
+          description="Maintenant que vous connaissez notre processus, découvrez le résultat de tout ce travail."
+          button={{
+            text: "Découvrir nos produits",
+            href: `${baseUrl}/nos-produits`
+          }}
+          secondaryButton={{
+            text: "Visiter la boutique",
+            href: `${baseUrl}/boutique`
+          }}
+        />
       </Section>
     </main>
 

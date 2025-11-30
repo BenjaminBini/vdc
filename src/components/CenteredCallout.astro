@@ -1,0 +1,92 @@
+---
+interface Props {
+  tagline?: string;
+  title: string;
+  description: string;
+  showIcon?: boolean;
+  button?: {
+    text: string;
+    href: string;
+    variant?: 'primary' | 'secondary';
+  };
+  secondaryButton?: {
+    text: string;
+    href: string;
+  };
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+  class?: string;
+}
+
+const {
+  tagline,
+  title,
+  description,
+  showIcon = false,
+  button,
+  secondaryButton,
+  maxWidth = '2xl',
+  class: className = '',
+} = Astro.props;
+
+const maxWidthClasses = {
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+  '2xl': 'max-w-2xl',
+  '3xl': 'max-w-3xl',
+};
+---
+
+<div class:list={['text-center text-white', maxWidthClasses[maxWidth], 'mx-auto', className]}>
+  {showIcon && (
+    <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
+      <slot name="icon">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
+        </svg>
+      </slot>
+    </div>
+  )}
+
+  {tagline && (
+    <p class="text-sm tracking-[0.2em] uppercase mb-4 text-white/70">{tagline}</p>
+  )}
+
+  <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">
+    {title}
+  </h2>
+
+  <p class="text-white/80 text-lg mb-8">
+    {description}
+  </p>
+
+  {(button || secondaryButton) && (
+    <div class="flex flex-wrap justify-center gap-4">
+      {button && (
+        <a
+          href={button.href}
+          class:list={[
+            'inline-flex items-center px-8 py-4 rounded-full font-semibold transition-colors',
+            button.variant === 'secondary'
+              ? 'bg-beaucharme-dark text-white hover:bg-beaucharme-dark/90'
+              : 'bg-white text-beaucharme-sage hover:bg-beaucharme-cream'
+          ]}
+        >
+          {button.text}
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      )}
+      {secondaryButton && (
+        <a
+          href={secondaryButton.href}
+          class="inline-flex items-center bg-beaucharme-dark text-white px-8 py-4 rounded-full font-medium hover:bg-beaucharme-dark/90 transition-colors"
+        >
+          {secondaryButton.text}
+        </a>
+      )}
+    </div>
+  )}
+</div>

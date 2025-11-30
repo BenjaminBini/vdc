@@ -1,0 +1,36 @@
+---
+interface Props {
+  tagline?: string;
+  title: string;
+  description: string;
+  bg?: 'sage-dark' | 'sage' | 'terracotta' | 'gold';
+  class?: string;
+}
+
+const {
+  tagline,
+  title,
+  description,
+  bg = 'sage-dark',
+  class: className = '',
+} = Astro.props;
+
+const bgClasses = {
+  'sage-dark': 'bg-beaucharme-sage-dark',
+  sage: 'bg-beaucharme-sage',
+  terracotta: 'bg-beaucharme-terracotta',
+  gold: 'bg-beaucharme-gold',
+};
+---
+
+<div class:list={[
+  'rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white',
+  bgClasses[bg],
+  className
+]}>
+  {tagline && (
+    <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">{tagline}</p>
+  )}
+  <h1 class="font-serif text-3xl md:text-4xl font-bold mb-3">{title}</h1>
+  <p class="text-white/80 text-sm md:text-base">{description}</p>
+</div>
