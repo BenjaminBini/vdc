@@ -31,20 +31,12 @@ const { plant } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const heroImage = getPlantImage(plant.image);
 
-const colorClasses: Record<string, { bg: string; text: string; light: string }> = {
-  blue: { bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50' },
-  gold: { bg: 'bg-amber-500', text: 'text-amber-600', light: 'bg-amber-50' },
-  white: { bg: 'bg-gray-200', text: 'text-gray-600', light: 'bg-gray-50' },
-  orange: { bg: 'bg-orange-500', text: 'text-orange-600', light: 'bg-orange-50' },
-  green: { bg: 'bg-green-600', text: 'text-green-700', light: 'bg-green-50' },
-  darkgreen: { bg: 'bg-green-800', text: 'text-green-800', light: 'bg-green-50' },
-  purple: { bg: 'bg-purple-500', text: 'text-purple-600', light: 'bg-purple-50' },
-  mint: { bg: 'bg-emerald-400', text: 'text-emerald-600', light: 'bg-emerald-50' },
-  lavender: { bg: 'bg-purple-400', text: 'text-purple-500', light: 'bg-purple-50' },
-  yellow: { bg: 'bg-yellow-400', text: 'text-yellow-600', light: 'bg-yellow-50' },
+// Use consistent terracotta color scheme for all flowers
+const colors = {
+  bg: 'bg-beaucharme-terracotta',
+  text: 'text-beaucharme-terracotta',
+  light: 'bg-beaucharme-terracotta/20'
 };
-
-const colors = colorClasses[plant.color] || colorClasses.green;
 
 // Find adjacent plants for navigation
 const currentIndex = plants.findIndex(p => p.id === plant.id);
@@ -93,7 +85,7 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
           </div>
 
           <!-- History -->
-          <div class={`${colors.light} rounded-2xl p-8`}>
+          <div class="bg-white rounded-2xl shadow-md p-8">
             <h2 class="font-serif text-2xl font-semibold text-beaucharme-dark mb-4">Histoire</h2>
             <p class="text-beaucharme-earth leading-relaxed">
               {plant.history}
@@ -130,7 +122,7 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
           </div>
 
           <!-- Ideal For Card -->
-          <div class={`${colors.light} rounded-2xl p-6`}>
+          <div class="bg-white rounded-2xl shadow-md p-6">
             <h3 class="font-serif text-xl font-semibold text-beaucharme-dark mb-4">Idéal pour</h3>
             <div class="flex flex-wrap gap-2">
               {plant.idealFor.map((item: string) => (
@@ -188,6 +180,6 @@ const nextPlant = currentIndex < plants.length - 1 ? plants[currentIndex + 1] : 
 
     <Newsletter />
     <Footer />
-    <CartSidebar />
+    <CartSidebar client:load />
   </PageContainer>
 </Layout>
