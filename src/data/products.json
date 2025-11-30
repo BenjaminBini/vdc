@@ -11,7 +11,7 @@
         "Cire d'abeille locale",
         "Hydrolat de lavande"
       ],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_1.webp",
       "inStock": true,
       "featured": false
     },
@@ -26,7 +26,7 @@
         "Huile de carthame",
         "Savon surgras"
       ],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_1.webp",
       "inStock": true,
       "featured": true
     },
@@ -42,7 +42,7 @@
         "Eaux florales",
         "Savons artisanaux"
       ],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_2.webp",
       "inStock": true,
       "featured": true
     },
@@ -53,7 +53,7 @@
       "price": 42,
       "description": "Tout pour une routine visage naturelle et efficace. De la terre à votre peau.",
       "ingredients": ["Hydrolat de rose", "Huile de chanvre", "Savon délicat"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_2.webp",
       "inStock": true,
       "featured": false
     },
@@ -64,7 +64,7 @@
       "price": 35,
       "description": "Les essentiels du quotidien réunis. Simplicité et efficacité.",
       "ingredients": ["Crème mains", "Savon pur", "Huile de tournesol"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_3.webp",
       "inStock": false,
       "featured": false
     },
@@ -75,7 +75,7 @@
       "price": 38,
       "description": "La beauté au naturel avec nos produits signature 100% ferme.",
       "ingredients": ["Huile de cameline", "Savon éclat", "Hydrolat de menthe"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_3.webp",
       "inStock": true,
       "featured": false
     },
@@ -91,7 +91,7 @@
         "2 eaux florales",
         "1 crème mains"
       ],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_0.webp",
       "inStock": true,
       "featured": false
     },
@@ -103,7 +103,7 @@
       "description": "Cultivée sur nos terres bourguignonnes, notre huile de chanvre est riche en oméga-3 et parfaite pour les peaux sensibles.",
       "ingredients": ["100% graines de chanvre de la ferme"],
       "plants": ["chanvre"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_0.webp",
       "inStock": true,
       "featured": true
     },
@@ -115,7 +115,7 @@
       "description": "Pressée à froid dans notre atelier. Douce et nourrissante, elle convient à tous les types de peau.",
       "ingredients": ["100% graines de tournesol de la ferme"],
       "plants": ["tournesol"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_1.webp",
       "inStock": true,
       "featured": false
     },
@@ -127,7 +127,7 @@
       "description": "Une plante oubliée que nous avons réintroduite. Exceptionnelle pour régénérer la peau.",
       "ingredients": ["100% graines de cameline de la ferme"],
       "plants": ["cameline"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_2.webp",
       "inStock": true,
       "featured": false
     },
@@ -139,7 +139,7 @@
       "description": "Cultivée avec patience, cette huile rare apporte éclat et souplesse à votre peau.",
       "ingredients": ["100% graines de carthame de la ferme"],
       "plants": ["carthame"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_3.webp",
       "inStock": true,
       "featured": false
     },
@@ -151,7 +151,7 @@
       "description": "Notre trésor. Une culture délicate pour une huile précieuse aux vertus incomparables.",
       "ingredients": ["100% graines de bourrache de la ferme"],
       "plants": ["bourrache"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_1.webp",
       "inStock": true,
       "featured": true
     },
@@ -168,7 +168,7 @@
         "Vitamine E naturelle"
       ],
       "plants": ["bourrache", "carthame", "cameline"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_0.webp",
       "inStock": true,
       "featured": true
     },
@@ -185,7 +185,7 @@
         "Huile essentielle de lavande"
       ],
       "plants": ["chanvre", "tournesol", "lavandin"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_1.webp",
       "inStock": true,
       "featured": false
     },
@@ -201,7 +201,7 @@
         "Huile de calendula"
       ],
       "plants": ["chanvre", "camomille"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_2.webp",
       "inStock": false,
       "featured": false
     },
@@ -285,7 +285,7 @@
         "Argile jaune"
       ],
       "plants": ["tournesol", "carthame"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_0.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_0.webp",
       "inStock": true,
       "featured": false
     },
@@ -302,7 +302,7 @@
         "Calendula"
       ],
       "plants": ["chanvre", "tournesol"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_1.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_1.webp",
       "inStock": true,
       "featured": false
     },
@@ -318,7 +318,7 @@
         "Cire d'abeille locale"
       ],
       "plants": ["tournesol", "cameline"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_2.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_2.webp",
       "inStock": true,
       "featured": false
     },
@@ -330,7 +330,7 @@
       "description": "Sans parfum, sans ajout superflu. L'essentiel à l'état pur.",
       "ingredients": ["Huile de tournesol", "Cire d'abeille locale"],
       "plants": ["tournesol"],
-      "image": "https://cdn.midjourney.com/c2a61d95-5a03-4368-b036-258ac444ec94/0_3.png",
+      "image": "/images/products/c2a61d95-5a03-4368-b036-258ac444ec94-0_3.webp",
       "inStock": false,
       "featured": false
     },
@@ -342,7 +342,7 @@
       "description": "Distillée dans notre alambic. Apaise et rafraîchit instantanément.",
       "ingredients": ["100% hydrolat de lavande de la ferme"],
       "plants": ["lavandin"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_1.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_1.webp",
       "inStock": true,
       "featured": false
     },
@@ -353,7 +353,7 @@
       "price": 11,
       "description": "Nos roses cultivées avec amour. Un parfum délicat et des vertus tonifiantes.",
       "ingredients": ["100% hydrolat de rose de la ferme"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_2.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_2.webp",
       "inStock": true,
       "featured": false
     },
@@ -365,7 +365,7 @@
       "description": "Fraîcheur vivifiante. Parfait après une journée aux champs.",
       "ingredients": ["100% hydrolat de menthe poivrée de la ferme"],
       "plants": ["menthe-poivree"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_3.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_3.webp",
       "inStock": true,
       "featured": false
     },
@@ -377,7 +377,7 @@
       "description": "Douceur et réconfort pour les peaux sensibles. Un classique revisité.",
       "ingredients": ["100% hydrolat de camomille de la ferme"],
       "plants": ["camomille"],
-      "image": "https://cdn.midjourney.com/a9634353-73b2-4a82-ad73-e4cf12e409d9/0_0.png",
+      "image": "/images/products/a9634353-73b2-4a82-ad73-e4cf12e409d9-0_0.webp",
       "inStock": true,
       "featured": false
     }
