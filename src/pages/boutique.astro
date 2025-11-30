@@ -5,7 +5,6 @@ import Footer from '@components/Footer.astro';
 import Newsletter from '@components/Newsletter.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
 import PageContainer from '@components/PageContainer.astro';
-import HeroSection from '@components/HeroSection.astro';
 import Section from '@components/Section.astro';
 import FeatureCard from '@components/FeatureCard.astro';
 import StoreFilters from '@components/StoreFilters.tsx';
@@ -88,6 +87,7 @@ const maxPrice = Math.ceil(Math.max(...prices));
             plants={plants}
             minPrice={minPrice}
             maxPrice={maxPrice}
+            baseUrl={baseUrl}
           />
         </div>
       </div>

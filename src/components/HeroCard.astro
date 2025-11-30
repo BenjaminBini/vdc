@@ -8,7 +8,6 @@ interface Props {
   mediaType?: 'image' | 'video';
   alt?: string;
   title?: string;
-  titleSize?: 'small' | 'large';
   overlay?: boolean | string;
   bg?: string;
   animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
@@ -21,7 +20,6 @@ const {
   mediaType = 'image',
   alt = '',
   title,
-  titleSize = 'small',
   overlay = false,
   bg,
   animate = 'fade-up',

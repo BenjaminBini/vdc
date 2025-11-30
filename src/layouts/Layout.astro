@@ -74,27 +74,9 @@ const baseUrl = import.meta.env.BASE_URL;
         subtree: true
       });
 
-      // Handle add to cart button clicks (for Astro components that use data attributes)
+      // Mobile menu toggle
       document.addEventListener('click', (e) => {
         const target = e.target;
-        const addToCartBtn = target.closest('[data-add-to-cart]');
-        if (addToCartBtn && window.beaucharmeCart) {
-          const productData = addToCartBtn.dataset.product;
-          if (productData) {
-            const product = JSON.parse(productData);
-            window.beaucharmeCart.addItem(product);
-
-            // Show feedback
-            addToCartBtn.textContent = 'Ajouté !';
-            addToCartBtn.classList.add('bg-beaucharme-sage');
-            setTimeout(() => {
-              addToCartBtn.textContent = 'Ajouter au panier';
-              addToCartBtn.classList.remove('bg-beaucharme-sage');
-            }, 1500);
-          }
-        }
-
-        // Mobile menu toggle
         const menuToggle = target.closest('[data-menu-toggle]');
         if (menuToggle) {
           const mobileMenu = document.getElementById('mobile-menu');

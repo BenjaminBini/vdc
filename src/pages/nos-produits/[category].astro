@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
@@ -9,6 +8,7 @@ import HeroSection from '@components/HeroSection.astro';
 import Section from '@components/Section.astro';
 import CheckList from '@components/CheckList.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
+import ProductCardReact from '@components/ProductCardReact.tsx';
 import productsData from '@data/products.json';
 
 // Import hero images for categories
@@ -19,17 +19,6 @@ import cremesMains from '@images/cremes-mains.jpg';
 import distillation from '@images/distillation.jpg';
 import coffretsHero from '@images/coffrets-hero.jpg';
 
-// Import product images
-const productImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/products/*.jpg', { eager: true });
-
-function getProductImage(imagePath: string): ImageMetadata | string {
-  // If it's an external URL, return as is
-  if (imagePath.startsWith('http')) return imagePath;
-
-  const fileName = imagePath.split('/').pop();
-  const key = `/src/assets/images/products/${fileName}`;
-  return productImages[key]?.default || imagePath;
-}
 
 // Hero images mapping
 const heroImages: Record<string, ImageMetadata> = {
@@ -124,8 +113,15 @@ export function getStaticPaths() {
 }
 
 const { categoryInfo, categoryId } = Astro.props;
-const products = productsData.products.filter(p => p.category === categoryId);
 const baseUrl = import.meta.env.BASE_URL;
+
+// Filter and transform products to add baseUrl to image paths
+const products = productsData.products
+  .filter(p => p.category === categoryId)
+  .map(p => ({
+    ...p,
+    image: p.image.startsWith('/') && !p.image.startsWith('//') ? `${baseUrl}${p.image}` : p.image
+  }));
 ---
 
 <Layout title={categoryInfo.name} description={categoryInfo.description}>
@@ -189,51 +185,11 @@ const baseUrl = import.meta.env.BASE_URL;
 
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {products.map((product) => (
-              <a
-                href={`${baseUrl}/boutique?product=${product.id}`}
-                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
-                data-animate="fade-up"
-              >
-                <div class="relative aspect-square overflow-hidden">
-                  {(() => {
-                    const img = getProductImage(product.image);
-                    return typeof img === 'string' ? (
-                      <Image src={img} alt={product.name} width={400} height={400} class="w-full h-full object-cover" />
-                    ) : (
-                      <Image src={img} alt={product.name} width={400} height={400} class="w-full h-full object-cover" />
-                    );
-                  })()}
-                  {!product.inStock && (
-                    <div class="absolute top-4 right-4 bg-beaucharme-dark/80 text-white text-xs px-3 py-1 rounded-full">
-                      Rupture
-                    </div>
-                  )}
-                  {product.badge && (
-                    <div class="absolute top-4 left-4 bg-beaucharme-terracotta text-white text-xs px-3 py-1 rounded-full">
-                      {product.badge}
-                    </div>
-                  )}
-                </div>
-                <div class="p-5">
-                  <h3 class="font-serif text-lg font-extrabold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors">
-                    {product.name}
-                  </h3>
-                  <p class="text-sm text-beaucharme-earth mt-1 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div class="flex items-center justify-between mt-4">
-                    <span class="text-lg font-semibold text-beaucharme-dark">
-                      {product.price.toFixed(2).replace('.', ',')} €
-                    </span>
-                    <span class="text-beaucharme-terracotta text-sm font-medium group-hover:translate-x-1 transition-transform inline-flex items-center">
-                      Commander
-                      <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </a>
+              <ProductCardReact
+                client:load
+                product={product}
+                baseUrl={baseUrl}
+              />
             ))}
           </div>
         </div>

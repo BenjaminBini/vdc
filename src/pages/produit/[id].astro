@@ -10,16 +10,7 @@ import CartSidebar from '@components/CartSidebar.tsx';
 import ProductAddToCart from '@components/ProductAddToCart.tsx';
 import productsData from '@data/products.json';
 import plantsData from '@data/plants.json';
-
-// Import product images
-const productImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/products/*.jpg', { eager: true });
-
-function getProductImage(imagePath: string): ImageMetadata | string {
-  if (imagePath.startsWith('http')) return imagePath;
-  const fileName = imagePath.split('/').pop();
-  const key = `/src/assets/images/products/${fileName}`;
-  return productImages[key]?.default || imagePath;
-}
+import { getPlantImage, getPublicImageUrl } from '@utils/images';
 
 export function getStaticPaths() {
   return productsData.products.map((product) => ({
@@ -44,7 +35,7 @@ const productPlants = product.plants?.map((plantId: string) =>
   plantsData.find((p: any) => p.id === plantId)
 ).filter(Boolean) || [];
 
-const productImage = getProductImage(product.image);
+const productImageUrl = getPublicImageUrl(product.image, baseUrl);
 ---
 
 <Layout title={product.name} description={product.description}>
@@ -56,21 +47,11 @@ const productImage = getProductImage(product.image);
       <section class="grid lg:grid-cols-2 gap-0 lg:gap-12 mb-12 items-center">
         <!-- Image -->
         <div class="relative aspect-square rounded-2xl overflow-hidden shadow-lg" data-animate="fade-right">
-          {typeof productImage === 'string' ? (
-            <img
-              src={productImage}
-              alt={product.name}
-              class="w-full h-full object-cover"
-            />
-          ) : (
-            <Image
-              src={productImage}
-              alt={product.name}
-              width={800}
-              height={800}
-              class="w-full h-full object-cover"
-            />
-          )}
+          <img
+            src={productImageUrl}
+            alt={product.name}
+            class="w-full h-full object-cover"
+          />
           {product.badge && (
             <div class="absolute top-6 left-6">
               <span class="bg-beaucharme-terracotta text-white text-sm font-medium px-4 py-2 rounded-full">
@@ -140,7 +121,7 @@ const productImage = getProductImage(product.image);
                 id: product.id,
                 name: product.name,
                 price: product.price,
-                image: product.image
+                image: productImageUrl
               }}
               inStock={product.inStock}
             />
@@ -195,7 +176,7 @@ const productImage = getProductImage(product.image);
           </div>
 
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-            {product.ingredients.map((ingredient: string, index: number) => (
+            {product.ingredients.map((ingredient: string) => (
               <div
                 class="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4"
                 data-animate="fade-up"
@@ -223,30 +204,44 @@ const productImage = getProductImage(product.image);
           </div>
 
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {productPlants.map((plant: any) => (
-              <a
-                href={`${baseUrl}/nos-fleurs/${plant.id}`}
-                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                data-animate="fade-up"
-              >
-                <div class="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={plant.image}
-                    alt={plant.name}
-                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div class="p-6">
-                  <p class="text-xs italic text-beaucharme-earth/60 mb-1">{plant.latinName}</p>
-                  <h3 class="font-serif text-xl font-semibold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors">
-                    {plant.name}
-                  </h3>
-                  <p class="text-sm text-beaucharme-earth/80 mt-2 line-clamp-2">
-                    {plant.shortDescription}
-                  </p>
-                </div>
-              </a>
-            ))}
+            {productPlants.map((plant: any) => {
+              const plantImg = getPlantImage(plant.image);
+              const isImportedImage = typeof plantImg !== 'string';
+              return (
+                <a
+                  href={`${baseUrl}/nos-fleurs/${plant.id}`}
+                  class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                  data-animate="fade-up"
+                >
+                  <div class="aspect-[4/3] overflow-hidden">
+                    {isImportedImage ? (
+                      <Image
+                        src={plantImg as ImageMetadata}
+                        alt={plant.name}
+                        width={400}
+                        height={300}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <img
+                        src={plantImg as string}
+                        alt={plant.name}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    )}
+                  </div>
+                  <div class="p-6">
+                    <p class="text-xs italic text-beaucharme-earth/60 mb-1">{plant.latinName}</p>
+                    <h3 class="font-serif text-xl font-semibold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors">
+                      {plant.name}
+                    </h3>
+                    <p class="text-sm text-beaucharme-earth/80 mt-2 line-clamp-2">
+                      {plant.shortDescription}
+                    </p>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </Section>
       )}
@@ -263,7 +258,7 @@ const productImage = getProductImage(product.image);
 
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedProducts.map((relatedProduct: any) => {
-              const relatedImage = getProductImage(relatedProduct.image);
+              const relatedImageUrl = getPublicImageUrl(relatedProduct.image, baseUrl);
               return (
                 <a
                   href={`${baseUrl}/produit/${relatedProduct.id}`}
@@ -271,21 +266,11 @@ const productImage = getProductImage(product.image);
                   data-animate="fade-up"
                 >
                   <div class="aspect-square overflow-hidden">
-                    {typeof relatedImage === 'string' ? (
-                      <img
-                        src={relatedImage}
-                        alt={relatedProduct.name}
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    ) : (
-                      <Image
-                        src={relatedImage}
-                        alt={relatedProduct.name}
-                        width={400}
-                        height={400}
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    )}
+                    <img
+                      src={relatedImageUrl}
+                      alt={relatedProduct.name}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
                   </div>
                   <div class="p-6">
                     <h3 class="font-serif text-xl font-semibold text-beaucharme-dark group-hover:text-beaucharme-terracotta transition-colors mb-2">

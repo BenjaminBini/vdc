@@ -14,7 +14,6 @@
       <form
         id="newsletter-form"
         class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto animate-on-scroll"
-        onsubmit="handleNewsletterSubmit(event)"
       >
         <input
           type="email"
@@ -36,9 +35,9 @@
 </section>
 
 <script is:inline>
-  window.handleNewsletterSubmit = function(event) {
-    event.preventDefault();
-    const form = event.target;
+  document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
     const emailInput = form.querySelector('input[name="email"]');
     const email = emailInput?.value;
 
@@ -46,5 +45,5 @@
       alert(`Merci ${email} ! Votre inscription à la newsletter a bien été enregistrée. (Interface de démonstration)`);
       form.reset();
     }
-  }
+  });
 </script>

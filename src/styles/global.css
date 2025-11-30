@@ -175,7 +175,7 @@
   /* Animated state */
   [data-animate].is-visible {
     opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
+    transform: translateY(0);
   }
 
   /* Stagger delays - auto applied based on data-animate-delay attribute or nth-child */

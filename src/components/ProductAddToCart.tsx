@@ -1,4 +1,4 @@
-import { useCart, type CartItem } from '../stores/cartStore';
+import { useCart } from '../stores/cartStore';
 
 interface ProductAddToCartProps {
   product: {

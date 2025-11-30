@@ -4,6 +4,7 @@ interface Props {
   title: string;
   description: string;
   bg?: 'sage-dark' | 'sage' | 'terracotta' | 'gold';
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
   class?: string;
 }
 
@@ -12,6 +13,7 @@ const {
   title,
   description,
   bg = 'sage-dark',
+  animate = 'fade-up',
   class: className = '',
 } = Astro.props;
 
@@ -23,11 +25,14 @@ const bgClasses = {
 };
 ---
 
-<div class:list={[
-  'rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white',
-  bgClasses[bg],
-  className
-]}>
+<div
+  class:list={[
+    'rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white shadow-md/40',
+    bgClasses[bg],
+    className
+  ]}
+  data-animate={animate || undefined}
+>
   {tagline && (
     <p class="text-sm tracking-[0.2em] uppercase mb-2 text-white/70">{tagline}</p>
   )}

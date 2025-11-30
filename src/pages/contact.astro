@@ -40,7 +40,7 @@ const baseUrl = import.meta.env.BASE_URL;
             Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
           </p>
 
-          <form id="contact-form" class="space-y-6" onsubmit="handleContactSubmit(event)">
+          <form id="contact-form" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="firstName" class="block text-sm font-medium text-beaucharme-dark mb-2">
@@ -256,9 +256,9 @@ const baseUrl = import.meta.env.BASE_URL;
 </Layout>
 
 <script is:inline>
-  window.handleContactSubmit = function(event) {
-    event.preventDefault();
-    const form = event.target;
+  document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
@@ -267,5 +267,5 @@ const baseUrl = import.meta.env.BASE_URL;
     alert(`Merci ${data.firstName} ${data.lastName} ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais. (Interface de démonstration)`);
 
     form.reset();
-  }
+  });
 </script>

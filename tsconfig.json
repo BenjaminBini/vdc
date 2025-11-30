@@ -9,7 +9,9 @@
       "@assets/*": ["src/assets/*"],
       "@data/*": ["src/data/*"],
       "@images/*": ["src/assets/images/*"],
-      "@stores/*": ["src/stores/*"]
+      "@stores/*": ["src/stores/*"],
+      "@utils/*": ["src/utils/*"]
     }
-  }
+  },
+  "exclude": ["generate-plant-images.js", "dist"]
 }
