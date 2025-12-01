@@ -147,7 +147,5 @@ export function useFilters() {
   };
 }
 
-// Make filter store available globally
-if (typeof window !== 'undefined') {
-  (window as any).beaucharmeFilters = filterStore;
-}
+// NOTE: Global window exposure removed for security
+// Use the useFilters() hook to access filter state in components

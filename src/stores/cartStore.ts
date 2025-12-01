@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as cartActions from '../actions/cart';
 import type { CartItem, Product } from '../actions/cart';
+import { parseAndValidateCart } from '../utils/validation';
 
 export type { CartItem, Product };
 
@@ -10,15 +11,44 @@ interface CartState {
   isLoading: boolean;
 }
 
+// Type-safe window extension for cart state
+interface BeaucharmeWindow extends Window {
+  __beaucharmeCartState?: CartState;
+  __beaucharmeCartInitialized?: boolean;
+}
+
+declare const window: BeaucharmeWindow;
+
 const STORAGE_KEY = 'beaucharme-cart';
 const CART_EVENT = 'beaucharme-cart-change';
 
+/**
+ * Load cart from localStorage with validation
+ * Invalid items are filtered out to prevent XSS and data corruption
+ */
 function loadFromStorage(): CartItem[] {
   if (typeof window === 'undefined') return [];
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
+    const validatedItems = parseAndValidateCart(saved);
+
+    // If we had to filter items, update storage with clean data
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length !== validatedItems.length) {
+        saveToStorage(validatedItems);
+      }
+    }
+
+    return validatedItems;
+  } catch (error) {
+    console.error('[Cart] Failed to load cart from storage:', error);
+    // Clear corrupted data
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Ignore if we can't clear
+    }
     return [];
   }
 }
@@ -32,21 +62,21 @@ const emptyState: CartState = { items: [], isOpen: false, isLoading: false };
 
 function getState(): CartState {
   if (typeof window === 'undefined') return emptyState;
-  return (window as any).__beaucharmeCartState || emptyState;
+  return window.__beaucharmeCartState || emptyState;
 }
 
 function setState(newState: CartState) {
   if (typeof window === 'undefined') return;
-  (window as any).__beaucharmeCartState = newState;
+  window.__beaucharmeCartState = newState;
   window.dispatchEvent(new CustomEvent(CART_EVENT));
 }
 
 function initializeCart() {
   if (typeof window === 'undefined') return;
-  if (!(window as any).__beaucharmeCartInitialized) {
-    (window as any).__beaucharmeCartInitialized = true;
+  if (!window.__beaucharmeCartInitialized) {
+    window.__beaucharmeCartInitialized = true;
     const items = loadFromStorage();
-    (window as any).__beaucharmeCartState = { items, isOpen: false, isLoading: false };
+    window.__beaucharmeCartState = { items, isOpen: false, isLoading: false };
     window.dispatchEvent(new CustomEvent(CART_EVENT));
   }
 }

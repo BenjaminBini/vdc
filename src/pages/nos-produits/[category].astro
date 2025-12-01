@@ -31,16 +31,17 @@ const heroImages: Record<string, ImageMetadata> = {
 };
 
 export function getStaticPaths() {
+  // Story content as arrays of paragraphs (safe - no HTML injection risk)
   const categoriesInfo = {
     'huiles-vegetales': {
       name: 'Huiles végétales',
       tagline: 'De la graine à la bouteille',
       description: 'Nos huiles sont pressées à froid dans notre atelier, à partir de graines cultivées sur notre ferme près de Vézelay. Chanvre, tournesol, cameline, carthame, bourrache... Chaque plante est choisie pour ses vertus exceptionnelles.',
-      story: `
-        <p>Tout commence par la graine. Nous semons nous-mêmes nos cultures au printemps, sur les terres argilo-calcaires de notre ferme bourguignonne. Le terroir, le climat et notre patience font le reste.</p>
-        <p>À maturité, nous récoltons les graines puis les pressons dans les jours qui suivent pour préserver tous leurs bienfaits. Notre presse à vis sans fin travaille à basse température — c'est ce qu'on appelle la première pression à froid.</p>
-        <p>Le résultat : des huiles d'une pureté exceptionnelle, riches en acides gras essentiels, vitamines et antioxydants. Aucun solvant, aucun raffinage. Juste la nature à l'état pur.</p>
-      `,
+      storyParagraphs: [
+        'Tout commence par la graine. Nous semons nous-mêmes nos cultures au printemps, sur les terres argilo-calcaires de notre ferme bourguignonne. Le terroir, le climat et notre patience font le reste.',
+        'À maturité, nous récoltons les graines puis les pressons dans les jours qui suivent pour préserver tous leurs bienfaits. Notre presse à vis sans fin travaille à basse température — c\'est ce qu\'on appelle la première pression à froid.',
+        'Le résultat : des huiles d\'une pureté exceptionnelle, riches en acides gras essentiels, vitamines et antioxydants. Aucun solvant, aucun raffinage. Juste la nature à l\'état pur.',
+      ],
       benefits: ['Riches en oméga-3 et oméga-6', 'Non raffinées, première pression à froid', '100% cultivées sur notre ferme', 'Sans pesticides ni engrais chimiques'],
       color: 'beaucharme-sage',
     },
@@ -48,11 +49,11 @@ export function getStaticPaths() {
       name: 'Huiles de soin',
       tagline: 'Formulations signature',
       description: 'Nos huiles de soin sont des assemblages subtils de nos meilleures huiles végétales, enrichies de macérats de plantes et de vitamine E naturelle.',
-      story: `
-        <p>Créer une huile de soin, c'est comme composer un parfum ou une recette de cuisine : il faut trouver l'équilibre parfait entre les différents ingrédients.</p>
-        <p>Nous passons des mois à tester différentes combinaisons, à ajuster les proportions, à évaluer la texture et l'absorption. Chaque formule est le fruit de cette recherche patiente.</p>
-        <p>Nos huiles de soin conviennent à tous les types de peau et peuvent s'utiliser sur le visage comme sur le corps. Quelques gouttes suffisent pour nourrir, protéger et sublimer votre peau.</p>
-      `,
+      storyParagraphs: [
+        'Créer une huile de soin, c\'est comme composer un parfum ou une recette de cuisine : il faut trouver l\'équilibre parfait entre les différents ingrédients.',
+        'Nous passons des mois à tester différentes combinaisons, à ajuster les proportions, à évaluer la texture et l\'absorption. Chaque formule est le fruit de cette recherche patiente.',
+        'Nos huiles de soin conviennent à tous les types de peau et peuvent s\'utiliser sur le visage comme sur le corps. Quelques gouttes suffisent pour nourrir, protéger et sublimer votre peau.',
+      ],
       benefits: ['Formules exclusives développées sur notre ferme', 'Synergie d\'huiles aux vertus complémentaires', 'Enrichies en vitamine E naturelle', 'Conviennent à tous les types de peau'],
       color: 'beaucharme-terracotta',
     },
@@ -60,11 +61,11 @@ export function getStaticPaths() {
       name: 'Savons surgras',
       tagline: 'Saponification à froid',
       description: 'Nos savons sont fabriqués selon la méthode ancestrale de saponification à froid, qui préserve la glycérine naturelle et les propriétés de nos huiles.',
-      story: `
-        <p>La saponification à froid est un procédé lent et délicat, mais c'est le seul qui permet de conserver toutes les propriétés de nos huiles précieuses.</p>
-        <p>Nous mélangeons nos huiles avec une solution de soude, puis nous coulons la pâte dans des moules en bois. Le savon doit ensuite sécher pendant 4 à 6 semaines — c'est la cure.</p>
-        <p>Le résultat est un savon surgras, naturellement riche en glycérine, qui nettoie en douceur sans jamais assécher la peau. Nos savons sont enrichis à la cire d'abeille de nos propres ruches.</p>
-      `,
+      storyParagraphs: [
+        'La saponification à froid est un procédé lent et délicat, mais c\'est le seul qui permet de conserver toutes les propriétés de nos huiles précieuses.',
+        'Nous mélangeons nos huiles avec une solution de soude, puis nous coulons la pâte dans des moules en bois. Le savon doit ensuite sécher pendant 4 à 6 semaines — c\'est la cure.',
+        'Le résultat est un savon surgras, naturellement riche en glycérine, qui nettoie en douceur sans jamais assécher la peau. Nos savons sont enrichis à la cire d\'abeille de nos propres ruches.',
+      ],
       benefits: ['Saponification à froid artisanale', 'Surgras pour ne pas assécher la peau', 'Enrichis à la cire d\'abeille locale', 'Cure de 4 à 6 semaines'],
       color: 'beaucharme-gold',
     },
@@ -72,11 +73,11 @@ export function getStaticPaths() {
       name: 'Crèmes mains',
       tagline: 'Sans eau, 100% actifs',
       description: 'Une innovation dont nous sommes fiers : des crèmes mains sans eau ajoutée, conditionnées en tubes végétaux.',
-      story: `
-        <p>Pourquoi ajouter de l'eau dans une crème ? L'eau n'hydrate pas, elle dilue les actifs et nécessite des conservateurs. Nous avons voulu faire différemment.</p>
-        <p>Nos crèmes mains sont formulées uniquement avec du beurre de karité, de la cire d'abeille et nos huiles précieuses. Une formule concentrée en actifs qui nourrit intensément.</p>
-        <p>Et parce que nous pensons à tout, nos tubes sont en plastique végétal biodégradable. Nos mains d'agriculteurs, mises à rude épreuve, adorent cette crème. Les vôtres aussi.</p>
-      `,
+      storyParagraphs: [
+        'Pourquoi ajouter de l\'eau dans une crème ? L\'eau n\'hydrate pas, elle dilue les actifs et nécessite des conservateurs. Nous avons voulu faire différemment.',
+        'Nos crèmes mains sont formulées uniquement avec du beurre de karité, de la cire d\'abeille et nos huiles précieuses. Une formule concentrée en actifs qui nourrit intensément.',
+        'Et parce que nous pensons à tout, nos tubes sont en plastique végétal biodégradable. Nos mains d\'agriculteurs, mises à rude épreuve, adorent cette crème. Les vôtres aussi.',
+      ],
       benefits: ['Formule sans eau, 100% actifs', 'Tubes en plastique végétal biodégradable', 'Pénétration rapide, fini non gras', 'Testée par nos mains d\'agriculteurs'],
       color: 'beaucharme-earth',
     },
@@ -84,11 +85,11 @@ export function getStaticPaths() {
       name: 'Eaux florales',
       tagline: 'Distillation artisanale',
       description: 'Nos hydrolats sont obtenus par distillation à la vapeur d\'eau dans notre alambic en cuivre. Des fleurs de notre jardin pour des soins frais et aromatiques.',
-      story: `
-        <p>Au petit matin, quand la rosée perle encore sur les pétales, nous récoltons nos fleurs à la main. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... chacune a son moment idéal de récolte.</p>
-        <p>Les fleurs sont immédiatement placées dans notre alambic en cuivre. La vapeur d'eau traverse doucement la matière végétale, emportant avec elle les précieuses molécules aromatiques.</p>
-        <p>En refroidissant, cette vapeur se condense en deux phases : l'huile essentielle qui flotte, et l'hydrolat, chargé des principes actifs hydrosolubles de la plante. C'est cet hydrolat que nous embouteillons pour vous.</p>
-      `,
+      storyParagraphs: [
+        'Au petit matin, quand la rosée perle encore sur les pétales, nous récoltons nos fleurs à la main. Lavandin, menthe poivrée, camomille romaine, sauge sclarée... chacune a son moment idéal de récolte.',
+        'Les fleurs sont immédiatement placées dans notre alambic en cuivre. La vapeur d\'eau traverse doucement la matière végétale, emportant avec elle les précieuses molécules aromatiques.',
+        'En refroidissant, cette vapeur se condense en deux phases : l\'huile essentielle qui flotte, et l\'hydrolat, chargé des principes actifs hydrosolubles de la plante. C\'est cet hydrolat que nous embouteillons pour vous.',
+      ],
       benefits: ['Distillation artisanale à la vapeur d\'eau', 'Fleurs récoltées dans notre jardin', 'Alambic en cuivre traditionnel', 'Sans conservateur ajouté'],
       color: 'beaucharme-sage',
     },
@@ -96,11 +97,11 @@ export function getStaticPaths() {
       name: 'Coffrets',
       tagline: 'L\'art d\'offrir',
       description: 'Nos coffrets réunissent une sélection de nos meilleurs produits pour découvrir notre univers ou faire un cadeau qui a du sens.',
-      story: `
-        <p>Offrir un coffret Beaucharme, c'est offrir un morceau de notre ferme, un peu de notre passion, beaucoup de nature.</p>
-        <p>Chaque coffret est préparé avec soin dans notre atelier. Nous choisissons les produits pour qu'ils se complètent harmonieusement et offrent une expérience complète.</p>
-        <p>Emballages en carton recyclé, rubans en coton bio, papier de soie sans acide... nous soignons chaque détail pour que le cadeau soit aussi beau à offrir qu'à recevoir.</p>
-      `,
+      storyParagraphs: [
+        'Offrir un coffret Beaucharme, c\'est offrir un morceau de notre ferme, un peu de notre passion, beaucoup de nature.',
+        'Chaque coffret est préparé avec soin dans notre atelier. Nous choisissons les produits pour qu\'ils se complètent harmonieusement et offrent une expérience complète.',
+        'Emballages en carton recyclé, rubans en coton bio, papier de soie sans acide... nous soignons chaque détail pour que le cadeau soit aussi beau à offrir qu\'à recevoir.',
+      ],
       benefits: ['Sélections harmonieuses de produits', 'Emballages en matériaux recyclés', 'Parfaits pour offrir ou se faire plaisir', 'Différentes gammes de prix'],
       color: 'beaucharme-terracotta',
     },
@@ -153,7 +154,11 @@ const products = productsData.products
             <h2 class="font-serif text-3xl md:text-4xl font-semibold text-beaucharme-dark mb-8">
               Notre savoir-faire
             </h2>
-            <div class="prose prose-lg text-beaucharme-earth space-y-4" set:html={categoryInfo.story} />
+            <div class="prose prose-lg text-beaucharme-earth space-y-4">
+              {categoryInfo.storyParagraphs.map((paragraph: string) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
           </div>
           <div class={`bg-${categoryInfo.color} p-8 md:p-12 flex flex-col justify-center`}>
             <h3 class="text-2xl tracking-[0.1em] uppercase font-bold text-white mb-6">Nos engagements</h3>

@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useFilters, type SortOption } from '@stores/filterStore';
+import { sanitizeSearchQuery, validatePriceRange } from '@utils/validation';
 
 interface Category {
   id: string;
@@ -143,6 +144,25 @@ export default function StoreFilters({ categories, plants, minPrice, maxPrice, c
     { value: 'name-desc', label: 'Nom Z-A' },
   ];
 
+  // Sanitized search handler - prevents XSS
+  const handleSearchChange = useCallback((value: string) => {
+    const sanitized = sanitizeSearchQuery(value);
+    setSearchQuery(sanitized);
+  }, [setSearchQuery]);
+
+  // Validated price range handlers - ensures valid bounds
+  const handleMinPriceChange = useCallback((value: string) => {
+    const numValue = Number(value);
+    const [safeMin, safeMax] = validatePriceRange(numValue, priceRange[1], minPrice, maxPrice);
+    setPriceRange([safeMin, safeMax]);
+  }, [priceRange, minPrice, maxPrice, setPriceRange]);
+
+  const handleMaxPriceChange = useCallback((value: string) => {
+    const numValue = Number(value);
+    const [safeMin, safeMax] = validatePriceRange(priceRange[0], numValue, minPrice, maxPrice);
+    setPriceRange([safeMin, safeMax]);
+  }, [priceRange, minPrice, maxPrice, setPriceRange]);
+
   return (
     <div className={compact ? "space-y-4" : "space-y-6"}>
       {/* Search */}
@@ -151,8 +171,9 @@ export default function StoreFilters({ categories, plants, minPrice, maxPrice, c
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Rechercher..."
+            maxLength={100}
             className={`w-full pl-9 border border-beaucharme-beige/60 rounded-lg bg-white focus:outline-none focus:border-beaucharme-earth/30 focus:shadow-sm transition-all duration-200 text-sm text-beaucharme-earth placeholder:text-beaucharme-earth/50 ${compact ? 'px-3 py-2' : 'px-4 py-2.5'}`}
           />
           <svg
@@ -206,18 +227,18 @@ export default function StoreFilters({ categories, plants, minPrice, maxPrice, c
             <input
               type="number"
               min={minPrice}
-              max={priceRange[1]}
+              max={maxPrice}
               value={priceRange[0]}
-              onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+              onChange={(e) => handleMinPriceChange(e.target.value)}
               className={`w-full border border-beaucharme-beige/60 rounded-lg bg-white focus:outline-none focus:border-beaucharme-earth/30 focus:shadow-sm transition-all duration-200 text-center text-sm text-beaucharme-earth ${compact ? 'px-2 py-1.5' : 'px-3 py-2'}`}
             />
             <span className="text-beaucharme-earth/40 text-sm">–</span>
             <input
               type="number"
-              min={priceRange[0]}
+              min={minPrice}
               max={maxPrice}
               value={priceRange[1]}
-              onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+              onChange={(e) => handleMaxPriceChange(e.target.value)}
               className={`w-full border border-beaucharme-beige/60 rounded-lg bg-white focus:outline-none focus:border-beaucharme-earth/30 focus:shadow-sm transition-all duration-200 text-center text-sm text-beaucharme-earth ${compact ? 'px-2 py-1.5' : 'px-3 py-2'}`}
             />
           </div>
