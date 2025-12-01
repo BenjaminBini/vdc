@@ -13,7 +13,7 @@ import ImageCard from '@components/ImageCard.astro';
 import ImageTextCard from '@components/ImageTextCard.astro';
 import QuoteCard from '@components/QuoteCard.astro';
 import CenteredCallout from '@components/CenteredCallout.astro';
-import FeatureIconCard from '@components/FeatureIconCard.astro';
+import IconCard from '@components/IconCard.astro';
 
 import farmLandscape from '@images/farm-landscape.jpg';
 import founders from '@images/founders.jpg';
@@ -151,47 +151,62 @@ const baseUrl = import.meta.env.BASE_URL;
             </a>
           </div>
 
-          <FeatureIconCard
+          <IconCard
             title="Certifié COSMOS"
             description="Cosmétique bio certifié"
             iconColor="sage"
+            bg="white"
+            shadow={true}
+            padding="md"
+            iconSize="xl"
           >
             <svg slot="icon" class="w-8 h-8 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
             </svg>
-          </FeatureIconCard>
+          </IconCard>
 
-          <FeatureIconCard
+          <IconCard
             title="Agriculture Bio"
             description="Cultures biologiques"
             iconColor="gold"
+            bg="white"
+            shadow={true}
+            padding="md"
+            iconSize="xl"
           >
             <svg slot="icon" class="w-8 h-8 text-beaucharme-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
             </svg>
-          </FeatureIconCard>
+          </IconCard>
 
-          <FeatureIconCard
+          <IconCard
             title="Éco-conception"
             description="Packaging recyclable"
             iconColor="white"
             bg="sage"
+            shadow={true}
+            padding="md"
+            iconSize="xl"
           >
             <svg slot="icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
-          </FeatureIconCard>
+          </IconCard>
 
-          <FeatureIconCard
+          <IconCard
             title="Made in France"
             description="Fabriqué en Bourgogne"
             iconColor="terracotta"
+            bg="white"
+            shadow={true}
+            padding="md"
+            iconSize="xl"
           >
             <svg slot="icon" class="w-8 h-8 text-beaucharme-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-          </FeatureIconCard>
+          </IconCard>
 
           <div class="bg-beaucharme-gold rounded-2xl p-6 shadow-lg flex flex-col justify-center text-white">
             <h4 class="font-serif text-xl font-semibold mb-2">Visitez notre ferme</h4>

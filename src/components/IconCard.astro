@@ -1,0 +1,133 @@
+---
+/**
+ * IconCard - Unified icon card component
+ * Consolidates FeatureCard, FeatureIconCard, and IconBlock
+ */
+interface Props {
+  title: string;
+  description?: string;
+  iconColor?: 'sage' | 'terracotta' | 'gold' | 'white';
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl';
+  layout?: 'centered' | 'horizontal' | 'vertical';
+  bg?: 'white' | 'sage' | 'terracotta' | 'gold' | 'cream' | 'dark' | 'transparent';
+  shadow?: boolean;
+  rounded?: boolean;
+  padding?: 'sm' | 'md' | 'lg';
+  animate?: 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'fade' | false;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  iconColor = 'sage',
+  iconSize = 'lg',
+  layout = 'centered',
+  bg = 'transparent',
+  shadow = false,
+  rounded = true,
+  padding = 'md',
+  animate = false,
+  class: className = '',
+} = Astro.props;
+
+// Icon background classes
+const iconBgClasses = {
+  sage: 'bg-beaucharme-sage/20',
+  terracotta: 'bg-beaucharme-terracotta/20',
+  gold: 'bg-beaucharme-gold/20',
+  white: 'bg-white/20',
+};
+
+// Icon color classes
+const iconColorClasses = {
+  sage: 'text-beaucharme-sage',
+  terracotta: 'text-beaucharme-terracotta',
+  gold: 'text-beaucharme-gold',
+  white: 'text-white',
+};
+
+// Icon size classes
+const iconSizeClasses = {
+  sm: { container: 'w-10 h-10', icon: 'w-5 h-5' },
+  md: { container: 'w-12 h-12', icon: 'w-6 h-6' },
+  lg: { container: 'w-14 h-14', icon: 'w-7 h-7' },
+  xl: { container: 'w-16 h-16', icon: 'w-8 h-8' },
+};
+
+// Background classes
+const bgClasses = {
+  white: 'bg-white',
+  sage: 'bg-beaucharme-sage',
+  terracotta: 'bg-beaucharme-terracotta',
+  gold: 'bg-beaucharme-gold',
+  cream: 'bg-beaucharme-cream',
+  dark: 'bg-black/20',
+  transparent: '',
+};
+
+// Padding classes
+const paddingClasses = {
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+
+// Determine text colors based on background
+const isDark = bg === 'sage' || bg === 'terracotta' || bg === 'gold' || bg === 'dark' || iconColor === 'white';
+const titleColor = isDark ? 'text-white' : 'text-beaucharme-dark';
+const descColor = isDark ? 'text-white/80' : 'text-beaucharme-earth/80';
+
+// Build container classes
+const containerClasses = [
+  bgClasses[bg],
+  bg !== 'transparent' && paddingClasses[padding],
+  shadow && 'shadow-md',
+  rounded && 'rounded-2xl',
+  layout === 'centered' && 'text-center',
+  layout === 'horizontal' && 'flex items-start space-x-4',
+  layout === 'vertical' && 'text-center',
+  className,
+].filter(Boolean);
+
+// Icon container classes
+const iconContainerClasses = [
+  'rounded-full flex items-center justify-center flex-shrink-0',
+  iconSizeClasses[iconSize].container,
+  iconBgClasses[iconColor],
+  layout === 'centered' && 'mx-auto mb-4',
+  layout === 'vertical' && 'mx-auto mb-4',
+];
+---
+
+<div class:list={containerClasses} data-animate={animate || undefined}>
+  {layout === 'horizontal' ? (
+    <>
+      <div class:list={iconContainerClasses}>
+        <slot name="icon">
+          <svg class:list={[iconSizeClasses[iconSize].icon, iconColorClasses[iconColor]]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
+          </svg>
+        </slot>
+      </div>
+      <div>
+        <h3 class:list={['font-serif text-xl font-semibold mb-2', titleColor]}>{title}</h3>
+        {description && <p class={descColor}>{description}</p>}
+        <slot />
+      </div>
+    </>
+  ) : (
+    <>
+      <div class:list={iconContainerClasses}>
+        <slot name="icon">
+          <svg class:list={[iconSizeClasses[iconSize].icon, iconColorClasses[iconColor]]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
+          </svg>
+        </slot>
+      </div>
+      <h3 class:list={['font-serif text-xl font-semibold mb-2', titleColor]}>{title}</h3>
+      {description && <p class:list={['text-sm', descColor]}>{description}</p>}
+      <slot />
+    </>
+  )}
+</div>

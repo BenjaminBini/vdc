@@ -6,7 +6,7 @@ import Newsletter from '@components/Newsletter.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
 import PageContainer from '@components/PageContainer.astro';
 import Section from '@components/Section.astro';
-import FeatureCard from '@components/FeatureCard.astro';
+import IconCard from '@components/IconCard.astro';
 import StoreFilters from '@components/StoreFilters.tsx';
 import FilteredProductGrid from '@components/FilteredProductGrid.tsx';
 import MobileFilterToggle from '@components/MobileFilterToggle.tsx';
@@ -86,23 +86,23 @@ const [minPrice, maxPrice] = ProductService.getPriceRange().map((p, i) => i === 
     <Section bg="transparent" card={false} padding="small">
       <div class="container-custom">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <FeatureCard title="Livraison soignée" description="Expédition rapide et emballage éco-responsable pour protéger vos produits" iconColor="sage">
+          <IconCard title="Livraison soignée" description="Expédition rapide et emballage éco-responsable pour protéger vos produits" iconColor="sage" bg="white" shadow={true} padding="lg" iconSize="xl">
             <svg slot="icon" class="w-8 h-8 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
             </svg>
-          </FeatureCard>
+          </IconCard>
 
-          <FeatureCard title="Qualité garantie" description="Tous nos produits sont certifiés COSMOS et fabriqués dans notre ferme" iconColor="terracotta">
+          <IconCard title="Qualité garantie" description="Tous nos produits sont certifiés COSMOS et fabriqués dans notre ferme" iconColor="terracotta" bg="white" shadow={true} padding="lg" iconSize="xl">
             <svg slot="icon" class="w-8 h-8 text-beaucharme-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-          </FeatureCard>
+          </IconCard>
 
-          <FeatureCard title="À votre écoute" description="Une question ? Nous sommes là pour vous conseiller et vous accompagner" iconColor="gold">
+          <IconCard title="À votre écoute" description="Une question ? Nous sommes là pour vous conseiller et vous accompagner" iconColor="gold" bg="white" shadow={true} padding="lg" iconSize="xl">
             <svg slot="icon" class="w-8 h-8 text-beaucharme-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
             </svg>
-          </FeatureCard>
+          </IconCard>
         </div>
       </div>
     </Section>

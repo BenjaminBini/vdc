@@ -11,7 +11,7 @@ import SectionHeader from '@components/SectionHeader.astro';
 import ImageTextCard from '@components/ImageTextCard.astro';
 import CenteredCallout from '@components/CenteredCallout.astro';
 import QuoteCard from '@components/QuoteCard.astro';
-import IconBlock from '@components/IconBlock.astro';
+import IconCard from '@components/IconCard.astro';
 
 import formulation from '@images/formulation.jpg';
 import culture from '@images/culture.jpg';
@@ -66,10 +66,10 @@ const baseUrl = import.meta.env.BASE_URL;
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Engagement 1: Biodiversité -->
           <div class="bg-white rounded-2xl p-8 shadow-lg flex flex-col">
-            <IconBlock
+            <IconCard
               title="Biodiversité & climat"
               iconColor="sage"
-              iconSize="large"
+              iconSize="lg"
               layout="vertical"
             >
               <svg slot="icon" class="w-7 h-7 text-beaucharme-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,15 +79,15 @@ const baseUrl = import.meta.env.BASE_URL;
                 Des pratiques agricoles respectueuses de la biodiversité et adaptées au changement climatique.
                 Nous cultivons en harmonie avec notre environnement.
               </p>
-            </IconBlock>
+            </IconCard>
           </div>
 
           <!-- Engagement 2: Formules locales -->
           <div class="bg-white rounded-2xl p-8 shadow-lg flex flex-col">
-            <IconBlock
+            <IconCard
               title="Ingrédients de notre ferme"
               iconColor="terracotta"
-              iconSize="large"
+              iconSize="lg"
               layout="vertical"
             >
               <svg slot="icon" class="w-7 h-7 text-beaucharme-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,15 +97,15 @@ const baseUrl = import.meta.env.BASE_URL;
                 Des formules conçues avec un maximum de produits de notre ferme.
                 De la graine au flacon, nous maîtrisons chaque étape.
               </p>
-            </IconBlock>
+            </IconCard>
           </div>
 
           <!-- Engagement 3: Packaging -->
           <div class="bg-white rounded-2xl p-8 shadow-lg flex flex-col">
-            <IconBlock
+            <IconCard
               title="Packaging éco-conçu"
               iconColor="gold"
-              iconSize="large"
+              iconSize="lg"
               layout="vertical"
             >
               <svg slot="icon" class="w-7 h-7 text-beaucharme-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ const baseUrl = import.meta.env.BASE_URL;
                 Des packagings réfléchis en termes de recyclage : monomatériau pour les crèmes mains,
                 verre pour les crèmes et huiles corps.
               </p>
-            </IconBlock>
+            </IconCard>
           </div>
         </div>
       </div>
