@@ -1,4 +1,6 @@
+import { memo, useCallback } from 'react';
 import { useCart } from '../contexts/CartContext';
+import { IconShoppingBag, IconPlus, IconMinus, IconCheck } from './icons';
 import type { AddToCartProduct } from '../types';
 
 interface ProductAddToCartProps {
@@ -6,27 +8,27 @@ interface ProductAddToCartProps {
   inStock: boolean;
 }
 
-export default function ProductAddToCart({ product, inStock }: ProductAddToCartProps) {
+const ProductAddToCart = memo(function ProductAddToCart({ product, inStock }: ProductAddToCartProps) {
   const { items, addItem, updateQuantity, removeItem } = useCart();
 
   const cartItem = items.find(item => item.id === product.id);
   const quantity = cartItem?.quantity || 0;
 
-  const handleAdd = () => {
+  const handleAdd = useCallback(() => {
     addItem(product);
-  };
+  }, [addItem, product]);
 
-  const handleIncrement = () => {
+  const handleIncrement = useCallback(() => {
     updateQuantity(product.id, quantity + 1);
-  };
+  }, [updateQuantity, product.id, quantity]);
 
-  const handleDecrement = () => {
+  const handleDecrement = useCallback(() => {
     if (quantity > 1) {
       updateQuantity(product.id, quantity - 1);
     } else {
       removeItem(product.id);
     }
-  };
+  }, [updateQuantity, removeItem, product.id, quantity]);
 
   if (!inStock) {
     return (
@@ -45,9 +47,7 @@ export default function ProductAddToCart({ product, inStock }: ProductAddToCartP
         onClick={handleAdd}
         className="btn-primary text-lg px-12 py-5 flex items-center justify-center gap-3 w-full sm:w-auto"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-        </svg>
+        <IconShoppingBag className="w-6 h-6" />
         Ajouter au panier
       </button>
     );
@@ -61,9 +61,7 @@ export default function ProductAddToCart({ product, inStock }: ProductAddToCartP
           className="w-14 h-14 flex items-center justify-center text-beaucharme-dark hover:bg-beaucharme-beige rounded-l-full transition-colors"
           aria-label="Diminuer la quantité"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4"/>
-          </svg>
+          <IconMinus className="w-5 h-5" />
         </button>
         <span className="w-12 text-center font-semibold text-lg text-beaucharme-dark">
           {quantity}
@@ -73,17 +71,15 @@ export default function ProductAddToCart({ product, inStock }: ProductAddToCartP
           className="w-14 h-14 flex items-center justify-center text-beaucharme-dark hover:bg-beaucharme-beige rounded-r-full transition-colors"
           aria-label="Augmenter la quantité"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
-          </svg>
+          <IconPlus className="w-5 h-5" />
         </button>
       </div>
       <span className="text-beaucharme-sage font-medium flex items-center gap-2">
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
-        </svg>
+        <IconCheck className="w-5 h-5" />
         Dans le panier
       </span>
     </div>
   );
-}
+});
+
+export default ProductAddToCart;

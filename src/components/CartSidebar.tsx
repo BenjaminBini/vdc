@@ -1,5 +1,8 @@
 import { memo, useEffect, useCallback, useMemo } from "react";
 import { useCart } from "../contexts/CartContext";
+import { formatPrice } from "../utils/formatting";
+import { IconX, IconShoppingBag, IconTrash } from "./icons";
+import QuantityControls from "./QuantityControls";
 
 const CartSidebar = memo(function CartSidebar() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } =
@@ -15,10 +18,6 @@ const CartSidebar = memo(function CartSidebar() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, closeCart]);
-
-  const formatPrice = useCallback((price: number) => {
-    return price.toFixed(2).replace(".", ",") + " €";
-  }, []);
 
   const total = useMemo(() => getTotal(), [getTotal]);
 
@@ -40,19 +39,7 @@ const CartSidebar = memo(function CartSidebar() {
               className="p-2 hover:bg-beaucharme-cream rounded-full transition-colors duration-300"
               aria-label="Fermer"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <IconX className="w-6 h-6" />
             </button>
           </div>
 
@@ -60,19 +47,7 @@ const CartSidebar = memo(function CartSidebar() {
           <div className="flex-1 overflow-y-auto p-6">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <svg
-                  className="w-24 h-24 text-beaucharme-beige mb-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                  />
-                </svg>
+                <IconShoppingBag className="w-24 h-24 text-beaucharme-beige mb-4" strokeWidth={1} />
                 <p className="text-beaucharme-earth text-lg mb-2">
                   Votre panier est vide
                 </p>
@@ -82,94 +57,12 @@ const CartSidebar = memo(function CartSidebar() {
               </div>
             ) : (
               items.map((item) => (
-                <div
+                <CartItem
                   key={item.id}
-                  className="flex space-x-4 mb-6 pb-6 border-b border-beaucharme-beige last:border-0"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-24 h-24 object-cover rounded-sm"
-                  />
-                  <div className="flex-1">
-                    <h3 className="font-medium text-beaucharme-dark mb-1">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm text-beaucharme-earth/70 mb-3">
-                      {formatPrice(item.price)}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2 border border-beaucharme-beige rounded-sm">
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity - 1)
-                          }
-                          className="px-3 py-1 hover:bg-beaucharme-cream transition-colors duration-300"
-                          aria-label="Diminuer"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M20 12H4"
-                            />
-                          </svg>
-                        </button>
-                        <span className="px-3 font-medium">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
-                          }
-                          className="px-3 py-1 hover:bg-beaucharme-cream transition-colors duration-300"
-                          aria-label="Augmenter"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 4v16m8-8H4"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-beaucharme-earth/70 hover:text-red-600 transition-colors duration-300"
-                        aria-label="Supprimer"
-                      >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                  item={item}
+                  onUpdateQuantity={updateQuantity}
+                  onRemove={removeItem}
+                />
               ))
             )}
           </div>
@@ -219,6 +112,68 @@ const CartSidebar = memo(function CartSidebar() {
         onClick={closeCart}
       />
     </>
+  );
+});
+
+interface CartItemProps {
+  item: {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    quantity: number;
+  };
+  onUpdateQuantity: (id: string, quantity: number) => void;
+  onRemove: (id: string) => void;
+}
+
+const CartItem = memo(function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
+  const handleIncrement = useCallback(() => {
+    onUpdateQuantity(item.id, item.quantity + 1);
+  }, [onUpdateQuantity, item.id, item.quantity]);
+
+  const handleDecrement = useCallback(() => {
+    onUpdateQuantity(item.id, item.quantity - 1);
+  }, [onUpdateQuantity, item.id, item.quantity]);
+
+  const handleRemove = useCallback(() => {
+    onRemove(item.id);
+  }, [onRemove, item.id]);
+
+  return (
+    <div className="flex space-x-4 mb-6 pb-6 border-b border-beaucharme-beige last:border-0">
+      <img
+        src={item.image}
+        alt={item.name}
+        className="w-24 h-24 object-cover rounded-sm"
+      />
+      <div className="flex-1">
+        <h3 className="font-medium text-beaucharme-dark mb-1">
+          {item.name}
+        </h3>
+        <p className="text-sm text-beaucharme-earth/70 mb-3">
+          {formatPrice(item.price)}
+        </p>
+
+        <div className="flex items-center justify-between">
+          <QuantityControls
+            quantity={item.quantity}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
+            variant="compact"
+            size="sm"
+          />
+
+          <button
+            onClick={handleRemove}
+            className="text-beaucharme-earth/70 hover:text-red-600 transition-colors duration-300"
+            aria-label="Supprimer"
+          >
+            <IconTrash className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 });
 

@@ -1,6 +1,8 @@
 import { memo, useEffect, useRef, useState, useCallback } from "react";
 import { useCart } from "../contexts/CartContext";
+import { formatPrice } from "../utils/formatting";
 import type { Product } from "../types";
+import QuantityControls from "./QuantityControls";
 
 interface ProductCardReactProps {
   product: Product;
@@ -62,7 +64,7 @@ const ProductCardReact = memo(function ProductCardReact({
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300  hover:shadow-2xl hover:-translate-y-2 ">
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
         <a href={productUrl} className="block">
           <div className="aspect-square overflow-hidden relative bg-beaucharme-cream">
             <img
@@ -106,7 +108,7 @@ const ProductCardReact = memo(function ProductCardReact({
 
             <div className="flex items-center justify-between mt-4">
               <span className="text-2xl font-serif font-semibold text-beaucharme-dark">
-                {product.price.toFixed(2).replace(".", ",")} €
+                {formatPrice(product.price)}
               </span>
             </div>
           </div>
@@ -115,49 +117,11 @@ const ProductCardReact = memo(function ProductCardReact({
         <div className="px-6 pb-6">
           {product.inStock ? (
             quantity > 0 ? (
-              <div className="flex items-center justify-between gap-2">
-                <button
-                  onClick={handleDecrement}
-                  className="w-10 h-10 flex items-center justify-center bg-beaucharme-cream hover:bg-beaucharme-beige text-beaucharme-dark rounded-full transition-colors cursor-pointer"
-                  aria-label="Diminuer la quantité"
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20 12H4"
-                    />
-                  </svg>
-                </button>
-                <span className="flex-1 text-center font-semibold text-beaucharme-dark">
-                  {quantity} dans le panier
-                </span>
-                <button
-                  onClick={handleIncrement}
-                  className="w-10 h-10 flex items-center justify-center bg-beaucharme-terracotta hover:bg-beaucharme-terracotta/90 text-white rounded-full transition-colors cursor-pointer"
-                  aria-label="Augmenter la quantité"
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <QuantityControls
+                quantity={quantity}
+                onIncrement={handleIncrement}
+                onDecrement={handleDecrement}
+              />
             ) : (
               <button
                 onClick={handleAddToCart}
