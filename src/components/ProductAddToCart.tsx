@@ -1,12 +1,8 @@
-import { useCart } from '../stores/cartStore';
+import { useCart } from '../contexts/CartContext';
+import type { AddToCartProduct } from '../types';
 
 interface ProductAddToCartProps {
-  product: {
-    id: string;
-    name: string;
-    price: number;
-    image: string;
-  };
+  product: AddToCartProduct;
   inStock: boolean;
 }
 

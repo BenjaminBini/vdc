@@ -1,15 +1,6 @@
-import { useCart } from "@stores/cartStore";
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  description?: string;
-  image: string;
-  inStock: boolean;
-  badge?: string;
-}
+import { useEffect, useRef, useState } from "react";
+import { useCart } from "../contexts/CartContext";
+import type { Product } from "../types";
 
 interface ProductCardReactProps {
   product: Product;
@@ -23,6 +14,27 @@ export default function ProductCardReact({
   const { items, addItem, updateQuantity } = useCart();
   const cartItem = items.find((item) => item.id === product.id);
   const quantity = cartItem?.quantity || 0;
+
+  const articleRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = articleRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const handleAddToCart = () => {
     addItem({
@@ -45,9 +57,10 @@ export default function ProductCardReact({
 
   return (
     <article
-      className="
-     group relative"
-      data-animate="fade-up"
+      ref={articleRef}
+      className={`group relative transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
     >
       <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300  hover:shadow-2xl hover:-translate-y-2 ">
         <a href={productUrl} className="block">
