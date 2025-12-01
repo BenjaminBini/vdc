@@ -23,6 +23,14 @@ const baseUrl = import.meta.env.BASE_URL;
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Preconnect to external resources for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- DNS prefetch for potential external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
     <link rel="icon" type="image/x-icon" href={`${baseUrl}/favicon.ico`} />
     <link rel="icon" type="image/png" sizes="32x32" href={`${baseUrl}/favicon-32.png`} />
     <link rel="icon" type="image/png" sizes="16x16" href={`${baseUrl}/favicon-16.png`} />

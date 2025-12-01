@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { memo, useEffect, useCallback, useMemo } from "react";
 import { useCart } from "../contexts/CartContext";
 
-export default function CartSidebar() {
+const CartSidebar = memo(function CartSidebar() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } =
     useCart();
 
@@ -16,9 +16,11 @@ export default function CartSidebar() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, closeCart]);
 
-  const formatPrice = (price: number) => {
+  const formatPrice = useCallback((price: number) => {
     return price.toFixed(2).replace(".", ",") + " €";
-  };
+  }, []);
+
+  const total = useMemo(() => getTotal(), [getTotal]);
 
   return (
     <>
@@ -180,7 +182,7 @@ export default function CartSidebar() {
                   Sous-total
                 </span>
                 <span className="font-serif text-2xl font-semibold text-beaucharme-dark">
-                  {formatPrice(getTotal())}
+                  {formatPrice(total)}
                 </span>
               </div>
 
@@ -218,4 +220,6 @@ export default function CartSidebar() {
       />
     </>
   );
-}
+});
+
+export default CartSidebar;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState, useCallback } from "react";
 import { useCart } from "../contexts/CartContext";
 import type { Product } from "../types";
 
@@ -7,7 +7,7 @@ interface ProductCardReactProps {
   baseUrl?: string;
 }
 
-export default function ProductCardReact({
+const ProductCardReact = memo(function ProductCardReact({
   product,
   baseUrl = "",
 }: ProductCardReactProps) {
@@ -36,22 +36,22 @@ export default function ProductCardReact({
     return () => observer.disconnect();
   }, []);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     addItem({
       id: product.id,
       name: product.name,
       price: product.price,
       image: product.image,
     });
-  };
+  }, [addItem, product.id, product.name, product.price, product.image]);
 
-  const handleIncrement = () => {
+  const handleIncrement = useCallback(() => {
     updateQuantity(product.id, quantity + 1);
-  };
+  }, [updateQuantity, product.id, quantity]);
 
-  const handleDecrement = () => {
+  const handleDecrement = useCallback(() => {
     updateQuantity(product.id, quantity - 1);
-  };
+  }, [updateQuantity, product.id, quantity]);
 
   const productUrl = `${baseUrl}/produit/${product.id}`;
 
@@ -178,4 +178,6 @@ export default function ProductCardReact({
       </div>
     </article>
   );
-}
+});
+
+export default ProductCardReact;
