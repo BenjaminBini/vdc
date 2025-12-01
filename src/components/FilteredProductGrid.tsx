@@ -1,25 +1,7 @@
 import { useMemo, useEffect } from 'react';
 import { useFilters } from '@stores/filterStore';
 import ProductCardReact from './ProductCardReact';
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  description: string;
-  ingredients: string[];
-  plants?: string[];
-  image: string;
-  inStock: boolean;
-  featured: boolean;
-  badge?: string;
-}
-
-interface Category {
-  id: string;
-  name: string;
-}
+import type { Product, Category } from '../types';
 
 interface Plant {
   id: string;

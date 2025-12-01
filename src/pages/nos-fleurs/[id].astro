@@ -1,5 +1,4 @@
 ---
-import type { ImageMetadata } from 'astro';
 import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
@@ -9,16 +8,7 @@ import PageContainer from '@components/PageContainer.astro';
 import HeroSection from '@components/HeroSection.astro';
 import Section from '@components/Section.astro';
 import plants from '@data/plants.json';
-
-// Import all plant images
-const plantImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/plants/*.{jpg,jpeg,png,webp}', { eager: true });
-
-// Helper to get plant image
-function getPlantImage(imagePath: string): ImageMetadata | string {
-  const fileName = imagePath.split('/').pop();
-  const key = `/src/assets/images/plants/${fileName}`;
-  return plantImages[key]?.default || imagePath;
-}
+import { getPlantImage } from '@utils/images';
 
 export function getStaticPaths() {
   return plants.map((plant) => ({

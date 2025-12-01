@@ -9,7 +9,7 @@ import Section from '@components/Section.astro';
 import CheckList from '@components/CheckList.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
 import ProductCardReact from '@components/ProductCardReact.tsx';
-import productsData from '@data/products.json';
+import ProductService from '@services/ProductService';
 
 // Import hero images for categories
 import huilesVegetales from '@images/huiles-vegetales.jpg';
@@ -116,13 +116,11 @@ export function getStaticPaths() {
 const { categoryInfo, categoryId } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 
-// Filter and transform products to add baseUrl to image paths
-const products = productsData.products
-  .filter(p => p.category === categoryId)
-  .map(p => ({
-    ...p,
-    image: p.image.startsWith('/') && !p.image.startsWith('//') ? `${baseUrl}${p.image}` : p.image
-  }));
+// Get products for this category with baseUrl applied to images
+const products = ProductService.withBaseUrl(
+  ProductService.getProductsByCategory(categoryId),
+  baseUrl
+);
 ---
 
 <Layout title={categoryInfo.name} description={categoryInfo.description}>

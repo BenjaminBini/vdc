@@ -3,12 +3,13 @@
  * Provides type-safe access to product and plant data
  */
 
-import type { Product, Plant, SortOption, FilterState } from '../types';
+import type { Product, Plant, SortOption, FilterState, Category } from '../types';
 import productsData from '../data/products.json';
 import plantsData from '../data/plants.json';
 
 // Type assertions for imported JSON data
 const products = productsData.products as Product[];
+const categories = productsData.categories as Category[];
 const plants = plantsData as Plant[];
 
 /**
@@ -47,11 +48,18 @@ export function getInStockProducts(): Product[] {
 }
 
 /**
- * Get all unique categories
+ * Get all category definitions
  */
-export function getCategories(): string[] {
-  const categories = new Set(products.map((p) => p.category));
-  return Array.from(categories);
+export function getAllCategories(): Category[] {
+  return categories;
+}
+
+/**
+ * Get unique category IDs from products
+ */
+export function getCategoryIds(): string[] {
+  const categorySet = new Set(products.map((p) => p.category));
+  return Array.from(categorySet);
 }
 
 /**
@@ -170,6 +178,25 @@ export function searchProducts(query: string): Product[] {
   );
 }
 
+/**
+ * Prepend baseUrl to product image paths
+ */
+export function withBaseUrl(items: Product[], baseUrl: string): Product[] {
+  return items.map((p) => ({
+    ...p,
+    image: p.image.startsWith('/') && !p.image.startsWith('//')
+      ? `${baseUrl}${p.image}`
+      : p.image
+  }));
+}
+
+/**
+ * Get plant summaries (id and name only) for filters
+ */
+export function getPlantSummaries(): Array<{ id: string; name: string }> {
+  return plants.map((p) => ({ id: p.id, name: p.name }));
+}
+
 // Default export for easier imports
 export default {
   getAllProducts,
@@ -177,12 +204,15 @@ export default {
   getProductsByCategory,
   getFeaturedProducts,
   getInStockProducts,
-  getCategories,
+  getAllCategories,
+  getCategoryIds,
   getAllPlants,
   getPlantById,
+  getPlantSummaries,
   filterProducts,
   sortProducts,
   getPriceRange,
   getProductsByPlant,
   searchProducts,
+  withBaseUrl,
 };

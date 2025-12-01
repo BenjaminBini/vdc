@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import StoreFilters from './StoreFilters';
-
-interface Category {
-  id: string;
-  name: string;
-  description: string;
-}
+import type { Category } from '../types';
 
 interface Plant {
   id: string;

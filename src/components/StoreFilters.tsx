@@ -1,12 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useFilters, type SortOption } from '@stores/filterStore';
 import { sanitizeSearchQuery, validatePriceRange } from '@utils/validation';
-
-interface Category {
-  id: string;
-  name: string;
-  description: string;
-}
+import type { Category } from '../types';
 
 interface Plant {
   id: string;

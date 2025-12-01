@@ -10,23 +10,13 @@ import FeatureCard from '@components/FeatureCard.astro';
 import StoreFilters from '@components/StoreFilters.tsx';
 import FilteredProductGrid from '@components/FilteredProductGrid.tsx';
 import MobileFilterToggle from '@components/MobileFilterToggle.tsx';
-import productsData from '@data/products.json';
-import plantsData from '@data/plants.json';
+import ProductService from '@services/ProductService';
 
 const baseUrl = import.meta.env.BASE_URL;
-const { products: rawProducts, categories } = productsData;
-const plants = plantsData.map((p: any) => ({ id: p.id, name: p.name }));
-
-// Prepend base URL to local image paths
-const products = rawProducts.map((p: any) => ({
-  ...p,
-  image: p.image.startsWith('/') && !p.image.startsWith('//') ? `${baseUrl}${p.image}` : p.image
-}));
-
-// Calculate price range from products
-const prices = products.map((p: any) => p.price);
-const minPrice = Math.floor(Math.min(...prices));
-const maxPrice = Math.ceil(Math.max(...prices));
+const categories = ProductService.getAllCategories();
+const plants = ProductService.getPlantSummaries();
+const products = ProductService.withBaseUrl(ProductService.getAllProducts(), baseUrl);
+const [minPrice, maxPrice] = ProductService.getPriceRange().map((p, i) => i === 0 ? Math.floor(p) : Math.ceil(p));
 ---
 
 <Layout title="Boutique" description="Découvrez tous nos cosmétiques naturels fabriqués à la ferme : huiles végétales, crèmes, savons, eaux florales et coffrets.">

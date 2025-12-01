@@ -8,12 +8,11 @@ import PageContainer from '@components/PageContainer.astro';
 import Section from '@components/Section.astro';
 import CartSidebar from '@components/CartSidebar.tsx';
 import ProductAddToCart from '@components/ProductAddToCart.tsx';
-import productsData from '@data/products.json';
-import plantsData from '@data/plants.json';
+import ProductService from '@services/ProductService';
 import { getPlantImage, getPublicImageUrl } from '@utils/images';
 
 export function getStaticPaths() {
-  return productsData.products.map((product) => ({
+  return ProductService.getAllProducts().map((product) => ({
     params: { id: product.id },
     props: { product },
   }));
@@ -23,16 +22,16 @@ const { product } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 
 // Get category info
-const category = productsData.categories.find(c => c.id === product.category);
+const category = ProductService.getAllCategories().find(c => c.id === product.category);
 
 // Get related products (same category, excluding current)
-const relatedProducts = productsData.products
-  .filter(p => p.category === product.category && p.id !== product.id)
+const relatedProducts = ProductService.getProductsByCategory(product.category)
+  .filter(p => p.id !== product.id)
   .slice(0, 3);
 
 // Get plant info if product has plants
 const productPlants = product.plants?.map((plantId: string) =>
-  plantsData.find((p: any) => p.id === plantId)
+  ProductService.getPlantById(plantId)
 ).filter(Boolean) || [];
 
 const productImageUrl = getPublicImageUrl(product.image, baseUrl);

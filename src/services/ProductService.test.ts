@@ -5,13 +5,16 @@ import {
   getProductsByCategory,
   getFeaturedProducts,
   getInStockProducts,
-  getCategories,
+  getAllCategories,
+  getCategoryIds,
   getAllPlants,
   getPlantById,
+  getPlantSummaries,
   filterProducts,
   sortProducts,
   getPriceRange,
   searchProducts,
+  withBaseUrl,
 } from './ProductService';
 
 describe('ProductService', () => {
@@ -88,16 +91,27 @@ describe('ProductService', () => {
     });
   });
 
-  describe('getCategories', () => {
-    it('returns unique categories', () => {
-      const categories = getCategories();
+  describe('getAllCategories', () => {
+    it('returns an array of category objects', () => {
+      const categories = getAllCategories();
 
       expect(Array.isArray(categories)).toBe(true);
       expect(categories.length).toBeGreaterThan(0);
+      expect(categories[0]).toHaveProperty('id');
+      expect(categories[0]).toHaveProperty('name');
+    });
+  });
+
+  describe('getCategoryIds', () => {
+    it('returns unique category IDs from products', () => {
+      const categoryIds = getCategoryIds();
+
+      expect(Array.isArray(categoryIds)).toBe(true);
+      expect(categoryIds.length).toBeGreaterThan(0);
 
       // Check uniqueness
-      const unique = new Set(categories);
-      expect(unique.size).toBe(categories.length);
+      const unique = new Set(categoryIds);
+      expect(unique.size).toBe(categoryIds.length);
     });
   });
 
@@ -289,6 +303,47 @@ describe('ProductService', () => {
 
       expect(lower.length).toBe(upper.length);
       expect(lower.length).toBe(mixed.length);
+    });
+  });
+
+  describe('getPlantSummaries', () => {
+    it('returns plant id and name only', () => {
+      const summaries = getPlantSummaries();
+
+      expect(Array.isArray(summaries)).toBe(true);
+      expect(summaries.length).toBeGreaterThan(0);
+      expect(summaries[0]).toHaveProperty('id');
+      expect(summaries[0]).toHaveProperty('name');
+      expect(Object.keys(summaries[0])).toHaveLength(2);
+    });
+  });
+
+  describe('withBaseUrl', () => {
+    it('prepends baseUrl to local image paths', () => {
+      const products = [
+        { id: 'test', name: 'Test', category: 'test', price: 10, description: 'Test', image: '/images/test.jpg', inStock: true, ingredients: [], featured: false },
+      ];
+      const result = withBaseUrl(products as any, '/vdc');
+
+      expect(result[0].image).toBe('/vdc/images/test.jpg');
+    });
+
+    it('does not modify external URLs', () => {
+      const products = [
+        { id: 'test', name: 'Test', category: 'test', price: 10, description: 'Test', image: 'https://example.com/image.jpg', inStock: true, ingredients: [], featured: false },
+      ];
+      const result = withBaseUrl(products as any, '/vdc');
+
+      expect(result[0].image).toBe('https://example.com/image.jpg');
+    });
+
+    it('does not modify protocol-relative URLs', () => {
+      const products = [
+        { id: 'test', name: 'Test', category: 'test', price: 10, description: 'Test', image: '//example.com/image.jpg', inStock: true, ingredients: [], featured: false },
+      ];
+      const result = withBaseUrl(products as any, '/vdc');
+
+      expect(result[0].image).toBe('//example.com/image.jpg');
     });
   });
 });
